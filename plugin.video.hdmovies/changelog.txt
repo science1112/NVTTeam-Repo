@@ -1,8 +1,0 @@
- v1.0.2
--Removed ÈŠŽ's
-
- v1.0.1
--Tranlation to SLO
-
- v1.0.0
--Initial Release

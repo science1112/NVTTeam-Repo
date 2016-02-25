@@ -1,7 +1,0 @@
- v1.0.1
--Added new Icon...
-
- v1.0.0:
--Initial release
--Support plx and m3u lists.
--Download from Server

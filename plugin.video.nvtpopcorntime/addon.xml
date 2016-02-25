@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.nvtpopcorntime" name="NVT Popcorn Time" version="2.0.0" provider-name="NVTTeam">
+<addon id="plugin.video.nvtpopcorntime" name="[COLOR cyan]NVT Popcorn Time[/COLOR]" version="2.1.0" provider-name="NVTTeam">
     <requires>
         <import addon="xbmc.python" version="2.19.0"/>
     </requires>
@@ -15,6 +15,6 @@
         <license><![CDATA[GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007]]></license>
         <summary><![CDATA[NVTTeam Popcorn Time: Immediately steam movies in KODI.]]></summary>
         <description><![CDATA[With NVTTeam Popcorn Time you can search for movies that you can see immediately in KODI.]]></description>
-		<disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.</disclaimer>
+		<disclaimer>The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.</disclaimer>
     </extension>
 </addon>

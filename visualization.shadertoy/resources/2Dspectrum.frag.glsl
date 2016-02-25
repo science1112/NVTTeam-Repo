@@ -21,7 +21,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     float fft  = texture2D( iChannel0, vec2(p.x,0.0) ).x;
 
     // led color
-    vec3 color = mix(vec3(0.0, 2.0, 0.0), vec3(2.0, 0.0, 0.0), sqrt(uv.y));
+    vec3 color = mix(vec3(0.0, 2.0, 2.0), vec3(2.0, 0.0, 0.0), sqrt(uv.y));
 
     // mask for bar graph
     float mask = (p.y < fft) ? 1.0 : 0.1;

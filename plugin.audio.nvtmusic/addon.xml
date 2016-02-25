@@ -15,6 +15,7 @@
     <platform>all</platform>
     <summary lang="en">NVTTeam Music</summary>
     <description lang="en">NVTTeam Music is a new way to listen and discover music thought KODI.</description>
-    <platform>all</platform>
+    <disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.</disclaimer>
+	<platform>all</platform>
   </extension>
 </addon>

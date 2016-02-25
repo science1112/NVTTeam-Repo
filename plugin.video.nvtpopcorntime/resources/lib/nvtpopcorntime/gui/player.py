@@ -1,5 +1,5 @@
 ﻿#!/usr/bin/python
-import os, sys, xbmc, xbmcplugin, ctypes
+import os, sys, xbmc, xbmcplugin, ctypes, subprocess
 from .base import _Base
 from nvtpopcorntime.platform import Platform
 from nvtpopcorntime.settings import addon as _settings
@@ -12,10 +12,10 @@ __addon__ = sys.modules['__main__'].__addon__
 
 class Player(_Base):
     def calculate_free_space(self):
-        if Platform.system == 'android': 
-            # http://stackoverflow.com/questions/1749928/replacement-for-python-statvfs#comment42443537_1749950
-            # https://github.com/Diblo/KODI-Popcorn-Time/issues/68
-            return 16106127360 # 15 GB
+        if Platform.system == 'android' and not hasattr(os, 'statvfs'):
+            potencies = {'k':1,'M':2,'G':3,'T':4,'P':5,'E':6,'T':7,'Y':8}
+            free = subprocess.Popen(["/system/bin/df", self.mediaSettings.download_path], stdout=subprocess.PIPE).communicate()[0].split("\n")[1].split()[3]
+            return int(float(free[:-1])*(1024^potencies[free[-1:]]))
         if Platform.system == 'windows':
             free_bytes = ctypes.c_ulonglong(0)
             ctypes.windll.kernel32.GetDiskFreeSpaceExW(ctypes.c_wchar_p(self.mediaSettings.download_path), None, None, ctypes.pointer(free_bytes))

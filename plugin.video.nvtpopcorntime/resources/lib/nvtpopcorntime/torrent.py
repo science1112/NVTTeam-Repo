@@ -1,5 +1,5 @@
 ﻿#!/usr/bin/python
-import os, sys, xbmc, xbmcgui, mimetypes, time, subprocess, socket, urlparse
+import os, sys, xbmc, xbmcgui, mimetypes, time, subprocess, socket, urlparse, re, urllib2
 import xml.etree.ElementTree as ET
 from zipfile import ZipFile
 from contextlib import closing
@@ -109,8 +109,9 @@ class TorrentEngine:
             if _settings.debug:
                 self._logpipe = LogPipe(self._debug)
 
+            torrent_options = self._mediaSettings.get_torrent_options(self._magnet, port)
             try:
-                self._process = subprocess.Popen(self._mediaSettings.get_torrent_options(self._magnet, port), stderr=self._logpipe, stdout=self._logpipe, startupinfo=startupinfo)
+                self._process = subprocess.Popen(torrent_options, stderr=self._logpipe, stdout=self._logpipe, startupinfo=startupinfo)
             except:
                 raise TorrentError("Can't start torrent2http: %s" % str(sys.exc_info()[1]))
             self._url = "http://127.0.0.1:%s/" %port
@@ -411,6 +412,14 @@ class TorrentPlayer(xbmc.Player):
                 def on_update(state, progressValue):
                     if state == Loader.PRELOADING:
                         dialog.update(progressValue, *self._get_status_lines(_TorrentEngine.status()))
+			status=_TorrentEngine.status()
+                        if(status['state'] in [TorrentEngine.SEEDING, TorrentEngine.FINISHED]):
+                                json_files=_TorrentEngine._json.request(_TorrentEngine._url,"/ls",timeout=10)
+                                files=json_files.get('files')
+                                for file in files:
+                                        if(re.match('.*\.avi|.*\.mp4|.*\.mkv',file.get('name'))):
+                                                urllib2.urlopen(file.get('url'))
+                                                log("Attempting : "+str(file.get('url')),LOGLEVEL.INFO)
                     elif state == Loader.CHECKING_DATA:
                         dialog.update(progressValue, __addon__.getLocalizedString(30037), ' ', ' ')
                     elif state == Loader.WAITING_FOR_PLAY_FILE:

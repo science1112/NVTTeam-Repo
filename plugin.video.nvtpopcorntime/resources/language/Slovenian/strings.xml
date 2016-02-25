@@ -1,37 +1,129 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <strings>
-  <!-- Plugin name -->
-  <string id="30000">Popcorn Time</string>
+  <!--
+   * The range 30000-30099 - 99
+   -->
+  <string id="30000">Prikaži Več</string>
+  <string id="30001">NVTTeam Popcorn Time - Iskanje</string>
+  <string id="30002">Iskanje</string>
+  <string id="30003">Po Žanru</string>
+  <string id="30004">Najbolj Priljubljeni</string>
+  <string id="30005">Najboljše Ocenjeni</string>
+  <string id="30006">Trenutno Dodani</string>
+  <string id="30007">Pridobivanje vsebine</string>
+  <string id="30008">Dol: %s/s, Gor: %s/s</string>
+  <string id="30009">Predvajaj</string>
+  <string id="30010">Nastavitve dodatka</string>
+  <string id="30011">Ali želite, da se ta film predvaja v 3D?</string>
+  <string id="30012">Podnapis:</string>
+  <string id="30013">Ali ste prepričani, da želite ponastaviti nastavitve Torrent?</string>
+  <string id="30014">To je le za nastavitve s "(Torrent)" v naslovu, ti bodo spremenjeni.</string>
+  <string id="30015">Semena: </string>
+  <string id="30016">Pridobivam podatke</string>
+  <string id="30017">Končano</string>
+  <string id="30018">Pridobivam podatke</string>
+  <string id="30019">Prenašam podnapise</string>
+  <string id="30020">Začetek predvajanja</string>
+  <string id="30021">Prenos</string>
+  <string id="30022">Prenos je končan</string>
+  <string id="30023">Kakovost ni bila najdena</string>
+  <string id="30024">Poskus </string>
+
+
+
+  <string id="30028">Iskanje</string>
+  <string id="30030">Filmi</string>
+  <string id="30031">Začetek</string>
+
+  <string id="30033">Ali ste prepričani, da želite izbrisati predpomnilnik?</string>
+  <string id="30034">Naslov:</string>
+  <string id="30035">Nov naslov:</string>
+  <string id="30036">Čakanje</string>
+  <string id="30037">Preverjanje podatkov</string>
 
   <!-- 
    * Settings
+   * The range 30100-30199 - 99
    -->
-  <string id="30101">Osnovno</string>
-  <string id="30102">Osnovno</string>
-  <string id="30103">Pot Prenosov</string>
-  <string id="30104">Obdrži datoteke po končanem prenosu/predvajanju</string>
-  <string id="30105">Trenutno</string>
-  <string id="30106">Avto-oblokiranje preko Immunicity</string>
 
+  <string id="30101">Počisti medijske datoteke</string>
+  <string id="30102">Datoteke</string>
+  <string id="30103">Pot prenosov</string>
+  <string id="30104">Ohrani datoteke po ustavitvi predvajanja/prenosa</string>
+  <string id="30105">Podnapisi</string>
+  <string id="30106">Samo 720p</string>
+  <string id="30107">Primerno</string>
   <string id="30108">Omrežje</string>
+  <string id="30109">Predvajaj 3D video</string>
+  <string id="30110">Maksimalni Prenos Dol (Kilobyte - 0: Neomejeno)</string>
+  <string id="30111">Šifriranje</string>
+  <string id="30112">Globalno</string>
+  <string id="30113">Vzdrževanje</string>
+  <string id="30114">Počisti medijske podatke</string>
+  <string id="30115">Proxy Domene</string>
+  <string id="30116">Filmi (ločene z vejicami-gostitelji)</string>
+  <string id="30117">Video Kvaliteta</string>
+  <string id="30118">1080p in Nižje</string>
+  <string id="30119">Prva prioriteta</string>
+  <string id="30120">Druga prioriteta</string>
+  <string id="30121">Tretja prioriteta</string>
+  <string id="30122">Maximalni Prenos Gor (Kilobyte - 0: Neomejeno - Min 15 kB/s)</string>
+  <string id="30123">Prisilno</string>
+  <string id="30124">Omogočeno</string>
+  <string id="30125">Onemogočeno</string>
+  <string id="30126">Ne</string>
+  <string id="30127">Vprašaj me</string>
+  <string id="30128">Vedno</string>
+  <string id="30129">TV Oddaje (ločene z vejicami-gostitelji)</string>
+  <string id="30130">Napredno</string>
+  <string id="30131">Torrent Nastavitve</string>
+  <string id="30132">Ponudniki</string>
+  <string id="30133">Peers (Torrent)</string>
+  <string id="30134">Lastnosti (Torrent)</string>
+  <string id="30135">Log/Razhročanje</string>
+  <string id="30136">Ohrani nepopolne datoteke pri izhodu</string>
+  <string id="30137">Ohrani popolne datoteke pri izhodu</string>
+  <string id="30138">Dodatno (Torrent)</string>
+  <string id="30139">Port za dohodne povezave</string>
+  <string id="30140">Uporabi naključni port (49152-65535)</string>
+  <string id="30141">Omogoči TCP protocol</string>
+  <string id="30142">Omogoči uTP (uTorrent Transport Protocol)</string>
+  <string id="30143">Meja skupnega števila povezav</string>
+  <string id="30144">Ponastavi</string>
+  <string id="30145">Število povezav, ki se skušajo povezati po začetnem odzivu</string>
+  <string id="30146">Maximalno število poskusov povezav na sekundo</string>
+  <string id="30147">Število sekund preden poskus povezave odpove</string>
 
-  <string id="30110">Maksimalni prenos (kB/s)</string>
-  <string id="30111">Kodiranje</string>
-  <string id="30112">Napredno</string>
-  <string id="30113">Upravljanje</string>
-  <string id="30114">Brisanje predpomnilnika</string>
-  <string id="30115">Domena po meri</string>
-  <string id="30116">YIFY Torrenti</string>
-  <string id="30117">KODI Android ID</string>
-  <string id="30118">Po Meri Android Aplikacijski ID</string>
-  <string id="30119">Prioriteta Jezika Podnapisov #1</string>
-  <string id="30120">Prioriteta Jezika Podnapisov #2</string>
-  <string id="30121">Prioriteta Jezika Podnapisov #3</string>
+  <string id="30149">Število sekund čakanja med napakami povezave</string>
+  <string id="30150">Število poskusov nepopolnosti, preden bodo zavrženi ponudniki</string>
+  <string id="30151">Omogoči DHT (Distributed Hash Table)</string>
+  <string id="30152">Omogoči LSD (Local Service Discovery)</string>
+  <string id="30153">Omogoči NATPMP (NAT Port Mapping Protocol)</string>
+  <string id="30154">Omogoči UPnP (Universal Plug and Play)</string>
+  <string id="30155">Omogoči pošiljanje zahtevka strganje do sledilnika (Tracker Scrape)</string>
+  <string id="30156">Sledilniki (ločene z vejicami URLs)</string>
+  <string id="30157">DHT usmerjevalniki (ločene z vejicami host:port pairs)</string>
+  <string id="30158">Omogoči razhroščevanje</string>
+  <string id="30159">Omrežje (Torrent)</string>
+  <string id="30160">Iskanje</string>
+
+  <string id="30162">Filmi</string>
+  <string id="30163">TV Oddaje</string>
+  <string id="30164">Prioriteta Podnapisov za Gluhe in Naglušne</string>
+  <string id="30165">Zbiranje Informacij Filmov iz</string>
+
+
+  <string id="30168">Pridobi Podnapise od</string>
+  <string id="30169">Pridobi TV informacije od</string>
+  <string id="30170">Nič</string>
+  <string id="30171">Baza Filmov</string>
+  <string id="30172">YIFY Podnapisi</string>
 
   <!-- 
    * Languages
+   * The range 30200-30299 - 99
    -->
-  <string id="30200">None</string>
+
   <string id="30201">Albanian</string>
   <string id="30202">Arabic</string>
   <string id="30203">Bengali</string>
@@ -72,28 +164,66 @@
   <string id="30238">Vietnamese</string>
 
   <!-- 
-   * notify
+   * Notify
+   * The range 30300-30399 - 99
    -->
-  <string id="30300">Prosim preveri nastavitve.</string>
-  <string id="30301">Predpomnilnik izbrisan.</string>
-  <string id="30302">Tvoj sistem "%(os)s_%(arch)s" ni podprt.</string>
-  <string id="30303">Datoteke ni mogoče dodati. Magnet ni popoln.</string>
-  <string id="30304">xxxx</string>
-  <string id="30305">xxxx</string>
-  <string id="30306">xxxx</string>
-  <string id="30307">xxxx</string>
-  <string id="30308">xxxx</string>
-  <string id="30309">xxxx</string>
-  <string id="30310">xxxx</string>
-  <string id="30311">xxxx</string>
-  <string id="30312">xxxx</string>
-  <string id="30313">xxxx</string>
-  <string id="30314">xxxx</string>
-  <string id="30315">xxxx</string>
-  <string id="30316">xxxx</string>
-  <string id="30317">xxxx</string>
-  <string id="30318">xxxx</string>
-  <string id="30319">xxxx</string>
-  <string id="30320">xxxx</string>
-  <string id="30321">xxxx</string>
+  <string id="30300">Ne morete najti vrata, da se veže torrent2http</string>
+  <string id="30301">Predpomnilnik izbrisan</string>
+  <string id="30302">Vaš OS ni podprt</string>
+
+  <string id="30304">Ni bilo prejetih nobenih podatkov</string>
+  <string id="30305">Ni bilo prejetih nobenih filmov</string>
+
+
+  <string id="30308">Prišlo je do neznane napake</string>
+
+  <string id="30310">Pot za Prenose ne obstaja. Prosim preverite nastavitve dodatka</string>
+
+
+  <string id="30313">Prišlo je do torrent napake</string>
+  <string id="30314">Torrent nastavitve so ponastavljene</string>
+  <string id="30315">Ni bilo Filmov ali TV-Oddaj od ponudnikov</string>
+  <string id="30316">Torrent datoteka ne vsebuje film</string>
+  <string id="30317">Povezava še ni odgovorila pred pretekom  časa</string>
+  <string id="30318">Predvajanje je prekinjeno zaradi preteka časa</string>
+  <string id="30319">Prenos na nemontirani omrežni povezavi ni podprta. Prosimo, preverite vaše nastavitve dodatka</string>
+  <string id="30320">Ne morem najti torrent2http</string>
+  <string id="30321">Ne morem najti torrent2http exe</string>
+  <string id="30322">Ni mogoče ustvariti predpomnilnik imenika</string>
+  <string id="30323">Ni dovolj prostora za predvajanje. Prosimo, da sprostite nekaj prostora ali izberite drugo pot za prenos!</string>
+  <string id="30324">Max prenos Pošiljanje mora biti nad 15 kilobajtov na sekundo. Prosim, pojdite na nastavitve dodatka in določiti minimalno hitrost 15 kilobajtov na sekundo</string>
+  <string id="30325">Potrebujete več prostora za predvajanje %s in %s kvalitete ali izberite nižjo kakovost</string>
+  <string id="30326">Potrebujete več prostora za predvajanje %s kvaliteto ali izberite nižjo kakovost</string>
+  <string id="30327">Ni najdenih rezultatov</string>
+  <string id="30328">Ne morem prejeli seznam medijev,da bi delovali</string>
+  <string id="30329">Prišlo je do napake z odgovorom od ponudnika</string>
+
+  <!-- 
+   * Genres
+   * The range 30400-30499 - 99
+   * See http://www.imdb.com/genre/
+   -->
+  <string id="30400">Akcije</string>
+  <string id="30401">Pustolovski</string>
+  <string id="30402">Animirani</string>
+  <string id="30403">Biografski</string>
+  <string id="30404">Komedije</string>
+  <string id="30405">Kriminalke</string>
+  <string id="30406">Dokumetarni</string>
+  <string id="30407">Drame</string>
+  <string id="30408">Družinski</string>
+  <string id="30409">Fantazijski</string>
+  <string id="30410">Črno-Beli</string>
+  <string id="30411">Zgodovinski</string>
+  <string id="30412">Grozljivke</string>
+  <string id="30413">Glasba</string>
+  <string id="30414">Glasbeni</string>
+  <string id="30415">Mistični</string>
+  <string id="30416">Romantični</string>
+  <string id="30417">Sci-Fi</string>
+  <string id="30418">Športni</string>
+  <string id="30419">Trilerji</string>
+  <string id="30420">Vojni</string>
+  <string id="30421">Divji Zahod</string>
+  <string id="30499">30400,30401,30402,30403,30404,30405,30406,30407,30408,30409,30410,30411,30412,30413,30414,30415,30416,30417,30418,30419,30420,30421</string> <!-- The order of the genres - You Cannot add new ids! --> 
 </strings>

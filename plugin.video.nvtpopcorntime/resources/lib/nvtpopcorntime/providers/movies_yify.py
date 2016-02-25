@@ -30,7 +30,7 @@ _genres = {
 _proxy_identifier = 'movies.yify.proxies'
 def _getDomains():
     domains = [
-        "http://yts.to",
+        "https://yts.ag",
         "http://eqwww.image.yt"
     ]
 
