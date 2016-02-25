@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addons>
+<addon id="repository.nvtteam" name="NVTTeam Repository" version="1.5.0" provider-name="NVTTeam">
+	<extension point="xbmc.addon.repository" name="NVTTeam XBMC KODI Addon Repository">
+		<info compressed="false">http://raw.github.com/NVTTeam/NVTTeam-Repo/master/addons.xml</info>
+		<checksum>http://raw.github.com/NVTTeam/NVTTeam-Repo/master/addons.xml.md5</checksum>
+		<datadir zip="true">http://raw.github.com/NVTTeam/NVTTeam-Repo/master/zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install my Addons</summary>
+		<description>Download and Install Addons from NVTTeam Repository</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="plugin.audio.dipremium" name="DI Premium" version="2.0" provider-name="NVTTeam">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>audio</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Digitally Imported Premium</summary>
+    <description lang="en">Keep your groove going with no commercial interruptions 
+and enjoy all of your favorite channels without hearing or seeing advertisements.
+
+DI Premium audio quality is twice as good. 
+Quality of the sound is (128k AAC, 320k MP3), hear the difference for yourself.
+</description>
+    <disclaimer lang="en"></disclaimer>
+    <language>English</language>
+    <platform>all</platform>
+    <license></license>
+    <forum></forum>
+    <website>https://www.di.fm/premium</website>
+    <email>nvtteam@gmail.com</email>
+    <source></source>
+  </extension>
+</addon>
+
+<addon id="script.nvtteam.rpi.config"
+       name="NVTTeam RPi Config"
+       version="0.1.6"
+       provider-name="NVTTeam">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="os.openelec.tv" version="2.0" optional="false"/>
+  </requires>
+  <extension point="xbmc.service" library="service.py" start="startup"/>
+  <extension point="xbmc.python.script" library="default.py"/>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary>NVTTeam Raspberry Pi configuration add-on for OpenELEC</summary>
+    <description>This XBMC add-on for OpenELEC allows Raspberry Pi settings such as overclocking to be configured without having to manually edit /flash/config.txt.</description>
+    <disclaimer>This add-on has the potential to void the warranty of your Raspberry Pi. Use at your own risk!</disclaimer>
+    <forum></forum>
+    <website>https://github.com/NVTTeam/NVTTeam-Repo</website>
+    <source></source>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+  </extension>
+</addon>
+
+<addon id="plugin.audio.nvtmusic" name="NVTTeam Music" version="0.1.3" provider-name="NVTTeam">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.simple.downloader" version="1.9.4"/>
+	<import addon="plugin.video.youtube" version="2.9.2"/>
+	<import addon="script.module.mutagen"/>
+	<import addon="script.module.requests" version="2.3.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>audio</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <language>en</language>
+    <platform>all</platform>
+    <summary lang="en">NVTTeam Music</summary>
+    <description lang="en">NVTTeam Music is a new way to listen and discover music thought KODI.</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.audio.sloradio" name="Slovenski Radio" version="1.2" provider-name="NVTTeam">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.xbmcswift2" version="1.1.1"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>audio</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <language></language>
+    <summary>Poslušajte vse Slovenske radijske postaje.</summary>
+    <description>Omogoča poslušanje Slovenskih radijskih postaj, kar preko XBMC/KODI.</description>
+  </extension>
+</addon>
+
+
+<addon id="plugin.program.nvtip" name="My IP" version="0.0.1" provider-name="NVTTeam">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Show My IP</summary>
+    <description lang="en">Showing you network and system informations...</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="service.autosubtitle"
+    name="AutoSubtitle" version="0.0.3" provider-name="NVTTeam">
+  <requires>
+    <import addon="xbmc.python" version="2.14.0"/>
+  </requires>
+  <extension point="xbmc.service" library="default.py" start="login" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Auto Search for Subtitles on Play</summary>
+    <description lang="en">Auto Search for Subtitles on Playback start if no subs are found.</description>
+    <platform>all</platform>
+    <language>en</language>
+    <license>GPL</license>
+    <website></website>
+    <source></source>
+    <forum></forum>
+    <email></email>
+  </extension>
+</addon>
+
+<addon id="plugin.video.gClone" name="gClone" version="1.2.2" provider-name="NVTTeam">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0"/>
+		<import addon="script.module.metahandler" optional="true"/>
+		<import addon="script.module.simplejson" optional="true"/>
+		<import addon="script.module.parsedom" optional="true"/>
+		<import addon="plugin.video.youtube" optional="true"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.service" library="service.py" start="startup">
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">The origins of Streaming</summary>
+		<description lang="en">Movies And TV SHows For You</description>
+		<disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.</disclaimer>
+		<forum></forum>
+		<source></source>
+		<website></website>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+
+<addon id="plugin.video.nvtcartoons" name="NVT Cartoons" version="1.0.5" provider-name="NVTTeam">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.t0mm0.common" version="2.0.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">NVTTeam Cartoons</summary>
+    <description lang="en">Watch All Your Favourite Kids Cartoons</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.video.nvtmovienight" name="NVT Movie Night" version="1.0.5" provider-name="NVTTeam">
+  <requires>
+    <import addon="script.module.simplejson" version="3.3.0"/>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.t0mm0.common" version="2.0.0"/>
+    <import addon="plugin.video.youtube" version="3.0.0"/>
+    <import addon="script.module.urlresolver"  version="2.1.2"/>
+    <import addon="script.common.plugin.cache" version="2.5.2"/>
+    <import addon="script.module.metahandler" version="2.5.1"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">We crawl the web for your streaming convenience.</summary>
+    <description lang="en">The author does not host or distribute any of the content displayed by this addon. 
+		The author does not have any affiliation with the content provider...</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.audio.nvtteammp3"
+       name="MP3 Streams"
+       version="1.0.4"
+       provider-name="NVTTeam">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="script.module.t0mm0.common" version="1.1.0"/>
+        <import addon="script.module.mutagen"/>
+        <import addon="script.module.requests" version="1.1.0"/>
+    </requires>
+	    <extension point="xbmc.python.pluginsource"
+               	library="default.py">
+        <provides>audio</provides>
+    </extension>
+		<extension point="xbmc.service" library="playerMP3.py" start="startup" />
+	    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary>Music Streaming Collection Addon</summary>
+        <description>Browse and stream your Favourite songs and albums</description>
+    </extension>
+	
+</addon>
+
+<addon id="plugin.video.nvtpopcorntime" name="NVT Popcorn Time" version="2.0.0" provider-name="NVTTeam">
+    <requires>
+        <import addon="xbmc.python" version="2.19.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="addon.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <website></website>
+        <forum></forum>
+        <source></source>
+        <language>English</language>
+        <license><![CDATA[GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007]]></license>
+        <summary><![CDATA[NVTTeam Popcorn Time: Immediately steam movies in KODI.]]></summary>
+        <description><![CDATA[With NVTTeam Popcorn Time you can search for movies that you can see immediately in KODI.]]></description>
+		<disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.</disclaimer>
+    </extension>
+</addon>
+
+<addon id="plugin.video.pornbeeg" name="Porn beeg" version="1.0.3" provider-name="NVTTeam">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.t0mm0.common" version="1.1.0"/>
+    <import addon="script.module.beautifulsoup"/>
+    <import addon="script.module.urlresolver" version="2.2.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Full Length Adult HD Content</summary>
+    <description lang="en">Full Length Adult HD Content</description>
+    <disclaimer>Adults Only! 18+</disclaimer>
+	<platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.video.hdmovies" name="[COLOR cyan]NVT HD Movies[/COLOR]" version="1.0.2" provider-name="NVTTeam">  
+	<requires>    
+		<import addon="script.module.simplejson" version="3.3.0"/>    
+		<import addon="xbmc.python" version="2.1.0"/>    
+		<import addon="script.module.t0mm0.common" version="2.0.0"/>    
+		<import addon="plugin.video.youtube" version="3.0.0"/>    
+		<import addon="script.module.urlresolver"  version="2.1.2"/>    
+		<import addon="script.common.plugin.cache" version="2.5.2"/>    
+		<import addon="script.module.metahandler" version="2.5.1"/>  
+	</requires>  
+	<extension point="xbmc.python.pluginsource" library="default.py">        
+		<provides>video</provides>  
+	</extension>  
+	<extension point="xbmc.addon.metadata">    
+			<summary lang="en">NVTTeam HD Movies</summary>    
+			<description lang="en">Oglejte si širok izbor HD Filmov</description>    
+			<platform>all</platform>
+			<disclaimer>The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.</disclaimer>
+	</extension>
+</addon>
+
+<addon id="plugin.video.hdseries" name="[COLOR cyan]NVT HD Series[/COLOR]" version="1.0.0" provider-name="NVTTeam">  
+ <requires>    
+	<import addon="script.module.simplejson" version="3.3.0"/>    
+	<import addon="xbmc.python" version="2.1.0"/>    
+	<import addon="script.module.t0mm0.common" version="2.0.0"/>    
+   
+	<import addon="script.module.urlresolver"  version="2.1.2"/>    
+	<import addon="script.common.plugin.cache" version="2.5.2"/>    
+	<import addon="script.module.metahandler" version="2.5.1"/>  
+ </requires>  
+ <extension point="xbmc.python.pluginsource" library="default.py">        
+	<provides>video</provides>  
+ </extension>  
+ <extension point="xbmc.addon.metadata">    
+	<summary lang="en">NVTTeam HD TV Series and Movies</summary>    
+	<description lang="en">Oglejte si širok izbor HD Oddaj, Serij in Filmov</description>
+    <disclaimer>The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.</disclaimer>   
+	<platform>all</platform>  
+ </extension>
+</addon>
+
+<addon id="plugin.video.nvtporn"
+       name="NVTTeam Porn"
+       version="1.0.0"
+       provider-name="NVTTeam">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource"
+               library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <license>GPL 2.0</license>
+        <summary lang="en">Watch [COLOR red][B]ADULT[/B][/COLOR] Movies with NVTTeam Porn</summary>
+        <description lang="en">Watch [COLOR red][B]ADULT[/B][/COLOR] Movies with NVTTeam Porn</description>
+		<disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.</disclaimer>        
+    </extension>
+</addon>
+	
+<addon id="visualization.shadertoy" version="1.0.2" name="Shadertoy" provider-name="NVTTeam">
+  <extension point="xbmc.player.musicviz" library_linux="visualization.shadertoy.so"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Visualisations from Shadertoy</summary>
+    <description lang="en">Visualisations from Shadertoy</description>
+    <platform>linux</platform>
+  </extension>
+</addon>
+
+
+</addons>

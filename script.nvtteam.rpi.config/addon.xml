@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="script.nvtteam.rpi.config"
+       name="NVTTeam RPi Config"
+       version="0.1.6"
+       provider-name="NVTTeam">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="os.openelec.tv" version="2.0" optional="false"/>
+  </requires>
+  <extension point="xbmc.service" library="service.py" start="startup"/>
+  <extension point="xbmc.python.script" library="default.py"/>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary>NVTTeam Raspberry Pi and Pi2 configuration add-on for OpenELEC</summary>
+    <description>This XBMC add-on for OpenELEC allows Raspberry Pi settings such as overclocking to be configured without having to manually edit /flash/config.txt.</description>
+    <disclaimer>This add-on has the potential to void the warranty of your Raspberry Pi. Use at your own risk!</disclaimer>
+    <forum></forum>
+    <website>https://github.com/NVTTeam/NVTTeam-Repo</website>
+    <source></source>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+  </extension>
+</addon>

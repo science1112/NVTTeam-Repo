@@ -1,0 +1,27 @@
+ v1.1.2
+-New Streams...
+
+ v1.1.1
+-Added new Icon... 
+
+ V1.1.0
+-Stable Release
+-Rename To NVTTeam Live TV
+-Some Speed Improvements
+
+ V1.0.5
+-Updated Sources
+
+ V1.0.4
+-Testing
+
+ V1.0.3
+-Testing 
+
+ V1.0.2
+-Happy New Year Beta 2 Release
+-Add Some new sources
+-Faster loading time
+ 
+ V1.0.1
+-Beta Release

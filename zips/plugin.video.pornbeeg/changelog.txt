@@ -1,0 +1,13 @@
+ v1.0.3
+-Updated Streams...
+
+ v1.0.2
+-Links Udated..
+
+ v1.0.1
+-Media update...
+
+ v1.0.0
+-Testing...
+-Added default Thumbnail view
+-Adjustment for videos without a 720p or 240p option.

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<strings>
+    <!-- General -->
+    <string id="32010">Osnovno</string>
+    <string id="32100">Omogoči debug način</string>
+    <string id="32101">Poglej za naslednji jezik</string>
+    <string id="32102">Jezik podnapisa</string>
+
+    <!-- Exclusions -->
+    <string id="32020">Izključitve</string>
+    <string id="32200">Ignoriraj za videje z manj kot X minut</string>
+    <string id="32201">Ignoriraj besede, ločene z vejico</string>
+    <string id="32202">Ignoriraj Live TV</string>
+    <string id="32203">Ignoriraj HTTP vir</string>  
+    <string id="32204">Ignoriraj pot</string>
+    <string id="32205">Pot mape (in podmape)</string>
+    <string id="32206">Ignoriraj Glasbene Videje</string>
+</strings>

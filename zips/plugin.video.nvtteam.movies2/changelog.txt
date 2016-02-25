@@ -1,0 +1,14 @@
+ v1.0.4
+-Update this Shit
+
+ v1.0.3
+-Added New Icon...
+
+ v1.0.2
+-Added New Dir...
+
+ v1.0.1
+-New Initial Release
+
+ v1.0.0
+-Initial Release

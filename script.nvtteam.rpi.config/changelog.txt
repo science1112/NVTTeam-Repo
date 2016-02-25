@@ -1,0 +1,22 @@
+ v1.0.6
+-Add setting "Overheat protection limit (temp_limit)"
+
+ v0.1.5
+-Set gpu_mem_1024 to gpu_mem value if not set.
+-Added hdmi_edid_file setting and an action to dump the edid to /flash/edid.dat.
+-Moved CEC settings to the new HDMI category.
+
+ v0.1.4 
+-Added new Icon...
+
+ v0.1.3
+-Added the Config hdmi boost setting...
+
+ v0.1.2
+-Added support for RPi 2...
+
+ v0.1.1
+-Added support for RPi B+...
+
+ v0.1.0
+-Initial version...

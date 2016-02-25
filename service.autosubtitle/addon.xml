@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="service.autosubtitle"
+    name="AutoSubtitle" version="0.0.3" provider-name="NVTTeam">
+  <requires>
+    <import addon="xbmc.python" version="2.14.0"/>
+  </requires>
+  <extension point="xbmc.service" library="default.py" start="login" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Auto Search for Subtitles on Play</summary>
+    <description lang="en">Auto Search for Subtitles on Playback start if no subs are found.Need Subtitle addon to work!</description>
+    <platform>all</platform>
+    <language>en</language>
+    <license>GPL</license>
+    <website></website>
+    <source></source>
+    <forum></forum>
+    <email></email>
+  </extension>
+</addon>

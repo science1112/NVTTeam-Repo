@@ -1,0 +1,8 @@
+ v1.0.2
+-New Visualization added
+
+ v1.0.1
+-New 2D Color Added
+
+ v1.0.0
+-Initial test version...

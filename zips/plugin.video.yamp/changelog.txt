@@ -1,0 +1,20 @@
+ v1.0.6
+-Update error corrected!
+
+ v1.0.5
+-New Links...
+
+ v1.0.4
+-Working Links Again...
+
+ v1.0.3
+-Added Movies Catergory by Genre, Quality, Year and Search
+
+ v1.0.2
+-Update Source...
+
+ v1.0.1
+-Speed up Improvement
+ 
+ v1.0.0
+-Initial Release

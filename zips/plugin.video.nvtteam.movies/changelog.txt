@@ -1,0 +1,53 @@
+ v0.1.14
+-New Icon For Shortcuts on Kodi
+ v0.2.0
+-New Source, Look and Feel
+
+ v0.1.13
+-Fix StartUp Error...
+
+ v0.1.12
+-Minor Corrections...
+
+ v0.1.11
+-New Working Links..
+-New logo
+
+ v0.1.10
+-New Source update...
+
+ v0.1.9
+-New Searching Method...
+
+ v0.1.8
+-TuneUp Sci-Fi...
+
+ v0.1.7
+-Added Sci-Fi Categorie...
+
+ v0.1.6
+-Added new Icon
+
+ v0.1.5
+-Updated for NVTTeam-Repo...
+
+ v0.1.4
+-Updated Links
+
+ v0.1.3
+-Remove Chrismas Categorie
+-Speed Up Loading
+
+ v0.1.2
+-Changed Addon Database
+-Speed Up Loading
+
+ v0.1.1
+-Updated some links
+-Removed Categories Menu
+
+ v0.1.0
+-Added Categories Menu
+
+-v0.0.8
+ Initial Public Beta Release

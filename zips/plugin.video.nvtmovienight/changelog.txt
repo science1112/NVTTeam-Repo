@@ -1,0 +1,17 @@
+ v1.0.5
+-Fix some shit!
+
+ v1.0.4
+-New Plying fix
+
+ v1.0.3
+-Play Issue Fix
+
+ v1.0.2
+-New Playlink...
+
+ v1.0.1
+-New Icon Added...
+
+ v1.0.0
+-Initial Release

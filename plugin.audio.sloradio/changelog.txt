@@ -1,0 +1,9 @@
+ v1.2
+-Added Colored Icon...
+-Speed Up some stuff...
+
+ V1.1
+-Added New Icon...
+
+ V1.0
+-Initial version
