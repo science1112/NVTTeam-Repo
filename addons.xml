@@ -209,5 +209,22 @@ Quality of the sound is (128k AAC, 320k MP3), hear the difference for yourself.
   </extension>
 </addon>
 
+<addon id="skin.nvtczi" version="2.1.0" name="NVT Confluence ZEITGEIST" provider-name="NVTTeam">
+  <requires>
+    <import addon="xbmc.gui" version="5.9.0"/>
+  </requires>
+  <extension
+    point="xbmc.gui.skin"
+    debugging="false"
+    effectslowdown="0.2">
+    <res width="1280" height="720" aspect="16:9" default="true" folder="720p" />
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>"NVT Confluence ZEITGEIST" is a clean and modern MOD of the Confluence skin.</summary>
+    <description>"NVT Confluence ZEITGEIST" is a clean and modern MOD of the Confluence skin. It mainly features an icon-based main menu without the need for scrolling and an all new wall view, which replaces the old thumbnail view. Many other small graphics updates and optimizations are included.</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
 
 </addons>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+	<variable name="ItemDuration">
+		<value condition="System.HasAddon(script.duration_axbmcuser)">$INFO[window.Property(ScriptDurationAxbmcuserHours)]:$INFO[window.Property(ScriptDurationAxbmcuserMinutes)] h          $INFO[ListItem.Duration] $LOCALIZE[12391]</value>
+		<value>$INFO[ListItem.Duration] $LOCALIZE[12391]</value>
+	</variable>
+	
+	<variable name="ratingstars">	
+	
+		<value  condition="substring(ListItem.rating,0.)">0.25</value>
+		
+		<value condition="substring(ListItem.rating,1.0)">0.50</value>
+		<value condition="substring(ListItem.rating,1.1)">0.50</value>
+		<value condition="substring(ListItem.rating,1.2)">0.50</value>
+		
+		<value condition="substring(ListItem.rating,1.3)">0.75</value>
+		<value condition="substring(ListItem.rating,1.4)">0.75</value>
+		<value condition="substring(ListItem.rating,1.5)">0.75</value>
+		<value condition="substring(ListItem.rating,1.6)">0.75</value>
+		<value condition="substring(ListItem.rating,1.7)">0.75</value>
+		
+		<value condition="substring(ListItem.rating,1.8)">1.00</value>
+		<value condition="substring(ListItem.rating,1.9)">1.00</value>
+		<value condition="substring(ListItem.rating,2.0)">1.00</value>
+		<value condition="substring(ListItem.rating,2.1)">1.00</value>
+		<value condition="substring(ListItem.rating,2.2)">1.00</value>
+		
+		<value condition="substring(ListItem.rating,2.3)">1.25</value>
+		<value condition="substring(ListItem.rating,2.4)">1.25</value>
+		<value condition="substring(ListItem.rating,2.5)">1.25</value>
+		<value condition="substring(ListItem.rating,2.6)">1.25</value>
+		<value condition="substring(ListItem.rating,2.7)">1.25</value>
+
+		<value condition="substring(ListItem.rating,2.8)">1.50</value>
+		<value condition="substring(ListItem.rating,2.9)">1.50</value>
+		<value condition="substring(ListItem.rating,3.0)">1.50</value>
+		<value condition="substring(ListItem.rating,3.1)">1.50</value>
+		<value condition="substring(ListItem.rating,3.2)">1.50</value>
+		
+		<value condition="substring(ListItem.rating,3.3)">1.75</value>
+		<value condition="substring(ListItem.rating,3.4)">1.75</value>
+		<value condition="substring(ListItem.rating,3.5)">1.75</value>
+		<value condition="substring(ListItem.rating,3.6)">1.75</value>
+		<value condition="substring(ListItem.rating,3.7)">1.75</value>
+
+		<value condition="substring(ListItem.rating,3.8)">2.00</value>
+		<value condition="substring(ListItem.rating,3.9)">2.00</value>
+		<value condition="substring(ListItem.rating,4.0)">2.00</value>
+		<value condition="substring(ListItem.rating,4.1)">2.00</value>
+		<value condition="substring(ListItem.rating,4.2)">2.00</value>
+		
+		<value condition="substring(ListItem.rating,4.3)">2.25</value>
+		<value condition="substring(ListItem.rating,4.4)">2.25</value>
+		<value condition="substring(ListItem.rating,4.5)">2.25</value>
+		<value condition="substring(ListItem.rating,4.6)">2.25</value>
+		<value condition="substring(ListItem.rating,4.7)">2.25</value>
+
+		<value condition="substring(ListItem.rating,4.8)">2.50</value>
+		<value condition="substring(ListItem.rating,4.9)">2.50</value>
+		<value condition="substring(ListItem.rating,5.0)">2.50</value>
+		<value condition="substring(ListItem.rating,5.1)">2.50</value>
+		<value condition="substring(ListItem.rating,5.2)">2.50</value>
+		
+		<value condition="substring(ListItem.rating,5.3)">2.75</value>
+		<value condition="substring(ListItem.rating,5.4)">2.75</value>
+		<value condition="substring(ListItem.rating,5.5)">2.75</value>
+		<value condition="substring(ListItem.rating,5.6)">2.75</value>
+		<value condition="substring(ListItem.rating,5.7)">2.75</value>
+
+		<value condition="substring(ListItem.rating,5.8)">3.00</value>
+		<value condition="substring(ListItem.rating,5.9)">3.00</value>
+		<value condition="substring(ListItem.rating,6.0)">3.00</value>
+		<value condition="substring(ListItem.rating,6.1)">3.00</value>
+		<value condition="substring(ListItem.rating,6.2)">3.00</value>
+		
+		<value condition="substring(ListItem.rating,6.3)">3.25</value>
+		<value condition="substring(ListItem.rating,6.4)">3.25</value>
+		<value condition="substring(ListItem.rating,6.5)">3.25</value>
+		<value condition="substring(ListItem.rating,6.6)">3.25</value>
+		<value condition="substring(ListItem.rating,6.7)">3.25</value>
+
+		<value condition="substring(ListItem.rating,6.8)">3.50</value>
+		<value condition="substring(ListItem.rating,6.9)">3.50</value>
+		<value condition="substring(ListItem.rating,7.0)">3.50</value>
+		<value condition="substring(ListItem.rating,7.1)">3.50</value>
+		<value condition="substring(ListItem.rating,7.2)">3.50</value>
+		
+		<value condition="substring(ListItem.rating,7.3)">3.75</value>
+		<value condition="substring(ListItem.rating,7.4)">3.75</value>
+		<value condition="substring(ListItem.rating,7.5)">3.75</value>
+		<value condition="substring(ListItem.rating,7.6)">3.75</value>
+		<value condition="substring(ListItem.rating,7.7)">3.75</value>
+
+		<value condition="substring(ListItem.rating,7.8)">4.00</value>
+		<value condition="substring(ListItem.rating,7.9)">4.00</value>
+		<value condition="substring(ListItem.rating,8.0)">4.00</value>
+		<value condition="substring(ListItem.rating,8.1)">4.00</value>
+		<value condition="substring(ListItem.rating,8.2)">4.00</value>
+		
+		<value condition="substring(ListItem.rating,8.3)">4.25</value>
+		<value condition="substring(ListItem.rating,8.4)">4.25</value>
+		<value condition="substring(ListItem.rating,8.5)">4.25</value>
+		<value condition="substring(ListItem.rating,8.6)">4.25</value>
+		<value condition="substring(ListItem.rating,8.7)">4.25</value>
+
+		<value condition="substring(ListItem.rating,8.8)">4.50</value>
+		<value condition="substring(ListItem.rating,8.9)">4.50</value>
+		<value condition="substring(ListItem.rating,9.0)">4.50</value>
+		<value condition="substring(ListItem.rating,9.1)">4.50</value>
+		<value condition="substring(ListItem.rating,9.2)">4.50</value>
+		
+		<value condition="substring(ListItem.rating,9.3)">4.75</value>
+		<value condition="substring(ListItem.rating,9.4)">4.75</value>
+		<value condition="substring(ListItem.rating,9.5)">4.75</value>
+		<value condition="substring(ListItem.rating,9.6)">4.75</value>
+		<value condition="substring(ListItem.rating,9.7)">4.75</value>
+
+		<value condition="substring(ListItem.rating,9.8)">5.00</value>
+		<value condition="substring(ListItem.rating,9.9)">5.00</value>
+		
+		<value condition="substring(ListItem.rating,10.)">5.00</value>
+		
+	</variable>
+	
+	
+</includes>
