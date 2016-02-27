@@ -183,7 +183,7 @@ Quality of the sound is (128k AAC, 320k MP3), hear the difference for yourself.
   <extension point="xbmc.addon.metadata">
     <summary lang="en">Visualisations from Shadertoy</summary>
     <description lang="en">Visualisations from Shadertoy</description>
-    <platform>linux</platform>
+    <platform>all</platform>
   </extension>
 </addon>
 
