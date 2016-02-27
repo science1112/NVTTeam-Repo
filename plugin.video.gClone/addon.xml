@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.gClone" name="gClone - GENESIS Clone"  version="2016.02.23.1" provider-name="NVTTeam" >
+<addon id="plugin.video.gClone" name="gClone - ... Fork"  version="2016.02.28.9" provider-name="mrknow" >
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="script.module.requests" version="1.0.0" />
@@ -12,13 +12,13 @@
 	</extension>
 	<extension point="xbmc.service" library="service.py" start="startup" />
 	<extension point="xbmc.addon.metadata">
-		<summary lang="en">NVTTeam gClone - GENESIS Clone</summary>
-		<description lang="en">NVTTeam gClone - Clone Of GENESIS by Lambda</description>
+		<summary lang="en">Mrknow fork of ...</summary>
+		<description lang="en">Mrknow fork of ..., support https://github.com/mrknow/filmkodi/issues.</description>
 		<disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.
 		</disclaimer>
-		<forum></forum>
-		<source></source>
-		<website></website>
+		<forum>https://github.com/mrknow/filmkodi/issues</forum>
+		<source>http://filmkodi.com/repository/</source>
+		<website>http://filmkodi.com/en/wtyczka-gClone-fork-genesis/</website>
 		<platform>all</platform>
 	</extension>
 </addon>
