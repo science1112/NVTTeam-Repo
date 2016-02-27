@@ -1,3 +1,6 @@
+ v1.0.3
+-New White 2D Spectrum Visualization...
+
  v1.0.2
 -New Visualization added
 

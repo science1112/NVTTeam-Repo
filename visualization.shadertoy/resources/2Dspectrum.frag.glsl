@@ -21,13 +21,13 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     float fft  = texture2D( iChannel0, vec2(p.x,0.0) ).x;
 
     // led color
-    vec3 color = mix(vec3(0.0, 2.0, 2.0), vec3(2.0, 0.0, 0.0), sqrt(uv.y));
+    vec3 color = mix(vec3(0.0, 0.5, 4.0), vec3(2.0, 2.0, 2.0), sqrt(uv.y));
 
     // mask for bar graph
     float mask = (p.y < fft) ? 1.0 : 0.1;
 
     // led shape
-    vec2 d = fract((uv - p)*vec2(bands, segs)) - 0.5;
+    vec2 d = fract((uv - p) *vec2(bands, segs)) - 0.5;
     float led = smoothstep(0.5, 0.35, abs(d.x)) *
                 smoothstep(0.5, 0.35, abs(d.y));
     vec3 ledColor = led*color*mask;
@@ -35,4 +35,3 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     // output final color
     fragColor = vec4(ledColor, 1.0);
 }
-
