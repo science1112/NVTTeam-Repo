@@ -1,10 +1,6 @@
 ======================
-gClone
+gClone - GENESIS Clone
 ======================
-
-About
------
-Mrknow fork of *****
 
 
 About
