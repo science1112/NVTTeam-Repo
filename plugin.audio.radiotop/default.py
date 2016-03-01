@@ -38,7 +38,7 @@ class StreamPlayer:
     def __init__(self, url):
         self.url = url
 
-    def addLink(self, name, url, image = '', info = {}, totalItems = 0):
+    def addLink(self, name, url, image = 'http://www.radiotop.fm/rtfm.jpg', info = {}, totalItems = 0):
         item = ListItem(name.encode('utf-8'), iconImage = image, thumbnailImage = image)
         item.setProperty('mimetype', 'audio/mpeg')
         item.setInfo('music', info)
