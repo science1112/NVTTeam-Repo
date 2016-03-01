@@ -46,7 +46,7 @@ class StreamPlayer:
 
     def buildIndex(self):
         self.addLink('[COLOR red][B]ROCK RADIO[/B][/COLOR] [COLOR blue] SLOVENIA [/COLOR]', self.url, '', {
-            'title': 'Maxima FM',
+            'title': 'Rock Radio',
         })
 
     def run(self, handle):
