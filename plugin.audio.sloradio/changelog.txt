@@ -1,3 +1,6 @@
+ v1.4
+-Fix Loading Error
+
  v1.3
 -Added Slovenian Rock Radio...
 -New Icon and Fanart
