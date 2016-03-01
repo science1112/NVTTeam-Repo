@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.audio.sloradio" name="Slovenski Radio" version="1.3.1" provider-name="NVTTeam">
+<addon id="plugin.audio.sloradio" name="Slovenski Radio" version="1.2" provider-name="NVTTeam">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.xbmcswift2" version="1.1.1"/>
@@ -9,7 +9,7 @@
   </extension>
   <extension point="xbmc.addon.metadata">
     <platform>all</platform>
-    <language>en</language>
+    <language></language>
     <summary>Poslušajte vse Slovenske radijske postaje.</summary>
     <description>Omogoča poslušanje Slovenskih radijskih postaj, ki oddajajo preko interneta.</description>
   </extension>
