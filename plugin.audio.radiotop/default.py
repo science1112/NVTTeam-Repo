@@ -45,7 +45,7 @@ class StreamPlayer:
         return addDirectoryItem(int(argv[1]), url, item, False, totalItems)
 
     def buildIndex(self):
-        self.addLink('[COLOR orange][B]RADIO TOP[/B][/COLOR] [COLOR blue] SLOVENIA [/COLOR]', self.url, '', {
+        self.addLink('[COLOR orange][B]RADIO TOP[/B][/COLOR] [COLOR blue] SLOVENIA [/COLOR]', self.url, 'http://www.radiotop.fm', {
             'title': 'Radio Top',
         })
 
