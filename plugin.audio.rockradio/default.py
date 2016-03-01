@@ -45,7 +45,7 @@ class StreamPlayer:
         return addDirectoryItem(int(argv[1]), url, item, False, totalItems)
 
     def buildIndex(self):
-        self.addLink('[COLOR red][B]ROCK RADIO[/B][/COLOR] [COLOR blue] SLOVENIA [/COLOR]', self.url, '', {
+        self.addLink('[COLOR red][B]ROCK RADIO[/B][/COLOR] [COLOR blue] SLOVENIA [/COLOR]', self.url, 'http://www.rockradio.si', {
             'title': 'Rock Radio',
         })
 
@@ -53,6 +53,6 @@ class StreamPlayer:
         endOfDirectory(int(handle))
 
 if __name__ == '__main__':
-    kiisfm = StreamPlayer(ROCKRADIO_STREAM)
-    kiisfm.buildIndex()
-    kiisfm.run(argv[1])
+    rockradio = StreamPlayer(ROCKRADIO_STREAM)
+    rockradio.buildIndex()
+    rockradio.run(argv[1])

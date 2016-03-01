@@ -89,6 +89,6 @@ class StreamPlayer:
         endOfDirectory(int(handle))
 
 if __name__ == '__main__':
-    kiisfm = StreamPlayer(MAXIMAFM_STREAM)
-    kiisfm.buildIndex()
-    kiisfm.run(argv[1])
+    maximafm = StreamPlayer(MAXIMAFM_STREAM)
+    maximafm.buildIndex()
+    maximafm.run(argv[1])
