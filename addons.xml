@@ -301,7 +301,7 @@ Quality of the sound is (128k AAC, 320k MP3), hear the difference for yourself.
     </extension>
 </addon>
 
-<addon id="plugin.audio.radiotop" name="Radio Top" version="1.0.0" provider-name="NVTTeam">
+<addon id="plugin.audio.radiotop" name="Radio Top" version="1.0.1" provider-name="NVTTeam">
     <requires>
         <import addon="xbmc.python" version="2.20.0" />
     </requires>
@@ -310,7 +310,7 @@ Quality of the sound is (128k AAC, 320k MP3), hear the difference for yourself.
     </extension>
     <extension point="xbmc.addon.metadata">
     	<source>http://www.radiotop.fm</source>
-        <summary lang="en">Radio Top Slovenia 106.8 MHz</summary>
+        <summary lang="en">Radio Top Slovenia</summary>
         <license>GNU General Public License, v3</license>
         <description lang="en">Best Dance Hits From Radio Top Maribor</description>
         <platform>all</platform>

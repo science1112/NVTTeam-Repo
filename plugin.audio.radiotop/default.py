@@ -30,7 +30,7 @@ import xbmcaddon
 from xbmcgui import Dialog, ListItem
 from xbmcplugin import addDirectoryItem, endOfDirectory
 
-ROCKRADIO_STREAM = 'http://193.105.67.24:8024'
+RADIOTOP_STREAM = 'http://193.105.67.24:8024'
 
 
 class StreamPlayer:
