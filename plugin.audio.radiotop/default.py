@@ -53,6 +53,6 @@ class StreamPlayer:
         endOfDirectory(int(handle))
 
 if __name__ == '__main__':
-    radiotop = StreamPlayer(ROCKRADIO_STREAM)
+    radiotop = StreamPlayer(RADIOTOP_STREAM)
     radiotop.buildIndex()
     radiotop.run(argv[1])
