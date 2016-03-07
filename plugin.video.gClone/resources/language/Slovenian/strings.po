@@ -72,7 +72,7 @@ msgstr "Certifikati"
 
 msgctxt "#30025"
 msgid "Featured"
-msgstr "Oblikovano"
+msgstr "Izpostavljeni"
 
 msgctxt "#30026"
 msgid "People Watching"
