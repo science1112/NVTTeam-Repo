@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<addon id="visualization.shadertoy" version="1.0.5" name="Shadertoy" provider-name="NVTTeam">
+<addon id="visualization.shadertoy" version="2.0.0" name="Shadertoy" provider-name="NVTTeam">
   <extension point="xbmc.player.musicviz" library_linux="visualization.shadertoy.so"/>
   <extension point="xbmc.addon.metadata">
     <summary lang="en">Visualisations from Shadertoy</summary>

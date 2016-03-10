@@ -1,3 +1,6 @@
+ v2.0.0
+-Kodi 16 and 17 Support
+
  v1.0.5
 -Corrected Errors!
 
