@@ -236,14 +236,14 @@ class sources:
                         k = control.condVisibility('Window.IsActive(virtualkeyboard)')
                         if k: m += '1'; m = m[-1]
                         if (w.is_alive() == False or x > 30) and not k: break
-                        time.sleep(0.5)
+                        time.sleep(1)
 
                     for x in range(30):
                         if m == '': break
                         if self.progressDialog.iscanceled(): return self.progressDialog.close()
                         if xbmc.abortRequested == True: return sys.exit()
                         if w.is_alive() == False: break
-                        time.sleep(0.5)
+                        time.sleep(1)
 
 
                     if w.is_alive() == True: block = items[i]['source']
@@ -382,7 +382,9 @@ class sources:
         else:
             tvshowtitle = cleantitle.normalize(tvshowtitle)
             season, episode = alterepisode.alterepisode().get(imdb, tmdb, tvdb, tvrage, season, episode, alter, title, date)
-            for source in sourceDict: threads.append(workers.Thread(self.getEpisodeSource, title, year, imdb, tvdb, season, episode, tvshowtitle, date, re.sub('_mv_tv$|_mv$|_tv$', '', source), __import__(source, globals(), locals(), [], -1).source()))
+            for source in sourceDict:
+                control.log("SOURCE S2 %s" % source)
+                threads.append(workers.Thread(self.getEpisodeSource, title, year, imdb, tvdb, season, episode, tvshowtitle, date, re.sub('_mv_tv$|_mv$|_tv$', '', source), __import__(source, globals(), locals(), [], -1).source()))
 
 
         try: timeout = int(control.setting('sources_timeout_40'))
@@ -393,7 +395,6 @@ class sources:
         for i in range(0, timeout * 2):
             try:
                 if xbmc.abortRequested == True: return sys.exit()
-
                 if len(self.sources) >= 10: break
 
                 is_alive = [x.is_alive() for x in threads]
@@ -458,6 +459,7 @@ class sources:
 
 
     def getEpisodeSource(self, title, year, imdb, tvdb, season, episode, tvshowtitle, date, source, call):
+        #control.log('# UPDATE    2121 %s %s' % (source,call))
         try:
             dbcon = database.connect(self.sourceFile)
             dbcur = dbcon.cursor()
@@ -473,8 +475,11 @@ class sources:
             t1 = int(re.sub('[^0-9]', '', str(match[5])))
             t2 = int(datetime.datetime.now().strftime("%Y%m%d%H%M"))
             update = abs(t2 - t1) > 60
+            #control.log('# UPDATE 1002 %s ' % update)
+
             if update == False:
                 sources = json.loads(match[4])
+                #control.log('# UPDATE2121 %s' % match)
                 return self.sources.extend(sources)
         except:
             pass
@@ -484,11 +489,14 @@ class sources:
             dbcur.execute("SELECT * FROM rel_url WHERE source = '%s' AND imdb_id = '%s' AND season = '%s' AND episode = '%s'" % (source, imdb, '', ''))
             url = dbcur.fetchone()
             url = url[4]
+            #control.log('### SOURCES URL %s' % url)
         except:
             pass
 
         try:
             if url == None: url = call.get_show(imdb, tvdb, tvshowtitle, year)
+            control.log('### SOURCES AFTER  URL %s | Call:%s' % (url,call))
+
             if url == None: raise Exception()
             dbcur.execute("DELETE FROM rel_url WHERE source = '%s' AND imdb_id = '%s' AND season = '%s' AND episode = '%s'" % (source, imdb, '', ''))
             dbcur.execute("INSERT INTO rel_url Values (?, ?, ?, ?, ?)", (source, imdb, '', '', url))
@@ -690,6 +698,7 @@ class sources:
 
             result = client.request(url.split('|')[0], headers=headers, output='chunk', timeout='20')
             if result == None: raise Exception()
+            #control.log("!!!!!!!!!!!!!!!!!!!  %s prov: %s" % (url,provider))
             self.url = url
             return url
         except:
@@ -740,14 +749,14 @@ class sources:
                         k = control.condVisibility('Window.IsActive(virtualkeyboard)')
                         if k: m += '1'; m = m[-1]
                         if (w.is_alive() == False or x > 30) and not k: break
-                        time.sleep(0.5)
+                        time.sleep(1)
 
                     for x in range(30):
                         if m == '': break
                         if self.progressDialog.iscanceled(): return self.progressDialog.close()
                         if xbmc.abortRequested == True: return sys.exit()
                         if w.is_alive() == False: break
-                        time.sleep(0.5)
+                        time.sleep(1)
 
 
                     if w.is_alive() == True: block = items[i]['source']

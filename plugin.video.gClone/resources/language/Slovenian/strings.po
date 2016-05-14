@@ -72,7 +72,7 @@ msgstr "Certifikati"
 
 msgctxt "#30025"
 msgid "Featured"
-msgstr "Izpostavljeni"
+msgstr "Oblikovano"
 
 msgctxt "#30026"
 msgid "People Watching"
@@ -228,11 +228,11 @@ msgstr "[B]IMDB[/B] : TV Watchlista"
 
 msgctxt "#30093"
 msgid "Movie Lists"
-msgstr "Lista Filmov"
+msgstr "Seznam Filmov"
 
 msgctxt "#30094"
 msgid "TV Show Lists"
-msgstr "Lista TV Serij"
+msgstr "Seznam TV Serij"
 
 msgctxt "#30095"
 msgid "Favourite Movies"
@@ -372,7 +372,7 @@ msgstr "Iskanje"
 
 msgctxt "#30202"
 msgid "Queue item"
-msgstr "Dodaj v vrsto čakanja"
+msgstr "Dodaj v čakalno vrsto"
 
 msgctxt "#30203"
 msgid "Auto-play"

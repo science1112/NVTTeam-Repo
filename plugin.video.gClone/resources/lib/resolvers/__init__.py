@@ -30,12 +30,14 @@ from resources.lib.resolvers import premiumize
 
 def request(url):
     try:
-        control.log("#RESOLVER#  my url 1 ************ %s " % url)
+        #control.log("#RESOLVER#  my url 1 ************ %s " % url)
 
         if '</regex>' in url:
             import regex ; url = regex.resolve(url)
 
         rd = realdebrid.resolve(url)
+        #control.log("#RESOLVER#  my rd 2 ************ %s url: %s" % (rd,url))
+
         if not rd == None: return rd
 
         pz = premiumize.resolve(url)
@@ -45,21 +47,24 @@ def request(url):
             if len(re.compile('\s*timeout=(\d*)').findall(url)) == 0: url += ' timeout=10'
             return url
 
-        u = client.shrink_host(url)
+        #u = client.shrink_host(url)
+        u = urlparse.urlparse(url).netloc
+        u = u.replace('www.', '').replace('embed.', '')
         u = u.lower()
 
-        control.log("#RESOLVER#  my url 3 ************ %s " % u)
+        #control.log("#RESOLVER#  URL TO MATCH url 3 ************ %s " % u)
 
         r = [i['class'] for i in info() if u in i['netloc']][0]
         r = __import__(r, globals(), locals(), [], -1)
-        control.log("#RESOLVER#  my url 4 ************ %s " % r)
+        #control.log("#RESOLVER#  my url 4 ************ %s " % r)
 
         r = r.resolve(url)
-        control.log("#RESOLVER#  my url 5 %s ************ %s " % (r,url))
+        #control.log("#RESOLVER#  my url 5 %s ************ %s " % (r,url))
 
         if r == None: return r
+
         elif type(r) == list: return r
-        elif not r.startswith('http'): return r
+        #elif not r.startswith('http'): return r
 
         try: h = dict(urlparse.parse_qsl(r.rsplit('|', 1)[1]))
         except: h = dict('')
@@ -68,6 +73,8 @@ def request(url):
         if not 'Referer' in h: h['Referer'] = url
 
         r = '%s|%s' % (r.split('|')[0], urllib.urlencode(h))
+        #control.log("#RESOLVER#  my url 6 %s ************ %s " % (r,url))
+
         return r
     except:
         return url
@@ -111,7 +118,7 @@ def info():
         'a/c': False
     }, {
         'class': 'clicknupload',
-        'netloc': ['clicknupload.com'],
+        'netloc': ['clicknupload.com', 'clicknupload.link'],
         'host': ['Clicknupload'],
         'quality': 'High',
         'captcha': False,
@@ -144,6 +151,9 @@ def info():
         'quality': 'Low',
         'captcha': False,
         'a/c': False
+    }, {
+        'class': 'yadisk',
+        'netloc': ['yadi.sk']
     }, {
         'class': 'dailymotion',
         'netloc': ['dailymotion.com']
@@ -191,6 +201,9 @@ def info():
     }, {
         'class': 'filepup',
         'netloc': ['filepup.net']
+    }, {
+        'class': 'googledocs',
+        'netloc': ['google.com']
     }, {
         'class': 'googledocs',
         'netloc': ['docs.google.com', 'drive.google.com']
@@ -258,6 +271,9 @@ def info():
     }, {
         'class': 'mailru',
         'netloc': ['mail.ru', 'my.mail.ru', 'videoapi.my.mail.ru', 'api.video.mail.ru']
+    }, {
+        'class': 'cloudmailru',
+        'netloc': ['cloud.mail.ru']
     }, {
         'class': 'mightyupload',
         'netloc': ['mightyupload.com'],

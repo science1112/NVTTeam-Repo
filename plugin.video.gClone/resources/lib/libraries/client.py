@@ -22,7 +22,7 @@
 import re,sys,urllib2,HTMLParser, urllib, urlparse
 import xbmc, random
 
-from resources.lib.libraries import cloudflare
+#from resources.lib.libraries import cloudflare
 from resources.lib.libraries import control
 
 
@@ -41,7 +41,7 @@ ANDROID_USER_AGENT = 'Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) A
 #SMU_USER_AGENT = 'URLResolver for Kodi/%s' % (addon_version)
 
 def request(url, close=True, error=False, proxy=None, post=None, headers=None, mobile=False, safe=False, referer=None, cookie=None, output='', timeout='30'):
-    #control.log("#CLIENT# - %s  OUTPUT %s" % (url,output))
+    #control.log("#CLIENT#  request - 1 -%s  OUTPUT %s | POST %s" % (url,output,post))
     try:
         html=''
         handlers = []
@@ -49,7 +49,7 @@ def request(url, close=True, error=False, proxy=None, post=None, headers=None, m
             handlers += [urllib2.ProxyHandler({'http':'%s' % (proxy)}), urllib2.HTTPHandler]
             opener = urllib2.build_opener(*handlers)
             opener = urllib2.install_opener(opener)
-        if output == 'cookie' or not close == True:
+        if output == 'cookie' or output == 'extended' or not close == True:
             import cookielib
             cookies = cookielib.LWPCookieJar()
             handlers += [urllib2.HTTPHandler(), urllib2.HTTPSHandler(), urllib2.HTTPCookieProcessor(cookies)]
@@ -66,25 +66,29 @@ def request(url, close=True, error=False, proxy=None, post=None, headers=None, m
         except:
             pass
 
+        #control.log("#CLIENT#  request - 2 - %s  sys ver " % str(sys.version_info ))
+
         try: headers.update(headers)
         except: headers = {}
         if 'User-Agent' in headers:
             pass
         elif not mobile == True:
-            #headers['User-Agent'] = 'User-Agent: Mozilla/5.0 (Windows NT 6.2; Trident/7.0; rv:11.0) like Gecko'
-            #headers['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36'
             headers['User-Agent'] = randomagent()
+            #control.log("#CLIENT#  request - 3 - %s  Agent " % str(headers['User-Agent']))
+
         else:
             headers['User-Agent'] = 'Apple-iPhone/701.341'
         if 'referer' in headers:
             pass
         elif referer == None:
             headers['referer'] = url
+            #control.log("#CLIENT#  request - 4 - %s  referer " % str(headers['referer']))
+
         else:
             headers['referer'] = referer
 
-        #if not 'Accept-Language' in headers:
-        #    headers['Accept-Language'] = 'en-US'
+        if not 'Accept-Language' in headers:
+            headers['Accept-Language'] = 'en-US'
 
         if 'cookie' in headers:
             pass
@@ -94,17 +98,25 @@ def request(url, close=True, error=False, proxy=None, post=None, headers=None, m
         if post is None:
             request = urllib2.Request(url, headers=headers)
         else:
-            request = urllib2.Request(url, urllib.urlencode(post), headers=headers)
-            #control.log("POST DATA %s" % post)
+            if 'Content-Type' in headers:
+                if headers['Content-Type'] == 'application/json':
+                    request = urllib2.Request(url, post, headers=headers)
+                else:
+                    request = urllib2.Request(url, urllib.urlencode(post), headers=headers)
+            else:
+                request = urllib2.Request(url, urllib.urlencode(post), headers=headers)
+            control.log("POST DATA %s" % post)
         try:
             response = urllib2.urlopen(request, timeout=int(timeout))
         except urllib2.HTTPError as response:
-            moje = response
-            control.log("### CLIENT CLIENT %s" % response)
-            if response.code == 503 and 'cf-browser-verification' in moje.read():
-                html = cloudflare.solve(url,randomagent())
+            #control.log("#CLIENT#  request - 4 - code: %s   url:%s response:%s" % (str(response.code ),url,response))
+            if error == False: return
+            #moje = response
+            #control.log("### CLIENT CLIENT %s" % response)
+            #if response.code == 503 and 'cf-browser-verification' in moje.read():
+            #    html = cloudflare.solve(url,randomagent())
             #if response.code == 401: return response
-
+        #control.log("#CLIENT#  request - 5 - code: %s   url:%s" % (str(response.code ),url))
 
         if output == 'cookie':
             result = []
@@ -119,6 +131,16 @@ def request(url, close=True, error=False, proxy=None, post=None, headers=None, m
             content = int(response.headers['Content-Length'])
             if content < (2048 * 1024): return
             result = response.read(16 * 1024)
+        elif output == 'title':
+            result = response.read(1 * 1024)
+            result = parseDOM(result, 'title')[0]
+        elif output == 'extended':
+            cookie = []
+            for c in cookies: cookie.append('%s=%s' % (c.name, c.value))
+            cookie = "; ".join(cookie)
+            content = response.headers
+            result = response.read()
+            return (result, headers, content, cookie)
         elif output == 'geturl':
             result = response.geturl()
         elif output == 'response2':
@@ -133,7 +155,7 @@ def request(url, close=True, error=False, proxy=None, post=None, headers=None, m
                 result = response.read()
         if close == True:
             response.close()
-        #control.log("### CLIENT Result %s" % result)
+        #control.log("### CLIENT Result - 10 %s" % result)
 
         return result
     except:
@@ -256,26 +278,17 @@ def replaceHTMLCodes(txt):
     txt = txt.replace("&amp;", "&")
     return txt
 
+def cleanHTMLCodes(txt):
+    txt = txt.replace("'", "")
+    txt = re.sub("(&#[0-9]+)([^;^0-9]+)", "\\1;\\2", txt)
+    txt = HTMLParser.HTMLParser().unescape(txt)
+    txt = txt.replace("&quot;", "\"")
+    txt = txt.replace("&amp;", "&")
+
+    return txt
 
 def agent():
-    #return 'Mozilla/5.0 (compatible, MSIE 11, Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko'
-    #return 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/42.0'
-    #return 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36'
     return randomagent()
-
-
-def log(msg, level=xbmc.LOGNOTICE):
-    level = xbmc.LOGNOTICE
-    try:
-        if isinstance(msg, unicode):
-            msg = msg.encode('utf-8')
-
-        #xbmc.log('[gClone]: %s' % (msg), level)
-    except Exception as e:
-        try:
-            #xbmc.log('Logging Failure: %s' % (e), level)
-            a=1
-        except: pass  # just give up
 
 def randomagent():
     BR_VERS = [
@@ -310,3 +323,14 @@ def googletag(url):
         return [{'quality': 'SD', 'url': url}]
     else:
         return []
+
+def file_quality_openload(url):
+    try:
+        if '1080' in url:
+            return {'quality': '1080p'}
+        elif '720' in url:
+            return {'quality': 'HD'}
+        else:
+            return {'quality': 'SD'}
+    except:
+        return {'quality': 'SD', 'url': url}

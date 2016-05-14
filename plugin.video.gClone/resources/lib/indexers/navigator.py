@@ -24,9 +24,6 @@ import time
 
 
 from resources.lib.libraries import control
-from resources.lib.libraries import trakt_api2
-from resources.lib.libraries import gui_utils
-
 
 
 artPath = control.artPath()
@@ -36,11 +33,12 @@ addonFanart = control.addonFanart()
 try: action = dict(urlparse.parse_qsl(sys.argv[2].replace('?','')))['action']
 except: action = None
 
-traktMode = False if control.setting('trakt_user') == '' else True
+traktMode = False if control.setting('trakt.user') == '' else True
 
 imdbMode = False if control.setting('imdb_user') == '' else True
 
 sysaddon = sys.argv[0]
+
 
 
 class navigator:
@@ -49,15 +47,11 @@ class navigator:
         movie_library = os.path.join(control.transPath(control.setting('movie_library')),'')
         tv_library = os.path.join(control.transPath(control.setting('tv_library')),'')
         tv_downloads = os.path.join(control.transPath(control.setting('tv_downloads')),'')
-        movie_downloads = os.path.join(control.transPath(control.setting('movie_downloads')),'')
-        if not os.path.exists(movie_library):
-            os.makedirs(movie_library)
-        if not os.path.exists(tv_library):
-            os.makedirs(tv_library)
-        if not os.path.exists(tv_downloads):
-            os.makedirs(tv_downloads)
-        if not os.path.exists(movie_downloads):
-            os.makedirs(movie_downloads)
+        #movie_downloads = os.path.join(control.transPath(control.setting('movie_downloads')),'')
+        if not os.path.exists(movie_library): os.makedirs(movie_library)
+        if not os.path.exists(tv_library): os.makedirs(tv_library)
+        #if not os.path.exists(tv_downloads) and tv_downloads!='' : os.makedirs(tv_downloads)
+        #if not os.path.exists(movie_downloads) and movie_downloads != '': os.makedirs(movie_downloads)
 
         #if not control.TOKEN:
         #    last_reminder = control.setting('last_reminder')
@@ -73,8 +67,8 @@ class navigator:
         #    profile = control.traktapi.get_user_profile()
         #    control.set_setting('trakt_user', '%s (%s)' % (profile['username'], profile['name']))
 
-    def trakt_pin_auth(self):
-        gui_utils.get_pin()
+    #def trakt_pin_auth(self):
+    #    gui_utils.get_pin()
 
     def root(self):
         self.addDirectoryItem(30001, 'movieNavigator', 'movies.jpg', 'DefaultMovies.png')
@@ -105,8 +99,8 @@ class navigator:
     def movies(self):
         self.addDirectoryItem(30021, 'movieGenres', 'movieGenres.jpg', 'DefaultMovies.png')
         self.addDirectoryItem(30022, 'movieYears', 'movieYears.jpg', 'DefaultMovies.png')
-        self.addDirectoryItem(30023, 'moviePersons', 'movies.jpg', 'DefaultMovies.png')
-        self.addDirectoryItem(30024, 'movieCertificates', 'movieCertificates.jpg', 'DefaultMovies.png')
+        #self.addDirectoryItem(30023, 'moviePersons', 'movies.jpg', 'DefaultMovies.png')
+        #self.addDirectoryItem(30024, 'movieCertificates', 'movieCertificates.jpg', 'DefaultMovies.png')
         self.addDirectoryItem(30025, 'movies&url=featured', 'movies.jpg', 'DefaultRecentlyAddedMovies.png')
         self.addDirectoryItem(30026, 'movies&url=trending', 'moviesTrending.jpg', 'DefaultRecentlyAddedMovies.png')
         self.addDirectoryItem(30027, 'movies&url=popular', 'moviesPopular.jpg', 'DefaultMovies.png')
@@ -116,7 +110,7 @@ class navigator:
         self.addDirectoryItem(30031, 'movies&url=theaters', 'moviesTheaters.jpg', 'DefaultRecentlyAddedMovies.png')
         self.addDirectoryItem(30032, 'movies&url=added', 'moviesAdded.jpg', 'DefaultRecentlyAddedMovies.png')
         self.addDirectoryItem(30033, 'movieFavourites', 'movieFavourites.jpg', 'DefaultMovies.png')
-        self.addDirectoryItem(30034, 'moviePerson', 'moviePerson.jpg', 'DefaultMovies.png')
+        #self.addDirectoryItem(30034, 'moviePerson', 'moviePerson.jpg', 'DefaultMovies.png')
         self.addDirectoryItem(30035, 'movieSearch', 'movieSearch.jpg', 'DefaultMovies.png')
 
         self.endDirectory()
@@ -125,19 +119,19 @@ class navigator:
     def tvshows(self):
         self.addDirectoryItem(30051, 'tvGenres', 'tvGenres.jpg', 'DefaultTVShows.png')
         self.addDirectoryItem(30052, 'tvYears', 'tvshows.jpg', 'DefaultTVShows.png')
-        self.addDirectoryItem(30053, 'tvNetworks', 'tvshows.jpg', 'DefaultTVShows.png')
+        #self.addDirectoryItem(30053, 'tvNetworks', 'tvshows.jpg', 'DefaultTVShows.png')
         self.addDirectoryItem(30054, 'tvshows&url=trending', 'tvshowsTrending.jpg', 'DefaultRecentlyAddedEpisodes.png')
         self.addDirectoryItem(30055, 'tvshows&url=popular', 'tvshowsPopular.jpg', 'DefaultTVShows.png')
-        self.addDirectoryItem(30056, 'tvshows&url=airing', 'tvshows.jpg', 'DefaultTVShows.png')
-        self.addDirectoryItem(30057, 'tvshows&url=active', 'tvshowsActive.jpg', 'DefaultTVShows.png')
-        self.addDirectoryItem(30058, 'tvshows&url=premiere', 'tvshows.jpg', 'DefaultTVShows.png')
+        #self.addDirectoryItem(30056, 'tvshows&url=airing', 'tvshows.jpg', 'DefaultTVShows.png')
+        #self.addDirectoryItem(30057, 'tvshows&url=active', 'tvshowsActive.jpg', 'DefaultTVShows.png')
+        #self.addDirectoryItem(30058, 'tvshows&url=premiere', 'tvshows.jpg', 'DefaultTVShows.png')
         self.addDirectoryItem(30059, 'tvshows&url=rating', 'tvshowsRating.jpg', 'DefaultTVShows.png')
         self.addDirectoryItem(30060, 'tvshows&url=views', 'tvshowsViews.jpg', 'DefaultTVShows.png')
         self.addDirectoryItem(30061, 'calendars', 'calendar.jpg', 'DefaultRecentlyAddedEpisodes.png')
         self.addDirectoryItem(30062, 'calendar&url=added', 'calendarsAdded.jpg', 'DefaultRecentlyAddedEpisodes.png')
         self.addDirectoryItem(30063, 'episodeFavourites', 'tvFavourites.jpg', 'DefaultRecentlyAddedEpisodes.png')
         self.addDirectoryItem(30064, 'tvFavourites', 'tvFavourites.jpg', 'DefaultTVShows.png')
-        self.addDirectoryItem(30065, 'tvPerson', 'tvPerson.jpg', 'DefaultTVShows.png')
+        #self.addDirectoryItem(30065, 'tvPerson', 'tvPerson.jpg', 'DefaultTVShows.png')
         self.addDirectoryItem(30066, 'tvSearch', 'tvSearch.jpg', 'DefaultTVShows.png')
 
         self.endDirectory()
@@ -148,11 +142,11 @@ class navigator:
             self.addDirectoryItem(30081, 'movies&url=traktcollection', 'moviesTraktcollection.jpg', 'DefaultMovies.png', context=(30191, 'moviesToLibrary&url=traktcollection'))
             self.addDirectoryItem(30082, 'movies&url=traktwatchlist', 'moviesTraktwatchlist.jpg', 'DefaultMovies.png', context=(30191, 'moviesToLibrary&url=traktwatchlist'))
             self.addDirectoryItem(30083, 'movies&url=traktfeatured', 'movies.jpg', 'DefaultMovies.png')
-            self.addDirectoryItem(30084, 'movies&url=traktratings', 'movies.jpg', 'DefaultMovies.png')
+            #self.addDirectoryItem(30084, 'movies&url=traktratings', 'movies.jpg', 'DefaultMovies.png')
             self.addDirectoryItem(30085, 'tvshows&url=traktcollection', 'tvshowsTraktcollection.jpg', 'DefaultTVShows.png', context=(30191, 'tvshowsToLibrary&url=traktcollection'))
             self.addDirectoryItem(30086, 'tvshows&url=traktwatchlist', 'tvshowsTraktwatchlist.jpg', 'DefaultTVShows.png', context=(30191, 'tvshowsToLibrary&url=traktwatchlist'))
             self.addDirectoryItem(30087, 'tvshows&url=traktfeatured', 'tvshows.jpg', 'DefaultTVShows.png')
-            self.addDirectoryItem(30088, 'tvshows&url=traktratings', 'tvshows.jpg', 'DefaultTVShows.png')
+            #self.addDirectoryItem(30088, 'tvshows&url=traktratings', 'tvshows.jpg', 'DefaultTVShows.png')
             self.addDirectoryItem(30089, 'calendar&url=progress', 'calendarsProgress.jpg', 'DefaultRecentlyAddedEpisodes.png')
             self.addDirectoryItem(30090, 'calendar&url=mycalendar', 'calendarsMycalendar.jpg', 'DefaultRecentlyAddedEpisodes.png')
 
@@ -201,7 +195,7 @@ class navigator:
         self.addDirectoryItem(30120, 'clearCache', 'cache.jpg', 'DefaultAddonProgram.png')
         self.addDirectoryItem(30122, 'openSettings&query=8.0', 'settings.jpg', 'DefaultAddonProgram.png')
         self.addDirectoryItem(30121, 'libtoolNavigator', 'tools.jpg', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(30141, 'openSettings&query=10.0', 'tools.jpg', 'DefaultAddonProgram.png')
+        #self.addDirectoryItem(30141, 'openSettings&query=10.0', 'tools.jpg', 'DefaultAddonProgram.png')
 
         self.endDirectory()
 
