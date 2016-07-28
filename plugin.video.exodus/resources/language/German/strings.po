@@ -6,79 +6,79 @@ msgstr ""
 
 msgctxt "#32001"
 msgid "Movies"
-msgstr "Ταινίες"
+msgstr "Filme"
 
 msgctxt "#32002"
 msgid "TV Shows"
-msgstr "Σειρές"
+msgstr "TV-Serien"
 
 msgctxt "#32003"
 msgid "My Movies"
-msgstr "Οι Ταινίες μου"
+msgstr "Meine Filme"
 
 msgctxt "#32004"
 msgid "My TV Shows"
-msgstr "Οι Σειρές μου"
+msgstr "Meine TV-Serien"
 
 msgctxt "#32005"
 msgid "New Movies"
-msgstr "Νέες Ταινίες"
+msgstr "Neue Filme"
 
 msgctxt "#32006"
 msgid "New Episodes"
-msgstr "Νέα Επεισόδια"
+msgstr "Neue Episoden"
 
 msgctxt "#32007"
 msgid "Channels"
-msgstr "Κανάλια"
+msgstr "Kanäle"
 
 msgctxt "#32008"
 msgid "Tools"
-msgstr "Εργαλεία"
+msgstr "Werkzeuge"
 
 msgctxt "#32009"
 msgid "Downloads"
-msgstr "Λήψεις"
+msgstr "Downloads"
 
 msgctxt "#32010"
 msgid "Search"
-msgstr "Αναζήτηση"
+msgstr "Suche"
 
 msgctxt "#32011"
 msgid "Genres"
-msgstr "Είδη"
+msgstr "Genres"
 
 msgctxt "#32012"
 msgid "Year"
-msgstr "Έτος"
+msgstr "Jahr"
 
 msgctxt "#32013"
 msgid "People"
-msgstr "Πρόσωπα"
+msgstr "Personen"
 
 msgctxt "#32014"
 msgid "Languages"
-msgstr "Γλώσσα"
+msgstr "Sprachen"
 
 msgctxt "#32015"
 msgid "Certificates"
-msgstr "Καταλληλότητα"
+msgstr "Zertifikate"
 
 msgctxt "#32016"
 msgid "Networks"
-msgstr "Δίκτυα"
+msgstr "TV Sender"
 
 msgctxt "#32017"
 msgid "People Watching"
-msgstr "Προβολές"
+msgstr "Aktive Betrachter"
 
 msgctxt "#32018"
 msgid "Most Popular"
-msgstr "Πιο δημοφιλή"
+msgstr "Am populärsten"
 
 msgctxt "#32019"
 msgid "Most Voted"
-msgstr "Με πολλούς ψήφους"
+msgstr "Die meisten Votes"
 
 msgctxt "#32020"
 msgid "Box Office"
@@ -86,55 +86,55 @@ msgstr "Box Office"
 
 msgctxt "#32021"
 msgid "Oscar Winners"
-msgstr "Νικητές Oscar"
+msgstr "Oskar Gewinner"
 
 msgctxt "#32022"
 msgid "In Theaters"
-msgstr "Στους κινηματογράφους"
+msgstr "In Kinos"
 
 msgctxt "#32023"
 msgid "Highly Rated"
-msgstr "Με υψηλή βαθμολογία"
+msgstr "Hochbewertet"
 
 msgctxt "#32024"
 msgid "Airing today"
-msgstr "Σημερινές προβολές"
+msgstr "Heute ausgestrahlt"
 
 msgctxt "#32025"
 msgid "Returning TV Shows"
-msgstr "Σειρές σε εξέλιξη"
+msgstr "Wiederkehrende Serien"
 
 msgctxt "#32026"
 msgid "New TV Shows"
-msgstr "Νέες Σειρές"
+msgstr "Neue TV-Serien"
 
 msgctxt "#32027"
 msgid "TV Calendar"
-msgstr "Ημερολόγιο"
+msgstr "TV Kalender"
 
 msgctxt "#32028"
 msgid "People Search"
-msgstr "Αναζήτηση Προσώπου"
+msgstr "Personensuche"
 
 msgctxt "#32029"
 msgid "People (Movies)"
-msgstr "Πρόσωπα (Ταινίες)"
+msgstr "Personen (Filme)"
 
 msgctxt "#32030"
 msgid "People (TV)"
-msgstr "Πρόσωπα (Σειρές)"
+msgstr "Personen (TV)"
 
 msgctxt "#32031"
 msgid "Discover"
-msgstr "Περιηγήσεις"
+msgstr "Entdecken"
 
 msgctxt "#32032"
 msgid "Collection"
-msgstr "Συλλογή"
+msgstr "Sammlung"
 
 msgctxt "#32033"
 msgid "Watchlist"
-msgstr "Λίστα παρακολούθησης"
+msgstr "Merkliste"
 
 msgctxt "#32034"
 msgid "IMDb"
@@ -142,111 +142,111 @@ msgstr "IMDb"
 
 msgctxt "#32035"
 msgid "Featured"
-msgstr "Προτάσεις"
+msgstr "Empfohlen"
 
 msgctxt "#32036"
 msgid "History"
-msgstr "Ιστορικό"
+msgstr "Verlauf"
 
 msgctxt "#32037"
 msgid "Progress"
-msgstr "Πρόοδος"
+msgstr "Fortschritt"
 
 msgctxt "#32038"
 msgid "Episodes"
-msgstr "Επεισόδια"
+msgstr "Episoden"
 
 msgctxt "#32039"
 msgid "Movie Lists"
-msgstr "Λίστες Ταινιών"
+msgstr "Film Liste"
 
 msgctxt "#32040"
 msgid "TV Show Lists"
-msgstr "Λίστες Σειρών"
+msgstr "TV-Serien Liste"
 
 msgctxt "#32041"
 msgid "Episode Lists"
-msgstr "Λίστες Επεισοδίων"
+msgstr "Episoden Liste"
 
 msgctxt "#32042"
 msgid "No Trakt or IMDb account found."
-msgstr "Δεν βρέθηκε λογαριασμός Trakt ή IMDb."
+msgstr "Kein Trakt oder IMDb Konto gefunden"
 
 msgctxt "#32043"
 msgid "[B]SETTINGS[/B] : General"
-msgstr "[B]ΡΥΘΜΙΣΕΙΣ[/B] : Γενικά"
+msgstr "[B]EINSTELLUNGEN[/B] : Allgemein"
 
 msgctxt "#32044"
 msgid "[B]SETTINGS[/B] : Accounts"
-msgstr "[B]ΡΥΘΜΙΣΕΙΣ[/B] : Λογαριασμοί"
+msgstr "[B]EINSTELLUNGEN[/B] : Konten"
 
 msgctxt "#32045"
 msgid "[B]SETTINGS[/B] : Playback"
-msgstr "[B]ΡΥΘΜΙΣΕΙΣ[/B] : Αναπαραγωγή"
+msgstr "[B]EINSTELLUNGEN[/B] : Wiedergabe"
 
 msgctxt "#32046"
 msgid "[B]SETTINGS[/B] : Subtitles"
-msgstr "[B]ΡΥΘΜΙΣΕΙΣ[/B] : Υπότιτλοι"
+msgstr "[B]EINSTELLUNGEN[/B] : Untertitel"
 
 msgctxt "#32047"
 msgid "[B]SETTINGS[/B] : Providers"
-msgstr "[B]ΡΥΘΜΙΣΕΙΣ[/B] : Πάροχοι"
+msgstr "[B]EINSTELLUNGEN[/B] : Index Seiten"
 
 msgctxt "#32048"
 msgid "[B]EXODUS[/B] : Downloads"
-msgstr "[B]EXODUS[/B] : Λήψεις"
+msgstr "[B]EXODUS[/B] : Downloads"
 
 msgctxt "#32049"
 msgid "[B]EXODUS[/B]: Viewtypes"
-msgstr "[B]EXODUS[/B] : Προβολές"
+msgstr "[B]EXODUS[/B] : Anzeige Typen"
 
 msgctxt "#32050"
 msgid "[B]EXODUS[/B] : Clear providers..."
-msgstr "[B]EXODUS[/B] : Καθαρισμός παρόχων..."
+msgstr "[B]EXODUS[/B] : Index Seiten löschen..."
 
 msgctxt "#32051"
 msgid "[B]EXODUS[/B] : Clear metadata..."
-msgstr "[B]EXODUS[/B] : Καθαρισμός μεταδεδομένων..."
+msgstr "[B]EXODUS[/B] : Metadaten löschen..."
 
 msgctxt "#32052"
 msgid "[B]EXODUS[/B] : Clear cache..."
-msgstr "[B]EXODUS[/B] : Καθαρισμός μνήμης..."
+msgstr "[B]EXODUS[/B] : Cache löschen..."
 
 msgctxt "#32053"
 msgid "[I]Next Page[/I]"
-msgstr "[I]Επόμενη Σελίδα[/I]"
+msgstr "[I]Nächste Seite[/I]"
 
 msgctxt "#32054"
 msgid "Seasons"
-msgstr "Κύκλοι"
+msgstr "Staffeln"
 
 msgctxt "#32055"
 msgid "Season"
-msgstr "Κύκλος"
+msgstr "Staffel"
 
 msgctxt "#32056"
 msgid "Are you sure?"
-msgstr "Είστε σίγουροι;"
+msgstr "Sind Sie sicher?"
 
 msgctxt "#32057"
 msgid "Process Complete"
-msgstr "Ολοκλήρωση εργασίας"
+msgstr "Vorgang abgeschlossen"
 
 msgctxt "#32058"
 msgid "This will slow down things until they are re-cached!"
-msgstr "Θα υπάρξει επιβράδυνση μέχρι την εκ νέου αποθηκεύση!"
+msgstr "Verlangsamung des Systems bis zur Aktualisierung des Cache zu erwarten"
 
 msgctxt "#32059"
 msgid "CLICK HERE TO SAVE VIEW"
-msgstr "ΠΑΤΗΣΤΕ ΕΔΩ ΓΙΑ ΝΑ ΑΠΟΘΗΚΕΥΤΕΙ Η ΠΡΟΒΟΛΗ"
+msgstr "HIER KLICKEN UM ANSICHT ZU SPEICHERN"
 
 msgctxt "#32060"
 msgid "January|February|March|April|May|June|July|August|September|October|November|December"
-msgstr "Ιανουαρίου|Φεβρουαρίου|Μαρτίου|Απριλίου|Μαΐου|Ιουνίου|Ιουλίου|Αυγούστου|Σεπτεμβρίου|Οκτωβρίου|Νοεμβρίου|Δεκεμβρίου"
+msgstr "Jannuar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember"
 
 msgctxt "#32061"
 msgid "Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday"
-msgstr "Δευτέρα|Τρίτη|Τετάρτη|Πέμπτη|Παρασκευή|Σάββατο|Κυριακή"
+msgstr "Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag"
 
 msgctxt "#32062"
 msgid "[B]%s[/B] : %s"
@@ -254,59 +254,59 @@ msgstr "[B]%s[/B] : %s"
 
 msgctxt "#32063"
 msgid "Play using..."
-msgstr "Αναπαραγωγή με χρήση..."
+msgstr "Abspielen mit..."
 
 msgctxt "#32064"
 msgid "Auto Play"
-msgstr "Αυτόματη αναπαραγωγή"
+msgstr "Auto-Play"
 
 msgctxt "#32065"
 msgid "Queue item"
-msgstr "Προσθήκη στην ουρά"
+msgstr "Eintrag zur Warteschlange hinzufügen"
 
 msgctxt "#32066"
 msgid "Watched in Exodus"
-msgstr "Προβληθέν στο Exodus"
+msgstr "In Exodus Angesehen"
 
 msgctxt "#32067"
 msgid "Unwatched in Exodus"
-msgstr "Μη προβληθέν στο Exodus"
+msgstr "In Exodus Ungesehen"
 
 msgctxt "#32068"
 msgid "Watched in Trakt"
-msgstr "Προβληθέν στο Trakt"
+msgstr "In Trakt Angesehen"
 
 msgctxt "#32069"
 msgid "Unwatched in Trakt"
-msgstr "Μη προβληθέν στο Trakt"
+msgstr "In Trakt Ungesehen"
 
 msgctxt "#32070"
 msgid "Trakt Manager"
-msgstr "Διαχειριστής Trakt"
+msgstr "Trakt Manager"
 
 msgctxt "#32071"
 msgid "Browse Series"
-msgstr "Μετάβαση στη σειρά"
+msgstr "Durchsuche TV-Serien"
 
 msgctxt "#32072"
 msgid "Refresh"
-msgstr "Ανανέωση"
+msgstr "Aktualisieren"
 
 msgctxt "#32301"
 msgid "Enabled"
-msgstr "Ενεργό"
+msgstr "Aktiviert"
 
 msgctxt "#32302"
 msgid "Disabled"
-msgstr "Ανενεργό"
+msgstr "Deaktiviert"
 
 msgctxt "#32303"
 msgid "User"
-msgstr "Όνομα χρήστη"
+msgstr "Benutzer"
 
 msgctxt "#32304"
 msgid "Email"
-msgstr "Email"
+msgstr "E-Mail"
 
 msgctxt "#32305"
 msgid "ID"
@@ -314,11 +314,11 @@ msgstr "ID"
 
 msgctxt "#32306"
 msgid "Authorization..."
-msgstr "Εξουσιοδότηση..."
+msgstr "Berechtigung..."
 
 msgctxt "#32307"
 msgid "Password"
-msgstr "Κωδικός"
+msgstr "Passwort"
 
 msgctxt "#32308"
 msgid "PIN"
@@ -330,23 +330,23 @@ msgstr "API"
 
 msgctxt "#32310"
 msgid "General"
-msgstr "Γενικά"
+msgstr "Allgemein"
 
 msgctxt "#32311"
 msgid "Appearance"
-msgstr "Εμφάνιση"
+msgstr "Erscheinungsbild"
 
 msgctxt "#32312"
 msgid "Providers Timeout"
-msgstr "Χρονικό όριο πάροχων"
+msgstr "Zeitlimit für Index Seiten"
 
 msgctxt "#32313"
 msgid "Indicators"
-msgstr "Δείκτες"
+msgstr "Indikator"
 
 msgctxt "#32314"
 msgid "Local"
-msgstr "Τοπικά"
+msgstr "Lokal"
 
 msgctxt "#32315"
 msgid "Trakt"
@@ -354,284 +354,284 @@ msgstr "Trakt"
 
 msgctxt "#32316"
 msgid "Info Language"
-msgstr "Γλώσσα πληροφοριών"
+msgstr "Sprache für Informationen"
 
 msgctxt "#32317"
 msgid "Flatten TV seasons"
-msgstr "Ενιαία λίστα κύκλων σειράς"
+msgstr "Serien-Staffeln reduzieren"
 
 msgctxt "#32318"
 msgid "Enable Fanart"
-msgstr "Ενεργοποίηση Fanart"
+msgstr "Fanart verwenden"
 
 msgctxt "#32319"
 msgid "Menu"
-msgstr "Μενού"
+msgstr "Menü"
 
 msgctxt "#32320"
 msgid "New Movies"
-msgstr "Νέες Ταινίες"
+msgstr "Neue Filme"
 
 msgctxt "#32321"
 msgid "Featured"
-msgstr "Προτάσεις"
+msgstr "Empfohlen"
 
 msgctxt "#32322"
 msgid "People Watching"
-msgstr "Προβολές"
+msgstr "Aktive Betrachter"
 
 msgctxt "#32323"
 msgid "Most Popular"
-msgstr "Πιο δημοφιλή"
+msgstr "Am populärsten"
 
 msgctxt "#32324"
 msgid "In Theaters"
-msgstr "Στους κινηματογράφους"
+msgstr "In Kinos"
 
 msgctxt "#32325"
 msgid "New Episodes"
-msgstr "Νέα Επεισόδια"
+msgstr "Neue Episoden"
 
 msgctxt "#32326"
 msgid "Episodes"
-msgstr "Επεισόδια"
+msgstr "Episoden"
 
 msgctxt "#32327"
 msgid "Trakt Progress"
-msgstr "Πρόοδος Trakt"
+msgstr "Trakt Fortschritt"
 
 msgctxt "#32328"
 msgid "Trakt Episodes"
-msgstr "Επεισόδια Trakt"
+msgstr "Trakt Episoden"
 
 msgctxt "#32329"
 msgid "My Lists"
-msgstr "Οι Λίστες μου"
+msgstr "Meine Listen"
 
 msgctxt "#32330"
 msgid "Playback"
-msgstr "Αναπαραγωγή"
+msgstr "Wiedergabe"
 
 msgctxt "#32331"
 msgid "Default action"
-msgstr "Προεπιλεγμένη ενέργεια"
+msgstr "Standard Aktion"
 
 msgctxt "#32332"
 msgid "Dialog"
-msgstr "Διάλογος"
+msgstr "Dialog"
 
 msgctxt "#32333"
 msgid "Directory"
-msgstr "Φάκελος"
+msgstr "Verzeichnis"
 
 msgctxt "#32334"
 msgid "Auto Play"
-msgstr "Αυτόματη αναπαραγωγή"
+msgstr "Auto-Play"
 
 msgctxt "#32335"
 msgid "Progress Dialog"
-msgstr "Διάλογος προόδου"
+msgstr "Fortschrittsdialog"
 
 msgctxt "#32336"
 msgid "Foreground"
-msgstr "Προσκήνιο"
+msgstr "Vordergrund"
 
 msgctxt "#32337"
 msgid "Background"
-msgstr "Παρασκήνιο"
+msgstr "Hintergrund"
 
 msgctxt "#32338"
 msgid "File Hosting Filters"
-msgstr "Φίλτρα υπηρεσιών αποθήκευσης αρχείων"
+msgstr "Dateianbieter-Filter"
 
 msgctxt "#32339"
 msgid "Max Quality"
-msgstr "Μέγιστη ποιότητα"
+msgstr "Höchste Qualität"
 
 msgctxt "#32340"
 msgid "SD Hosters in Auto Play"
-msgstr "Ροές SD σε αυτόματη αναπαραγωγή"
+msgstr "SD Anbieter in Auto-Play"
 
 msgctxt "#32341"
 msgid "Hosters with captchas"
-msgstr "Ροές με captcha"
+msgstr "Dateianbieter mit Captchas"
 
 msgctxt "#32342"
 msgid "Sort by Provider"
-msgstr "Ταξινόμηση ανα πάροχο"
+msgstr "Nach Index Seiten sortieren"
 
 msgctxt "#32343"
 msgid "When playback starts..."
-msgstr "Όταν αρχίζει η αναπαραγωγή..."
+msgstr "Wenn Wiedergabe startet..."
 
 msgctxt "#32344"
 msgid "Resume Playback"
-msgstr "Επανεκκίνηση αναπαραγωγής"
+msgstr "Wiedergabe fortsetzen"
 
 msgctxt "#32345"
 msgid "Providers"
-msgstr "Πάροχοι"
+msgstr "Index Seiten"
 
 msgctxt "#32346"
 msgid "Accounts"
-msgstr "Λογαριασμοί"
+msgstr "Konten"
 
 msgctxt "#32347"
 msgid "Downloads"
-msgstr "Λήψεις"
+msgstr "Downloads"
 
 msgctxt "#32348"
 msgid "Enable downloads"
-msgstr "Ενεργοποιήση λήψεων"
+msgstr "Herunterladen aktivieren"
 
 msgctxt "#32349"
 msgid "Movies"
-msgstr "Ταινίες"
+msgstr "Filme"
 
 msgctxt "#32350"
 msgid "TV"
-msgstr "TV"
+msgstr "TV-Serien"
 
 msgctxt "#32351"
 msgid "Downloading features are disabled by default."
-msgstr "Οι επιλογές λήψεων είναι απενεργοποιημένες."
+msgstr "Herunterladen ist standardmässig deaktiviert"
 
 msgctxt "#32352"
 msgid "Set up your download folders in order to enable them."
-msgstr "Επιλέξτε τους φακέλους λήψεων για να ενεργοποιηθούν."
+msgstr "Bitte geben Sie Ihre Ordner Pfade an um sie zu aktivieren"
 
 msgctxt "#32353"
 msgid "Subtitles"
-msgstr "Υπότιτλοι"
+msgstr "Untertitel"
 
 msgctxt "#32354"
 msgid "Enable subtitles"
-msgstr "Ενεργοποίηση υπότιτλων"
+msgstr "Untertitel aktivieren"
 
 msgctxt "#32355"
 msgid "Convert subtitles to UTF-8"
-msgstr "Μετατροπή υποτίτλων σε UTF-8"
+msgstr "Untertitel nach UTF-8 umwandeln"
 
 msgctxt "#32356"
 msgid "Primary Language"
-msgstr "Κύρια γλώσσα"
+msgstr "Hauptsprache"
 
 msgctxt "#32357"
 msgid "Secondary Language"
-msgstr "Δευτερεύουσα γλώσσα"
+msgstr "Zweitsprache"
 
 msgctxt "#32358"
 msgid "Subtitles could be unavailable or out of sync."
-msgstr "Μπορεί να μην υπάρχουν διαθέσιμοι υπότιτλοι ή να μην είναι συγχρονισμένοι."
+msgstr "Untertitel evtl. nicht verfügbar oder nicht synchron."
 
 msgctxt "#32359"
 msgid "In that case use your own subtitles."
-msgstr "Σε αυτήν την περίπτωση χρησιμοποιήστε δικούς σας υπότιτλους."
+msgstr "In diesem Fall eigene Untertitel verwenden."
 
 msgctxt "#32401"
 msgid "No stream available"
-msgstr "Δεν υπάρχει διαθέσιμη ροή"
+msgstr "Keine Streams verfügbar"
 
 msgctxt "#32402"
 msgid "Playback outside Exodus is not allowed"
-msgstr "Η αναπαραγωγή εκτός Exodus δεν επιτρέπεται"
+msgstr "Eine Wiedergabe ausserhalb von Exodus ist nicht erlaubt"
 
 msgctxt "#32403"
 msgid "Download"
-msgstr "Λήψη"
+msgstr "Download"
 
 msgctxt "#32404"
 msgid "Time elapsed: %s seconds"
-msgstr "Χρόνος που έχει παρέλθει: %s δευτερόλεπτα"
+msgstr "Zeit vergangen: %s Sekunden"
 
 msgctxt "#32405"
 msgid "%s seconds"
-msgstr "%s δευτερόλεπτα"
+msgstr "%s Sekunden"
 
 msgctxt "#32406"
 msgid "Remaining providers: %s"
-msgstr "Εναπομείναντες πάροχοι: %s"
+msgstr "Verbleibende Index Seiten: %s"
 
 msgctxt "#32407"
 msgid "Are you sure?"
-msgstr "Είστε σίγουροι;"
+msgstr "Sind Sie sicher?"
 
 msgctxt "#32408"
 msgid "Process Complete"
-msgstr "Ολοκλήρωση εργασίας"
+msgstr "Vorgang abgeschlossen"
 
 msgctxt "#32501"
 msgid "Start from beginning"
-msgstr "Εκκίνηση από την αρχή"
+msgstr "Vom Anfang abspielen"
 
 msgctxt "#32502"
 msgid "Resume from %s"
-msgstr "Επανεκκίνηση από %s"
+msgstr "Fortsetzen von %s"
 
 msgctxt "#32503"
 msgid "Resume"
-msgstr "Επανεκκίνηση"
+msgstr "Fortsetzen"
 
 msgctxt "#32511"
 msgid "An account already exists."
-msgstr "Υπάρχει ήδη λογαριασμός."
+msgstr "Konto ist bereits vorhanden"
 
 msgctxt "#32512"
 msgid "Do you want to reset?"
-msgstr "Θέλετε να τον αφαιρέσετε;"
+msgstr "Möchten Sie zurücksetzen?"
 
 msgctxt "#32513"
 msgid "1) Visit : [COLOR skyblue]%s[/COLOR]"
-msgstr "1) Επισκεφθείτε : [COLOR skyblue]%s[/COLOR]"
+msgstr "1) Besuche : [COLOR skyblue]%s[/COLOR]"
 
 msgctxt "#32514"
 msgid "2) When prompted enter : [COLOR skyblue]%s[/COLOR]"
-msgstr "2) Όταν σας ζητηθεί εισάγετε : [COLOR skyblue]%s[/COLOR]"
+msgstr "2) Wenn angewiesen folgendes eingeben: [COLOR skyblue]%s[/COLOR]"
 
 msgctxt "#32515"
 msgid "Trakt Manager"
-msgstr "Διαχειριστής Trakt"
+msgstr "Trakt Manager"
 
 msgctxt "#32516"
 msgid "Add to [B]Collection[/B]"
-msgstr "Προσθήκη σε [B]Συλλογή[/B]"
+msgstr "Zur [B]Sammlung[/B] hinzufügen"
 
 msgctxt "#32517"
 msgid "Remove from [B]Collection[/B]"
-msgstr "Αφαίρεση από [B]Συλλογή[/B]"
+msgstr "Aus [B]Sammlung[/B] entfernen"
 
 msgctxt "#32518"
 msgid "Add to [B]Watchlist[/B]"
-msgstr "Προσθήκη σε [B]Λίστα παρακολούθησης[/B]"
+msgstr "Zur [B]Merkliste[/B] hinzufügen"
 
 msgctxt "#32519"
 msgid "Remove from [B]Watchlist[/B]"
-msgstr "Αφαίρεση από [B]Λίστα παρακολούθησης[/B]"
+msgstr "Aus [B]Merkliste[/B] entfernen"
 
 msgctxt "#32520"
 msgid "Add to [B]new List[/B]"
-msgstr "Προσθήκη σε [B]νέα Λίστα[/B]"
+msgstr "Zu [B]neuer Liste[/B] hinzufügen"
 
 msgctxt "#32521"
 msgid "Add to [B]%s[/B]"
-msgstr "Προσθήκη σε [B]%s[/B]"
+msgstr "Zu [B]%s[/B] hinzufügen"
 
 msgctxt "#32522"
 msgid "Remove from [B]%s[/B]"
-msgstr "Αφαίρεση από [B]%s[/B]"
+msgstr "Aus [B]%s[/B] entfernen"
 
 msgctxt "#32531"
 msgid "An account already exists."
-msgstr "Υπάρχει ήδη λογαριασμός."
+msgstr "Konto ist bereits vorhanden"
 
 msgctxt "#32532"
 msgid "Do you want to reset?"
-msgstr "Θέλετε να τον αφαιρέσετε;"
+msgstr "Möchten Sie zurücksetzen?"
 
 msgctxt "#32533"
 msgid "1) Visit : [COLOR skyblue]%s[/COLOR]"
-msgstr "1) Επισκεφθείτε : [COLOR skyblue]%s[/COLOR]"
+msgstr "1) Besuche : [COLOR skyblue]%s[/COLOR]"
 
 msgctxt "#32534"
 msgid "2) When prompted enter : [COLOR skyblue]%s[/COLOR]"
-msgstr "2) Όταν σας ζητηθεί εισάγετε : [COLOR skyblue]%s[/COLOR]"
+msgstr "2) Wenn angewiesen folgendes eingeben: [COLOR skyblue]%s[/COLOR]"

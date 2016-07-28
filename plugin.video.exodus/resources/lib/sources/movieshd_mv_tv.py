@@ -18,7 +18,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-
 import re,urllib,urlparse,json,base64,time,string,random
 
 from resources.lib.modules import cleantitle
@@ -29,16 +28,16 @@ from resources.lib.modules import directstream
 
 class source:
     def __init__(self):
-        self.domains = ['putlocker-movies.tv', 'putlocker.systems']
-        self.base_link = 'http://www.putlocker.systems'
+        self.domains = ['movieshd.is']
+        self.base_link = 'http://movieshd.is'
         self.search_link = '/api/v1/cautare/apr'
 
 
     def movie(self, imdb, title, year):
         try:
-            tk = cache.get(self.putlocker_token, 8)
+            tk = cache.get(self.movieshd_token, 8)
 
-            st = self.putlocker_set() ; rt = self.putlocker_rt(tk + st)
+            st = self.movieshd_set() ; rt = self.movieshd_rt(tk + st)
 
             tm = int(time.time() * 1000)
 
@@ -69,9 +68,9 @@ class source:
 
     def tvshow(self, imdb, tvdb, tvshowtitle, year):
         try:
-            tk = cache.get(self.putlocker_token, 8)
+            tk = cache.get(self.movieshd_token, 8)
 
-            st = self.putlocker_set() ; rt = self.putlocker_rt(tk + st)
+            st = self.movieshd_set() ; rt = self.movieshd_rt(tk + st)
 
             tm = int(time.time() * 1000)
 
@@ -114,7 +113,7 @@ class source:
             return
 
 
-    def putlocker_token(self):
+    def movieshd_token(self):
         try:
             token = client.request(self.base_link)
             token = re.findall("var\s+tok\s*=\s*'([^']+)", token)[0]
@@ -123,11 +122,11 @@ class source:
             return
 
 
-    def putlocker_set(self):
+    def movieshd_set(self):
         return ''.join([random.choice(string.ascii_letters) for _ in xrange(25)])
 
 
-    def putlocker_rt(self, s, shift=13):
+    def movieshd_rt(self, s, shift=13):
         s2 = ''
         for c in s:
             limit = 122 if c in string.ascii_lowercase else 90
@@ -185,7 +184,7 @@ class source:
             links += [{'source': 'videomega.tv', 'quality': 'SD', 'url': i, 'direct': False} for i in r if 'videomega.tv' in i]
 
 
-            for i in links: sources.append({'source': i['source'], 'quality': i['quality'], 'provider': 'Putlocker', 'url': i['url'], 'direct': i['direct'], 'debridonly': False})
+            for i in links: sources.append({'source': i['source'], 'quality': i['quality'], 'provider': 'MoviesHD', 'url': i['url'], 'direct': i['direct'], 'debridonly': False})
 
             return sources
         except:
