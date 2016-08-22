@@ -24,6 +24,9 @@ import sys,pkgutil,re,json,urllib,urlparse,datetime,time
 try: import xbmc
 except: pass
 
+try: import urlresolver
+except: pass
+
 try:
     from sqlite3 import dbapi2 as database
 except:
@@ -36,6 +39,9 @@ from resources.lib.libraries import client
 from resources.lib.libraries import workers
 from resources.lib.resolvers import realdebrid
 from resources.lib.resolvers import premiumize
+
+
+
 from resources.lib import resolvers
 
 
@@ -383,7 +389,7 @@ class sources:
             tvshowtitle = cleantitle.normalize(tvshowtitle)
             season, episode = alterepisode.alterepisode().get(imdb, tmdb, tvdb, tvrage, season, episode, alter, title, date)
             for source in sourceDict:
-                control.log("SOURCE S2 %s" % source)
+                #control.log("SOURCE S2 %s" % source)
                 threads.append(workers.Thread(self.getEpisodeSource, title, year, imdb, tvdb, season, episode, tvshowtitle, date, re.sub('_mv_tv$|_mv$|_tv$', '', source), __import__(source, globals(), locals(), [], -1).source()))
 
 
@@ -449,6 +455,7 @@ class sources:
         try:
             sources = []
             sources = call.get_sources(url, self.hosthdfullDict, self.hostsdfullDict, self.hostlocDict)
+            #control.log('@######@ getMovieSource <%s>  url:%s  TAB:%s' % (call, url, sources))
             if sources == None: sources = []
             self.sources.extend(sources)
             dbcur.execute("DELETE FROM rel_src WHERE source = '%s' AND imdb_id = '%s' AND season = '%s' AND episode = '%s'" % (source, imdb, '', ''))
@@ -495,7 +502,7 @@ class sources:
 
         try:
             if url == None: url = call.get_show(imdb, tvdb, tvshowtitle, year)
-            control.log('### SOURCES AFTER  URL %s | Call:%s' % (url,call))
+            #control.log('### SOURCES AFTER  URL %s | Call:%s' % (url,call))
 
             if url == None: raise Exception()
             dbcur.execute("DELETE FROM rel_url WHERE source = '%s' AND imdb_id = '%s' AND season = '%s' AND episode = '%s'" % (source, imdb, '', ''))
@@ -557,6 +564,9 @@ class sources:
             dbcur = dbcon.cursor()
             dbcur.execute("DROP TABLE IF EXISTS rel_src")
             dbcur.execute("VACUUM")
+            dbcur.execute("DROP TABLE IF EXISTS rel_url")
+            dbcur.execute("VACUUM")
+
             dbcon.commit()
 
             control.infoDialog(control.lang(30511).encode('utf-8'))
@@ -863,8 +873,20 @@ class sources:
         try: self.hostlqDict = [i.lower() for i in reduce(lambda x, y: x+y, self.hostlqDict)]
         except: pass
 
+        try:
+            self.hostDict = urlresolver.relevant_resolvers(order_matters=True)
+            self.hostDict = [i.domains for i in self.hostDict if not '*' in i.domains]
+            self.hostDict = [i.lower() for i in reduce(lambda x, y: x+y, self.hostDict)]
+            self.hostDict = [x for y,x in enumerate(self.hostDict) if x not in self.hostDict[:y]]
+        except:
+            self.hostDict = []
+
+        #for i in self.hostDict:
+        #    control.log('##### SOURCES DICTY: %s' % i )
+
         self.hostsdfullDict = self.hostprDict + self.hosthqDict + self.hostmqDict + self.hostlqDict
+        #for i in self.hostsdfullDict:
+        #    control.log('##### SOURCES DICTY2: %s' % i )
+        #self.hostsdfullDict = self.hostDict
 
         self.hosthdfullDict = self.hostprDict + self.hosthdDict
-
-

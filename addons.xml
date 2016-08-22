@@ -133,7 +133,7 @@ Quality of the sound is (128k AAC, 320k MP3), hear the difference for yourself.
   </extension>
 </addon>
 
-<addon id="plugin.video.gClone" name="gClone - GENESIS Clone"  version="2016.05.15" provider-name="NVTTeam" >
+<addon id="plugin.video.gClone" name="gClone - GENESIS Clone"  version="2016.08.22" provider-name="NVTTeam" >
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="script.module.requests" version="1.0.0" />

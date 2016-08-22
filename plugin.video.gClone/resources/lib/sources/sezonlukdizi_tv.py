@@ -23,7 +23,6 @@ import re,urllib,urlparse,json
 from resources.lib.libraries import cleantitle
 from resources.lib.libraries import cloudflare
 from resources.lib.libraries import client
-from resources.lib.libraries import client2
 from resources.lib.libraries import cache
 from resources.lib.libraries import control
 
@@ -56,7 +55,7 @@ class source:
         try:
             url = urlparse.urljoin(self.base_link, self.search_link)
 
-            result =  client2.http_get(url)
+            result =  client.source(url)
             result = re.compile('{(.+?)}').findall(result)
 
             result = [(re.findall('u\s*:\s*(?:\'|\")(.+?)(?:\'|\")', i), re.findall('d\s*:\s*(?:\'|\")(.+?)(?:\'|\")', i)) for i in result]
@@ -85,7 +84,7 @@ class source:
 
             url = urlparse.urljoin(self.base_link, url)
 
-            result = client2.http_get(url)
+            result = client.source(url)
             result = re.sub(r'[^\x00-\x7F]+', ' ', result)
 
             pages = []
@@ -97,14 +96,14 @@ class source:
             try:
                 r = client.parseDOM(result, 'div', attrs = {'id': 'playerMenu'})[0]
                 r = client.parseDOM(r, 'div', ret='data-id', attrs = {'class': 'item'})[0]
-                r = cloudflare.source(urlparse.urljoin(self.base_link, self.video_link), post=urllib.urlencode( {'id': r} ))
+                r = client.request(urlparse.urljoin(self.base_link, self.video_link), post=urllib.urlencode( {'id': r} ))
                 pages.append(client.parseDOM(r, 'iframe', ret='src')[0])
             except:
                 pass
 
             for page in pages:
                 try:
-                    result = client2.http_get(page)
+                    result = client.source(page)
 
                     captions = re.search('kind\s*:\s*(?:\'|\")captions(?:\'|\")', result)
                     if not captions: raise Exception()
@@ -127,10 +126,10 @@ class source:
     def resolve(self, url):
         try:
             #url = client.request(url, output='geturl')
-            if 'sezonlukdizi.com' in url: url = client2.http_get(url,allow_redirect=False)
+            if 'sezonlukdizi.com' in url: url = client.request(url, output='geturl')
             control.log('############ SEZONLUKIDZ res-0 %s' % url)
-            url = client2.http_get(url,allow_redirect=False)
-            control.log('############ SEZONLUKIDZ res-1 %s' % url)
+            url = client.request(url, output='geturl')
+            # control.log('############ SEZONLUKIDZ res-1 %s' % url)
             if 'requiressl=yes' in url: url = url.replace('http://', 'https://')
             #else: url = url.replace('https://', 'http://')
             return url

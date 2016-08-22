@@ -72,7 +72,7 @@ msgstr "Certifikati"
 
 msgctxt "#30025"
 msgid "Featured"
-msgstr "Oblikovano"
+msgstr "Povdarjeni"
 
 msgctxt "#30026"
 msgid "People Watching"
@@ -84,7 +84,7 @@ msgstr "Najbolj Poularni"
 
 msgctxt "#30028"
 msgid "Most Voted"
-msgstr "Najvišje Glasovano"
+msgstr "Najvišje Glasovani"
 
 msgctxt "#30029"
 msgid "Box Office"
@@ -108,7 +108,7 @@ msgstr "Priljubljeni"
 
 msgctxt "#30034"
 msgid "People Search"
-msgstr "Iskanje Oseb"
+msgstr "Iskanje Igralcev"
 
 msgctxt "#30035"
 msgid "Search"
@@ -172,7 +172,7 @@ msgstr "Priljubljeno"
 
 msgctxt "#30065"
 msgid "People Search"
-msgstr "Iskanje Oseb"
+msgstr "Iskanje Igralcev"
 
 msgctxt "#30066"
 msgid "Search"

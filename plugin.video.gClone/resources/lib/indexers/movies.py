@@ -62,8 +62,8 @@ class movies:
         self.tmdb_image = 'http://image.tmdb.org/t/p/original'
         self.tmdb_poster = 'http://image.tmdb.org/t/p/w500'
 
-        #self.persons_link = 'http://api.themoviedb.org/3/search/person?api_key=%s&query=%s&include_adult=false&page=1' % (self.tmdb_key, '%s')
-        #self.personlist_link = 'http://api.themoviedb.org/3/person/popular?api_key=%s&page=%s' % (self.tmdb_key, '%s')
+        self.persons_link = 'http://www.imdb.com/search/name?count=100&name=%s'
+        self.personlist_link = 'http://www.imdb.com/search/name?count=100&gender=male,female'
         self.genres_tab = [('Action', 'action'), ('Adventure', 'adventure'), ('Animation', 'animation'),('Biography', 'biography'),
                            ('Comedy', 'comedy'), ('Crime', 'crime'), ('Drama', 'drama'),('Family', 'family'), ('Fantasy', 'fantasy'),
                            ('History', 'history'), ('Horror', 'horror'),('Music ', 'music'), ('Musical', 'musical'), ('Mystery', 'mystery'),
@@ -90,7 +90,7 @@ class movies:
         self.genre_link = 'http://www.imdb.com/search/title?title_type=feature,tv_movie&languages=en&num_votes=100,&genres=%s&sort=moviemeter,asc&count=20&start=1'
         self.year_link = 'http://www.imdb.com/search/title?title_type=feature,tv_movie&languages=en&num_votes=100,&production_status=released&year=%s&sort=moviemeter,asc&count=20&start=1'
 
-        self.person_link = 'http://api.themoviedb.org/3/discover/movie?api_key=%s&with_people=%s&primary_release_date.lte=%s&sort_by=primary_release_date.desc&page=1' % ('%s', '%s', self.today_date)
+        self.person_link = 'http://www.imdb.com/search/title?title_type=feature,tv_movie&production_status=released&role=%s&sort=year,desc&count=40&start=1'
         self.certification_link = 'http://api.themoviedb.org/3/discover/movie?api_key=%s&certification=%s&certification_country=US&primary_release_date.lte=%s&page=1' % ('%s', '%s', self.today_date)
 
         self.scn_link = 'http://predb.me'
@@ -228,7 +228,7 @@ class movies:
             if (self.query == None or self.query == ''): return
 
             url = self.persons_link % urllib.quote_plus(self.query)
-            self.list = cache.get(self.tmdb_person_list, 0, url)
+            self.list = cache.get(self.imdb_person_list, 0, url)
 
             for i in range(0, len(self.list)): self.list[i].update({'action': 'movies'})
             self.addDirectory(self.list)
@@ -265,17 +265,9 @@ class movies:
         return self.list
 
 
+
     def persons(self):
-        personlists = []
-
-        for i in range(1, 5):
-            try:
-                self.list = []
-                personlists += cache.get(self.tmdb_person_list, 24, self.personlist_link % str(i))
-            except:
-                pass
-
-        self.list = personlists
+        self.list = cache.get(self.imdb_person_list, 24, self.personlist_link)
         for i in range(0, len(self.list)): self.list[i].update({'action': 'movies'})
         self.addDirectory(self.list)
         return self.list
@@ -514,18 +506,22 @@ class movies:
 
             result = result.replace('\n','')
             result = result.decode('iso-8859-1').encode('utf-8')
-            items = client.parseDOM(result, 'tr', attrs = {'class': '.+?'})
+            #items = client.parseDOM(result, 'tr', attrs = {'class': '.+?'})
+            #items += client.parseDOM(result, 'div', attrs = {'class': 'list_item.+?'})
+            items = client.parseDOM(result, 'div', attrs = {'class': 'lister-item mode-advanced'})
             items += client.parseDOM(result, 'div', attrs = {'class': 'list_item.+?'})
         except:
             return
 
         try:
-            next = client.parseDOM(result, 'span', attrs = {'class': 'pagination'})
-            next += client.parseDOM(result, 'div', attrs = {'class': 'pagination'})
-            name = client.parseDOM(next[-1], 'a')[-1]
-            if 'laquo' in name: raise Exception()
-            next = client.parseDOM(next, 'a', ret='href')[-1]
-            next = url.replace(urlparse.urlparse(url).query, urlparse.urlparse(next).query)
+            next = client.parseDOM(result, 'a', ret='href', attrs = {'class': 'lister-page-next.+?'})
+
+            if len(next) == 0:
+                next = client.parseDOM(result, 'div', attrs = {'class': 'pagination'})[0]
+                next = zip(client.parseDOM(next, 'a', ret='href'), client.parseDOM(next, 'a'))
+                next = [i[0] for i in next if 'Next' in i[1]]
+
+            next = url.replace(urlparse.urlparse(url).query, urlparse.urlparse(next[0]).query)
             next = client.replaceHTMLCodes(next)
             next = next.encode('utf-8')
         except:
@@ -540,8 +536,9 @@ class movies:
                 title = client.replaceHTMLCodes(title)
                 title = title.encode('utf-8')
 
-                year = client.parseDOM(item, 'span', attrs = {'class': 'year_type'})[0]
-                year = re.compile('(\d{4})').findall(year)[-1]
+                year = client.parseDOM(item, 'span', attrs = {'class': 'lister-item-year.+?'})
+                year += client.parseDOM(item, 'span', attrs = {'class': 'year_type'})
+                year = re.findall('(\d{4})', year[0])[0]
                 year = year.encode('utf-8')
 
                 if int(year) > int((self.datetime).strftime('%Y')): raise Exception()
@@ -551,42 +548,40 @@ class movies:
                 except: pass
 
                 imdb = client.parseDOM(item, 'a', ret='href')[0]
-                imdb = 'tt' + re.sub('[^0-9]', '', imdb.rsplit('tt', 1)[-1])
+                imdb = re.findall('(tt\d*)', imdb)[0]
                 imdb = imdb.encode('utf-8')
 
-                poster = '0'
-                try: poster = client.parseDOM(item, 'img', ret='src')[0]
-                except: pass
                 try: poster = client.parseDOM(item, 'img', ret='loadlate')[0]
-                except: pass
-                if not ('_SX' in poster or '_SY' in poster): poster = '0'
-                poster = re.sub('_SX\d*|_SY\d*|_CR\d+?,\d+?,\d+?,\d*','_SX500', poster)
+                except: poster = '0'
+                poster = re.sub('(?:_SX\d+?|)(?:_SY\d+?|)(?:_UX\d+?|)_CR\d+?,\d+?,\d+?,\d*','_SX500', poster)
                 poster = client.replaceHTMLCodes(poster)
                 poster = poster.encode('utf-8')
 
-                genre = client.parseDOM(item, 'span', attrs = {'class': 'genre'})
-                genre = client.parseDOM(genre, 'a')
-                genre = ' / '.join(genre)
+                try: genre = client.parseDOM(item, 'span', attrs = {'class': 'genre'})[0]
+                except: genre = '0'
+                genre = ' / '.join([i.strip() for i in genre.split(',')])
                 if genre == '': genre = '0'
                 genre = client.replaceHTMLCodes(genre)
                 genre = genre.encode('utf-8')
 
-                try: duration = re.compile('(\d+?) mins').findall(item)[-1]
+                try: duration = re.findall('(\d+?) min(?:s|)', item)[-1]
                 except: duration = '0'
-                duration = client.replaceHTMLCodes(duration)
                 duration = duration.encode('utf-8')
 
+                rating = '0'
                 try: rating = client.parseDOM(item, 'span', attrs = {'class': 'rating-rating'})[0]
-                except: rating = '0'
+                except: pass
                 try: rating = client.parseDOM(rating, 'span', attrs = {'class': 'value'})[0]
                 except: rating = '0'
+                try: rating = client.parseDOM(item, 'div', ret='data-value', attrs = {'class': '.*?imdb-rating'})[0]
+                except: pass
                 if rating == '' or rating == '-': rating = '0'
                 rating = client.replaceHTMLCodes(rating)
                 rating = rating.encode('utf-8')
 
-                try: votes = client.parseDOM(item, 'div', ret='title', attrs = {'class': 'rating rating-list'})[0]
+                try: votes = client.parseDOM(item, 'div', ret='title', attrs = {'class': '.*?rating-list'})[0]
                 except: votes = '0'
-                try: votes = re.compile('[(](.+?) votes[)]').findall(votes)[0]
+                try: votes = re.findall('\((.+?) vote(?:s|)\)', votes)[0]
                 except: votes = '0'
                 if votes == '': votes = '0'
                 votes = client.replaceHTMLCodes(votes)
@@ -594,36 +589,28 @@ class movies:
 
                 try: mpaa = client.parseDOM(item, 'span', attrs = {'class': 'certificate'})[0]
                 except: mpaa = '0'
-                try: mpaa = client.parseDOM(mpaa, 'span', ret='title')[0]
-                except: mpaa = '0'
                 if mpaa == '' or mpaa == 'NOT_RATED': mpaa = '0'
                 mpaa = mpaa.replace('_', '-')
                 mpaa = client.replaceHTMLCodes(mpaa)
                 mpaa = mpaa.encode('utf-8')
 
-                director = client.parseDOM(item, 'span', attrs = {'class': 'credit'})
-                director += client.parseDOM(item, 'div', attrs = {'class': 'secondary'})
-                try: director = [i for i in director if 'Director:' in i or 'Dir:' in i][0]
+                try: director = re.findall('Director(?:s|):(.+?)(?:\||</div>)', item)[0]
                 except: director = '0'
-                director = director.split('With:', 1)[0].strip()
                 director = client.parseDOM(director, 'a')
                 director = ' / '.join(director)
                 if director == '': director = '0'
                 director = client.replaceHTMLCodes(director)
                 director = director.encode('utf-8')
 
-                cast = client.parseDOM(item, 'span', attrs = {'class': 'credit'})
-                cast += client.parseDOM(item, 'div', attrs = {'class': 'secondary'})
-                try: cast = [i for i in cast if 'With:' in i or 'Stars:' in i][0]
+                try: cast = re.findall('Stars(?:s|):(.+?)(?:\||</div>)', item)[0]
                 except: cast = '0'
-                cast = cast.split('With:', 1)[-1].strip()
                 cast = client.replaceHTMLCodes(cast)
                 cast = cast.encode('utf-8')
                 cast = client.parseDOM(cast, 'a')
                 if cast == []: cast = '0'
 
                 plot = '0'
-                try: plot = client.parseDOM(item, 'span', attrs = {'class': 'outline'})[0]
+                try: plot = client.parseDOM(item, 'p', attrs = {'class': 'text-muted'})[0]
                 except: pass
                 try: plot = client.parseDOM(item, 'div', attrs = {'class': 'item_description'})[0]
                 except: pass
@@ -648,10 +635,15 @@ class movies:
 
 
     def imdb_user_list(self, url):
+        print("Items", url)
+
         try:
             result = client.request(url)
             result = result.decode('iso-8859-1').encode('utf-8')
             items = client.parseDOM(result, 'div', attrs = {'class': 'list_name'})
+            #control.log("##################><><><><> trakt_list item  %s" % item)
+            print("Items",items)
+
         except:
             pass
 
@@ -671,8 +663,40 @@ class movies:
             except:
                 pass
 
+        self.list = sorted(self.list, key=lambda k: re.sub('(^the |^a )', '', k['name'].lower()))
         return self.list
 
+    def imdb_person_list(self, url):
+        try:
+            result = client.request(url)
+            result = result.decode('iso-8859-1').encode('utf-8')
+            items = client.parseDOM(result, 'tr', attrs = {'class': '.+? detailed'})
+        except:
+            return
+
+        for item in items:
+            try:
+                name = client.parseDOM(item, 'a', ret='title')[0]
+                name = client.replaceHTMLCodes(name)
+                name = name.encode('utf-8')
+
+                url = client.parseDOM(item, 'a', ret='href')[0]
+                url = re.findall('(nm\d*)', url, re.I)[0]
+                url = self.person_link % url
+                url = client.replaceHTMLCodes(url)
+                url = url.encode('utf-8')
+
+                image = client.parseDOM(item, 'img', ret='src')[0]
+                if not ('._SX' in image or '._SY' in image): raise Exception()
+                image = re.sub('_SX\d*|_SY\d*|_CR\d+?,\d+?,\d+?,\d*','_SX500', image)
+                image = client.replaceHTMLCodes(image)
+                image = image.encode('utf-8')
+
+                self.list.append({'name': name, 'url': url, 'image': image})
+            except:
+                pass
+
+        return self.list
 
     def scn_list(self, url):
 
@@ -1109,7 +1133,8 @@ class movies:
                 cm.append((control.lang(30211).encode('utf-8'), 'RunPlugin(%s?action=movieToLibrary&name=%s&title=%s&year=%s&imdb=%s&tmdb=%s)' % (sysaddon, sysname, systitle, year, imdb, tmdb)))
 
                 cm.append((control.lang(30212).encode('utf-8'), 'RunPlugin(%s?action=addView&content=movies)' % sysaddon))
-
+                #Trailer
+                #cm.append((control.lang(33003).encode('utf-8'),'RunPlugin(%s?action=trailer&name=%s)' % (sysaddon, sysname)))
 
                 item = control.item(label=label, iconImage=poster, thumbnailImage=poster)
 

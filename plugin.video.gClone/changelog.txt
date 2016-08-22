@@ -1,4 +1,11 @@
 ------------------------
+gClone v2016.08.22
+------------------------
+Download fix - if download folder is not set, display settings
+Rources fix - movie25, tunemovie, dayt.se
+TVShows - add section networks (copy fro
+
+------------------------
 gClone v2016.05.15
 ------------------------
 Small Fix - putlocker, muchmovies

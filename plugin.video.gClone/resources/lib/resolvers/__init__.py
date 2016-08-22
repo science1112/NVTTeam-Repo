@@ -25,7 +25,7 @@ from resources.lib.libraries import client
 from resources.lib.libraries import control
 from resources.lib.resolvers import realdebrid
 from resources.lib.resolvers import premiumize
-
+import urlresolver
 
 
 def request(url):
@@ -46,6 +46,25 @@ def request(url):
         if url.startswith('rtmp'):
             if len(re.compile('\s*timeout=(\d*)').findall(url)) == 0: url += ' timeout=10'
             return url
+
+        #if 'openload' in url:
+        #    return
+
+        try:
+            z=False
+            hmf = urlresolver.HostedMediaFile(url,include_disabled=True, include_universal=False)
+            if hmf:
+                print 'yay! we can resolve this one'
+                z = hmf.resolve()
+            else:
+                print 'sorry :( no resolvers available to handle this one.'
+
+            control.log("!!!!!!!!! OK #urlresolver#  URL %s " % z)
+
+            if z !=False : return z
+        except Exception as e:
+            control.log("!!!!!!!!! ERRR #urlresolver#  URL %s " % url)
+            pass
 
         #u = client.shrink_host(url)
         u = urlparse.urlparse(url).netloc
@@ -88,6 +107,9 @@ def info():
         'quality': 'High',
         'captcha': False,
         'a/c': True
+    }, {
+        'class': 'okru',
+        'netloc': ['ok.ru']
     }, {
         'class': '_180upload',
         'netloc': ['180upload.com'],
