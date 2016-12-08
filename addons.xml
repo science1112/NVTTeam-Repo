@@ -331,7 +331,7 @@ Quality of the sound is (128k AAC, 320k MP3), hear the difference for yourself.
 	</extension>
 </addon
 
-<addon id="plugin.video.zen" version="1.4.3" name=" Zen" provider-name="Zen">
+<addon id="plugin.video.zen" version="1.4.4" name=" Zen" provider-name="Zen">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.zen.artwork" />

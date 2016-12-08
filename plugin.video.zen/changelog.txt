@@ -1,5 +1,8 @@
-[B]1.4.3[/B]
+[B]1.4.4[/B]
 - Set to Slovenian
+
+[B]1.4.3[/B]
+- Update Moviegee
 
 [B]1.4.23[/B]
 - Updated Providers
