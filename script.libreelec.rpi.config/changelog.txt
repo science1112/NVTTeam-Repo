@@ -1,3 +1,7 @@
+ v2.0.0
+-Added suport for RPi3
+-Changed name to LibreElec
+
  v1.0.6
 -Add setting "Overheat protection limit (temp_limit)"
 

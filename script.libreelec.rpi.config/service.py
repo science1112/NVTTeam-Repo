@@ -81,7 +81,7 @@ class Main(object):
                 
         if ('force_turbo' in config and config['force_turbo'] == 1 and
             'over_voltage' in config and config['over_voltage'] > 0):
-            if not xbmcgui.Dialog().yesno("NVTTeam RPi Config WARNING!!",
+            if not xbmcgui.Dialog().yesno("libreelec RPi Config WARNING!!",
                                           "Overvolting with dynamic overclock disabled",
                                           "will void your warranty!!",
                                           "Continue, or fix by enabling dynamic overclock?",
@@ -93,7 +93,7 @@ class Main(object):
                 utils.log("Warranty warning was ignored")
 
         if 'max_usb_current' in config and config['max_usb_current'] == 1:
-            if not xbmcgui.Dialog().yesno("NVTTeam RPi Config WARNING!",
+            if not xbmcgui.Dialog().yesno("LibreElec RPi Config WARNING!",
                                           "To output 1.2A from the USB ports",
                                           "you will need to use a good 2A power supply.",
                                           "Are you sure you want to set max_usb_current?"):
