@@ -133,30 +133,6 @@ Quality of the sound is (128k AAC, 320k MP3), hear the difference for yourself.
   </extension>
 </addon>
 
-<addon id="plugin.video.gClone" name="gClone - GENESIS Clone"  version="2016.08.23" provider-name="NVTTeam" >
-	<requires>
-		<import addon="xbmc.python" version="2.1.0" />
-		<import addon="script.module.requests" version="1.0.0" />
-		<import addon="script.module.metahandler" optional="true" />
-		<import addon="plugin.video.youtube" optional="true" />
-
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="default.py">
-		<provides>video</provides>
-	</extension>
-	<extension point="xbmc.service" library="service.py" start="startup" />
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">NVTTeam gClone - GENESIS Clone</summary>
-		<description lang="en">NVTTeam gClone - Clone Of GENESIS by Lambda</description>
-		<disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.
-		</disclaimer>
-		<forum></forum>
-		<source></source>
-		<website></website>
-		<platform>all</platform>
-	</extension>
-</addon>
-
 
 <addon id="plugin.video.nvtpopcorntime" name="[COLOR cyan]NVT Popcorn Time[/COLOR]" version="2.1.0" provider-name="NVTTeam">
     <requires>
