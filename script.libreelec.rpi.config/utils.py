@@ -39,7 +39,8 @@ OVERCLOCK_PRESETS = {'Disabled'    : (None, None, None, None, None),
                      'Medium'      : ( 900,  333,  450,    2,    0),
                      'High'        : ( 950,  450,  450,    6,    0),
                      'Turbo'       : (1000,  500,  500,    6,    0),
-                     'RPi2,3 Only' : (1000,  500,  500,    2,    0)}
+                     'RPi2 Only'   : (1000,  500,  500,    2,    0),
+                     'RPi3 Only'   : (1350,  500,  500,    4,    0)}
 					 
 OTHER_PROPERTIES = ('force_turbo',
                     'initial_turbo',
