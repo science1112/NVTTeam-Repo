@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
     <category label="Overclocking">
-        <setting label="Preset" type="labelenum" id="overclock_preset" values="Custom|Disabled|Turbo|High|Medium|Modest|RPi2,3 Only" default="Disabled"/>
+        <setting label="Preset" type="labelenum" id="overclock_preset" values="Custom|Disabled|Turbo|High|Medium|Modest|[/COLOR][COLOR orange]RPi2 Only[/COLOR]|[/COLOR][COLOR red]RPi3 Only[/COLOR]" default="Disabled"/>
 
         <setting label="[COLOR grey2]ARM frequency (arm_freq) = [/COLOR][COLOR white]800[/COLOR]" type="lsep" visible="eq(-1,5)" subsetting="true"/>
         <setting label="[COLOR grey2]ARM frequency (arm_freq) = [/COLOR][COLOR white]900[/COLOR]" type="lsep" visible="eq(-2,4)" subsetting="true"/>
