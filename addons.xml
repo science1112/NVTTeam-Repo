@@ -430,7 +430,7 @@ Quality of the sound is (128k AAC, 320k MP3), hear the difference for yourself.
 
 <addon
   id="skin.aeon.nox.nvtteam"
-  version="7.0.0-3.0.7"
+  version="7.0.0-3.0.8"
   name="Aeon Nox 5: NVT"
   provider-name="NVT">
 	<requires>
@@ -507,7 +507,7 @@ Quality of the sound is (128k AAC, 320k MP3), hear the difference for yourself.
 		<description lang="th_TH">การออกแบบใหม่หมดจด เพื่อสร้างรูปลักษณ์ทันสมัย, ​​ขณะที่ยังคงความรู้สึกคลาสสิคของ Aeon.</description>
 		<description lang="vi_VN">Thiết kế lại hoàn toàn để tạo nên một phong cách hiện đại, trong khi đó vẫn duy trì một cảm giác Aeon cổ điển.</description>
 		<platform>all</platform>
-		<forum>http://forum.kodi.tv/</forum>
+		<forum></forum>
 	</extension>
 </addon>
 

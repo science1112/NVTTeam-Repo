@@ -1,3 +1,6 @@
+[B]7.0.0-3.0.8[/B]
+- Update Fix
+
 [B]7.0.0-3.0.7[/B]
 - Fixes for some Widget issues
 - Updates for Extended Info calls
