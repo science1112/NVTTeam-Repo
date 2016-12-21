@@ -511,7 +511,20 @@ Quality of the sound is (128k AAC, 320k MP3), hear the difference for yourself.
 	</extension>
 </addon>
 
-
+<addon
+  id="visualization.shadertoy"
+  version="1.1.5b"
+  name="Shadertoy"
+  provider-name="Team-Kodi">
+  <extension
+    point="xbmc.player.musicviz"
+    library_android="@LIBRARY_FILENAME@"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Visualisations from Shadertoy</summary>
+    <description lang="en">Visualisations from Shadertoy</description>
+    <platform>android</platform>
+  </extension>
+</addon>
 
 
 </addons>
