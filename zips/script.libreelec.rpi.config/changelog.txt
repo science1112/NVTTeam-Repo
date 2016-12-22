@@ -1,5 +1,8 @@
+ v2.0.1
+-Added suport for RPi3 Overclock 
+
  v2.0.0
--Added suport for RPi3
+-Added suport for RPi2
 -Changed name to LibreElec
 
  v1.0.6
