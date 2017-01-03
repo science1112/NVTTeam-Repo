@@ -1,0 +1,10 @@
+ v1.0.1
+-Set to EX-YU links
+
+ v1.0.0
+-Changed: Set the default playback in the settings. Default is F4mProxy
+-Added: Set a filter for the results in the settings, like 'Sky' for everything with Sky in the name
+-Added: Multiple filter sets, choose between filters without typing
+-Added: Check if the list is working, by checking the first 5 items
+-Added: Search all the daily links for what you set as filter
+-Fixed: Some bugs
