@@ -24,32 +24,26 @@ from resources.lib.modules.common import  random_agent, quality_tag
 
 class source:
 	def __init__(self):
-		self.base_link = 'http://21movies.online'
-		self.movie_link = '/movies/%s/'
-		self.ep_link = '/episodes/%s/'
+		self.base_link = 'http://www.solarmovies.ag'
+		self.movie_link = '/%s.html'
+		self.ep_link = '/%s.html'
 
 	def movie(self, imdb, title, year):
 		self.zen_url = []
 		try:
 			headers = {'User-Agent': random_agent()}
-			# print("WATCHCARTOON")
+			
 			title = cleantitle.getsearch(title)
 			title = title.replace(' ','-')
+			title = title + "-" + year
 			query = self.movie_link % title
-			query = urlparse.urljoin(self.base_link, query)
-			r = BeautifulSoup(requests.get(query, headers=headers, timeout=10).content)
-			r = r.findAll('iframe')
-            # print ("ANIMETOON s1",  r)
-			for u in r:
-				u = u['src'].encode('utf-8')
-				if u.startswith("//"): u = "http:" + u
-				# print("BLACKCINEMA PASSED", u)
-				self.zen_url.append(u)
-			return self.zen_url.append(u)
+			u = urlparse.urljoin(self.base_link, query)
+			self.zen_url.append(u)
+			return self.zen_url
 		except:
 			return
 			
-	# http://blackcinema.org/episodes/ash-vs-evil-dead-1x2/		
+	
 	def tvshow(self, imdb, tvdb, tvshowtitle, year):
 		try:
 			url = {'tvshowtitle': tvshowtitle, 'year': year}
@@ -69,17 +63,11 @@ class source:
 			self.zen_url = []
 			title = cleantitle.getsearch(title)
 			title = title.replace(' ','-')
-			query = title + "-" + season + "x" + episode
+			query = title + "-season-" + season + "-episode-" + episode
 			query= self.ep_link % query
-			query = urlparse.urljoin(self.base_link, query)
-			r = BeautifulSoup(requests.get(query, headers=headers, timeout=10).content)
-			r = r.findAll('iframe')
-            # print ("ANIMETOON s1",  r)
-			for u in r:
-				u = u['src'].encode('utf-8')
-				if u.startswith("//"): u = "http:" + u
-				
-				self.zen_url.append(u)
+			# print("SOLAR query", query)
+			u = urlparse.urljoin(self.base_link, query)
+			self.zen_url.append(u)
 			return self.zen_url
 		except:
 			return
@@ -92,12 +80,21 @@ class source:
 			for url in self.zen_url:
 				if url == None: return
 				
-				r = requests.get(url, headers=headers, timeout=10).text
+				html = requests.get(url, headers=headers, timeout=10).text
 				
-				match = re.compile('file:\s*"(.+?)",label:"(.+?)",').findall(r)
-				for href, quality in match:
-					quality = quality_tag(quality)
-					sources.append({'source': 'gvideo', 'quality':quality, 'provider': 'Bcinema', 'url': href, 'direct': True, 'debridonly': False})
+				match = re.compile('<a href="[^"]+go.php\?url=([^"]+)" target="_blank">').findall(html)
+				for url in match:
+					try:
+						# print("SOLAR SOURCE", url)
+						host = re.findall('([\w]+[.][\w]+)$', urlparse.urlparse(url.strip().lower()).netloc)[0]
+						host = host.encode('utf-8')			
+						if not host in hostDict: raise Exception()
+						quality = "SD"
+							# print("OpenMovies SOURCE", stream_url, label)
+						sources.append({'source': host, 'quality':quality, 'provider': 'Solar', 'url': url, 'direct': False, 'debridonly': False})
+					except:
+						pass
+
 
 			return sources
 		except:
@@ -105,5 +102,6 @@ class source:
 
 
 	def resolve(self, url):
-		return url
+			return url
+
 

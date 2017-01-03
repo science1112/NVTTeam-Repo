@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 
 msgctxt "#33001"
-msgid "[B]Url Resolver[/B] : Settings"
-msgstr "[B]Url Resolver[/B] : Nastavitve"
+msgid "[B]Url Resolver[/B] : Nastavitve"
+msgstr ""
 
 msgctxt "#330011"
-msgid "[B]Real Debrid[/B] : Settings"
-msgstr "[B]Real Debrid[/B] : Nastavitve"
+msgid "[B]Real Debrid[/B] : Nastavitve"
+msgstr ""
 
 msgctxt "#30421"
 msgid "Adding to library..."

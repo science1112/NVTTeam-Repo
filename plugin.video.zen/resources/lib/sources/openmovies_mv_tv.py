@@ -24,7 +24,7 @@ from resources.lib.modules.common import  random_agent, quality_tag
 
 class source:
 	def __init__(self):
-		self.base_link = 'http://21movies.online'
+		self.base_link = 'http://openloadmovies.net'
 		self.movie_link = '/movies/%s/'
 		self.ep_link = '/episodes/%s/'
 
@@ -32,24 +32,18 @@ class source:
 		self.zen_url = []
 		try:
 			headers = {'User-Agent': random_agent()}
-			# print("WATCHCARTOON")
+			
 			title = cleantitle.getsearch(title)
 			title = title.replace(' ','-')
+			title = title + "-" + year
 			query = self.movie_link % title
-			query = urlparse.urljoin(self.base_link, query)
-			r = BeautifulSoup(requests.get(query, headers=headers, timeout=10).content)
-			r = r.findAll('iframe')
-            # print ("ANIMETOON s1",  r)
-			for u in r:
-				u = u['src'].encode('utf-8')
-				if u.startswith("//"): u = "http:" + u
-				# print("BLACKCINEMA PASSED", u)
-				self.zen_url.append(u)
-			return self.zen_url.append(u)
+			u = urlparse.urljoin(self.base_link, query)
+			self.zen_url.append(u)
+			return self.zen_url
 		except:
 			return
 			
-	# http://blackcinema.org/episodes/ash-vs-evil-dead-1x2/		
+	
 	def tvshow(self, imdb, tvdb, tvshowtitle, year):
 		try:
 			url = {'tvshowtitle': tvshowtitle, 'year': year}
@@ -71,15 +65,9 @@ class source:
 			title = title.replace(' ','-')
 			query = title + "-" + season + "x" + episode
 			query= self.ep_link % query
-			query = urlparse.urljoin(self.base_link, query)
-			r = BeautifulSoup(requests.get(query, headers=headers, timeout=10).content)
-			r = r.findAll('iframe')
-            # print ("ANIMETOON s1",  r)
-			for u in r:
-				u = u['src'].encode('utf-8')
-				if u.startswith("//"): u = "http:" + u
-				
-				self.zen_url.append(u)
+			u = urlparse.urljoin(self.base_link, query)
+			# print("OPENMOVIES SHOWS", u)
+			self.zen_url.append(u)
 			return self.zen_url
 		except:
 			return
@@ -92,12 +80,23 @@ class source:
 			for url in self.zen_url:
 				if url == None: return
 				
-				r = requests.get(url, headers=headers, timeout=10).text
+				html = requests.get(url, headers=headers, timeout=10).text
 				
-				match = re.compile('file:\s*"(.+?)",label:"(.+?)",').findall(r)
-				for href, quality in match:
-					quality = quality_tag(quality)
-					sources.append({'source': 'gvideo', 'quality':quality, 'provider': 'Bcinema', 'url': href, 'direct': True, 'debridonly': False})
+				match = re.search('sources\s*:\s*\[(.*?)\]', html, re.DOTALL)
+				if not match:	match = re.search('sources\s*:\s*\{(.*?)\}', html, re.DOTALL)
+				if match:
+					for match in re.finditer('''['"]?file['"]?\s*:\s*['"]([^'"]+)['"][^}]*['"]?label['"]?\s*:\s*['"]([^'"]*)''', match.group(1), re.DOTALL):
+						try:
+							stream_url, label = match.groups()
+							stream_url = stream_url.replace('\/', '/')
+							stream_url = stream_url.encode('utf-8')
+							
+
+							quality = quality_tag(label)
+							# print("OpenMovies SOURCE", stream_url, label)
+							sources.append({'source': 'gvideo', 'quality':quality, 'provider': 'Openmovies', 'url': stream_url, 'direct': True, 'debridonly': False})
+						except:
+							pass
 
 			return sources
 		except:
@@ -105,5 +104,11 @@ class source:
 
 
 	def resolve(self, url):
-		return url
+		try:
+			url = client.request(url, output='geturl')
+			if 'requiressl=yes' in url: url = url.replace('http://', 'https://')
+			else: url = url.replace('https://', 'http://')
+			return url
+		except:
+			return
 
