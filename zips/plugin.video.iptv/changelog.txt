@@ -1,6 +1,0 @@
- v1.0 
--Initial Release
-
- v1.1
--Added start/stop button on config - M3U Server
--Fixed some small bugs
