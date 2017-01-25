@@ -1,5 +1,42 @@
-[B]1.4.33b[/B]
-- Set To Slovenian
+[B]1.7.1[/B]
+- Setup for SLovenian Language
+
+
+[B]1.7.0[/B]
+- Improved overall code speed and scraper queries
+- Rewritten obsolete code
+- Fixed a bug that was preventing addon to work on Jarvis 
+- Scraper Fixes
+- Better overall source sorting: Debrid > Gvideo > Others (Debrid results will be always on top priority in the source lists)
+
+[B]1.6.8[/B]
+- Updates , fixes on major providers
+- Implemented various modules for cloudflare and better scraping
+
+[B]1.6.2[/B]
+- Updates , fixes on major providers
+
+[B]1.6.0[/B]
+- Checked, fixed , rewrite, and improvements to all the scrapers and calls
+
+[B]1.5.5[/B]
+- Update/fix providers and broken calls
+
+[B]1.5.4[/B]
+- new Providers
+
+[B]1.5.3[/B]
+Alluc account now uses username and password instead API KEY
+
+[B]1.5.2[/B]
+- New Providers
+
+[B]1.5.1[/B]
+- Update/fix providers
+- Fix Episodes Metadata
+
+[B]1.5.0[/B]
+- Update/fix providers
 
 [B]1.4.32[/B]
 - Hotfix Providers and customize settings
