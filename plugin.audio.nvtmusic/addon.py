@@ -5,27 +5,28 @@
 
 ##############LIBRARIES TO IMPORT AND SETTINGS####################
 
-import urllib,urllib2,urlparse,re,xbmcplugin,xbmcgui,xbmc,xbmcaddon,HTMLParser,time,datetime,os,xbmcvfs
+import urllib,urllib2,urlparse,re,xbmcplugin,xbmcgui,xbmc,xbmcaddon,time,datetime,os,xbmcvfs
 import json
 import random
 import requests
 import hashlib
+import cookielib
 import vkAuth
-h = HTMLParser.HTMLParser()
 
 import SimpleDownloader as downloader
 downloader = downloader.SimpleDownloader()
 from random import randint
 from mutagen.mp3 import MP3
-from mutagen.id3 import ID3
 import mutagen.id3
 
-addon_id = 'plugin.audio.nvtmusic'
+addon_id = 'plugin.audio.musicbox'
 selfAddon = xbmcaddon.Addon(id=addon_id)
 addonfolder = selfAddon.getAddonInfo('path')
 artfolder = '/resources/img/'
 translation = selfAddon.getLocalizedString
 datapath = xbmc.translatePath('special://profile/addon_data/%s' % addon_id ).decode("utf-8")
+
+VKCookie = os.path.join(datapath,'cookies.txt')
 
 def translate(text):
 	return translation(text).encode('utf-8')
@@ -34,60 +35,61 @@ def translate(text):
 #MAIN MENU
 
 def Main_menu():
-	#flag if a vk.com token is valid
-	validVKToken = False
-	
+	#flag if a vk.com cookie is valid
+	validVKCookie = False
+
 	#if empty vk.com email xor password
 	if bool(selfAddon.getSetting('vk_email')=="") ^ bool(selfAddon.getSetting('vk_password')==""):
 		dialog = xbmcgui.Dialog()
 		ok = dialog.ok(translate(30400),translate(30866))
-		selfAddon.setSetting('vk_token','')
 		xbmcaddon.Addon(addon_id).openSettings()
 		return	
 	#if empty vk.com email and password
 	elif selfAddon.getSetting('vk_email')=="" and selfAddon.getSetting('vk_password')=="":
-		selfAddon.setSetting('vk_token_email','')
-		selfAddon.setSetting('vk_token_password','')
-		selfAddon.setSetting('vk_token','')
+		selfAddon.setSetting('vk_auth_email','')
+		selfAddon.setSetting('vk_auth_password','')
+		if xbmcvfs.exists(VKCookie): xbmcvfs.delete(VKCookie)
 		#display vk.com account need message
-		dialog = xbmcgui.Dialog()
-		ok = dialog.ok(translate(30400),translate(30878))
-		xbmcaddon.Addon(addon_id).openSettings()
-		return
+		if selfAddon.getSetting('playing_type') == "0":
+			dialog = xbmcgui.Dialog()
+			ok = dialog.ok(translate(30400),translate(30878))
+			xbmcaddon.Addon(addon_id).openSettings()
+			return
 	#if credentials are given
 	else:
-		#check if user changed vk_email/vk_password or if vk_token_email/vk_token_password is empty (need reauth)
-		if selfAddon.getSetting('vk_token_email')!=selfAddon.getSetting('vk_email') or selfAddon.getSetting('vk_token_password')!=selfAddon.getSetting('vk_password'):
-			selfAddon.setSetting('vk_token_email','')
-			selfAddon.setSetting('vk_token_password','')
-			selfAddon.setSetting('vk_token','')
-		#check current token
-		if selfAddon.getSetting('vk_token'): validVKToken = vkAuth.isTokenValid(selfAddon.getSetting('vk_token'))
-		#if the token provided is not valid, login and generate a new one
-		if validVKToken != True:
-			#login in vk.com - get the token
+		#check if user changed vk_email/vk_password or if vk_auth_email/vk_auth_password is empty (need reauth)
+		if selfAddon.getSetting('vk_auth_email')!=selfAddon.getSetting('vk_email') or selfAddon.getSetting('vk_auth_password')!=selfAddon.getSetting('vk_password'):
+			selfAddon.setSetting('vk_auth_email','')
+			selfAddon.setSetting('vk_auth_password','')
+			if xbmcvfs.exists(VKCookie): xbmcvfs.delete(VKCookie)
+		#check current cookie
+		if xbmcvfs.exists(VKCookie): validVKCookie = vkAuth.isCookieValid(VKCookie)
+		else: validVKCookie = False
+		#if the cookie provided is not valid, login again
+		if validVKCookie != True:
+			#login in vk.com - get the cookie
 			email = selfAddon.getSetting('vk_email')
 			passw = selfAddon.getSetting('vk_password')
-			token = vkAuth.getToken(email, passw, 2648691, 'audio,offline')
+			try: auth_status = vkAuth.auth(email, passw)
+			except: auth_status = False
 			#check login status
-			if token == False:
+			if auth_status == False:
 				dialog = xbmcgui.Dialog()
 				ok = dialog.ok(translate(30400),translate(30867))
 				xbmcaddon.Addon(addon_id).openSettings()
 				return
 			else:
-				#test the new token
-				validVKToken = vkAuth.isTokenValid(token)
+				#test the new cookie
+				validVKCookie = vkAuth.isCookieValid(VKCookie)
 				#if there was an error, inform the user
-				if validVKToken != True:
+				if validVKCookie != True:
 					dialog = xbmcgui.Dialog()
-					ok = dialog.ok(translate(30400),translate(30868)+validVKToken)
+					ok = dialog.ok(translate(30400),translate(30867))
 					xbmcaddon.Addon(addon_id).openSettings()
 					return
 				else:
-					selfAddon.setSetting('vk_token_email',email)
-					selfAddon.setSetting('vk_token_password',passw)
-					selfAddon.setSetting('vk_token',token)
+					selfAddon.setSetting('vk_auth_email',email)
+					selfAddon.setSetting('vk_auth_password',passw)
 					notification(translate(30861),translate(30865),'4000',addonfolder+artfolder+'notif_vk.png')
 	
 	#everything should be fine now
@@ -124,14 +126,14 @@ def Recomendations(url):
 #DIGSTER	
 
 def Digster_menu():
-	addDir('[COLOR blue][B]'+translate(30112)+':[/B][/COLOR] '+['Adria','Australia','Austria','Belgium','Denmark','Estonia','Finland','France','Germany','Latvia','Lithuania','Mexico','Netherlands','New Zeland','Norway','Poland','Portugal','Romania','Spain','Sweden','Switzerland','United Kingdom','USA'][int(selfAddon.getSetting('digster_country'))],'',2,'',False)
+	addDir('[COLOR blue][B]'+translate(30112)+':[/B][/COLOR] '+['Adria','Denmark','Estonia','Finland','Latvia','Lithuania','Mexico','Netherlands','New Zeland','Norway','Portugal','Romania','Spain'][int(selfAddon.getSetting('digster_country'))],'',2,'',False)
 	addDir(translate(30425),'',3,'')
 	addDir(translate(30426),'genre',4,'')
 	addDir(translate(30427),'mood',4,'')
 	addDir(translate(30428),'suitable',4,'')
 
 def Digster_sections():
-	digster_domain = ['http://digster-adria.com/','http://www.digster.com.au/','http://www.digster.at/','http://nl.digster.be/','http://www.digster.dk/','http://digster.ee/','http://www.digster.fi/','http://www.digster.fr/','http://www.digsterplaylist.de/','http://digster.lv/','http://digster.lt/','http://digster.mx/','http://www.digster.nl/','http://www.digster.co.nz/','http://www.digster.no/','http://dev9.digster.umdev.se/','http://www.digster.pt/','http://www.digster.ro/','http://www.digster.es/','http://www.digster.se/','http://www.digster.ch/','http://www.digster.co.uk/','http://www.digster.fm/'][int(selfAddon.getSetting('digster_country'))]
+	digster_domain = ['http://digster-adria.com/','http://www.digster.dk/','http://digster.ee/','http://www.digster.fi/','http://digster.lv/','http://digster.lt/','http://digster.mx/','http://www.digster.nl/','http://www.digster.co.nz/','http://www.digster.no/','http://www.digster.pt/','http://www.digster.ro/','http://www.digster.es/'][int(selfAddon.getSetting('digster_country'))]
 	codigo_fonte = abrir_url(digster_domain+'api/2.0.0/sections')
 	decoded_data = json.loads(codigo_fonte)
 	for x in range(0, len(decoded_data['sections'])):
@@ -140,7 +142,7 @@ def Digster_sections():
 		addDir(title,'1',5,'',search_query = '&section='+slug)
 
 def Digster_categories(url):
-	digster_domain = ['http://digster-adria.com/','http://www.digster.com.au/','http://www.digster.at/','http://nl.digster.be/','http://www.digster.dk/','http://digster.ee/','http://www.digster.fi/','http://www.digster.fr/','http://www.digsterplaylist.de/','http://digster.lv/','http://digster.lt/','http://digster.mx/','http://www.digster.nl/','http://www.digster.co.nz/','http://www.digster.no/','http://dev9.digster.umdev.se/','http://www.digster.pt/','http://www.digster.ro/','http://www.digster.es/','http://www.digster.se/','http://www.digster.ch/','http://www.digster.co.uk/','http://www.digster.fm/'][int(selfAddon.getSetting('digster_country'))]
+	digster_domain = ['http://digster-adria.com/','http://www.digster.dk/','http://digster.ee/','http://www.digster.fi/','http://digster.lv/','http://digster.lt/','http://digster.mx/','http://www.digster.nl/','http://www.digster.co.nz/','http://www.digster.no/','http://www.digster.pt/','http://www.digster.ro/','http://www.digster.es/'][int(selfAddon.getSetting('digster_country'))]
 	codigo_fonte = abrir_url(digster_domain+'api/2.0.0/taxonomies/'+url)
 	decoded_data = json.loads(codigo_fonte)
 	for x in range(0, len(decoded_data['taxonomy'])):
@@ -150,7 +152,7 @@ def Digster_categories(url):
 
 def List_digster_playlists(url,search_query):
 	items_per_page = int(selfAddon.getSetting('items_per_page'))
-	digster_domain = ['http://digster-adria.com/','http://www.digster.com.au/','http://www.digster.at/','http://nl.digster.be/','http://www.digster.dk/','http://digster.ee/','http://www.digster.fi/','http://www.digster.fr/','http://www.digsterplaylist.de/','http://digster.lv/','http://digster.lt/','http://digster.mx/','http://www.digster.nl/','http://www.digster.co.nz/','http://www.digster.no/','http://dev9.digster.umdev.se/','http://www.digster.pt/','http://www.digster.ro/','http://www.digster.es/','http://www.digster.se/','http://www.digster.ch/','http://www.digster.co.uk/','http://www.digster.fm/'][int(selfAddon.getSetting('digster_country'))]
+	digster_domain = ['http://digster-adria.com/','http://www.digster.dk/','http://digster.ee/','http://www.digster.fi/','http://digster.lv/','http://digster.lt/','http://digster.mx/','http://www.digster.nl/','http://www.digster.co.nz/','http://www.digster.no/','http://www.digster.pt/','http://www.digster.ro/','http://www.digster.es/'][int(selfAddon.getSetting('digster_country'))]	
 	codigo_fonte = abrir_url(digster_domain+'api/2.0.0/playlists?posts_per_page='+str(items_per_page)+'&paged='+str(url)+search_query)
 	decoded_data = json.loads(codigo_fonte)
 	for x in range(0, len(decoded_data['playlists'])):
@@ -165,7 +167,7 @@ def List_digster_playlists(url,search_query):
 	if len(decoded_data['playlists'])>0: addDir(translate(30412),str(int(url)+1),5,addonfolder+artfolder+'next.png',search_query = search_query)
 
 def List_digster_tracks(url,country):
-	digster_domain = ['http://digster-adria.com/','http://www.digster.com.au/','http://www.digster.at/','http://nl.digster.be/','http://www.digster.dk/','http://digster.ee/','http://www.digster.fi/','http://www.digster.fr/','http://www.digsterplaylist.de/','http://digster.lv/','http://digster.lt/','http://digster.mx/','http://www.digster.nl/','http://www.digster.co.nz/','http://www.digster.no/','http://dev9.digster.umdev.se/','http://www.digster.pt/','http://www.digster.ro/','http://www.digster.es/','http://www.digster.se/','http://www.digster.ch/','http://www.digster.co.uk/','http://www.digster.fm/'][int(country)]
+	digster_domain = ['http://digster-adria.com/','http://www.digster.dk/','http://digster.ee/','http://www.digster.fi/','http://digster.lv/','http://digster.lt/','http://digster.mx/','http://www.digster.nl/','http://www.digster.co.nz/','http://www.digster.no/','http://www.digster.pt/','http://www.digster.ro/','http://www.digster.es/'][int(selfAddon.getSetting('digster_country'))]
 	codigo_fonte = abrir_url(digster_domain+'api/2.0.0/playlists/'+url)
 	decoded_data = json.loads(codigo_fonte)
 	for x in range(0, len(decoded_data['playlist']['tracks'])):
@@ -184,35 +186,31 @@ def List_digster_tracks(url,country):
 #WHATSONG SOUNDTRACK
 
 def List_whatsong_movies(url):
-	items_per_page = 12 #impossible to use a custom value currently
-	codigo_fonte = abrir_url_custom('http://www.what-song.com/ajax/getMoviePosters', headers = {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'X-Requested-With':'XMLHttpRequest', 'Referer':'http://www.what-song.com/'}, post = {'count': str(int(url)*items_per_page), 'type': 'recent'})
+	items_per_page = int(selfAddon.getSetting('items_per_page'))
+	codigo_fonte = abrir_url_custom('http://www.api.what-song.com/recent-movies?limit='+str(items_per_page)+'&skip='+str(int(items_per_page)*int(url)), headers = {'Referer': 'http://www.what-song.com/movies', 'Origin': 'http://www.what-song.com'})
 	decoded_data = json.loads(codigo_fonte)
+	total_items = decoded_data['total_items_count']
 	for x in range(0, len(decoded_data['data'])):
 		try:
 			name = decoded_data['data'][x]['title'].encode("utf8")
 			name_url = decoded_data['data'][x]['title'].encode("utf8").replace(" ", "-").replace(":", "").replace(",", "")
-			movie_id = decoded_data['data'][x]['id']
-			iconimage = 'http://www.what-song.com/images/posters/'+movie_id+'/400.jpg'
-			link = 'http://www.what-song.com/Movies/Soundtrack/'+movie_id+'/'+name_url
-			addDir(name,link,8,iconimage,type='soundtrack')
+			movie_id = str(decoded_data['data'][x]['_id'])
+			iconimage = decoded_data['data'][x]['poster_url']
+			addDir(name,movie_id,8,iconimage,type='soundtrack')
 		except: pass
 	#check if next page exist
-	try:
-		codigo_fonte = abrir_url_custom('http://www.what-song.com/ajax/getMoviePosters', headers = {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'X-Requested-With':'XMLHttpRequest', 'Referer':'http://www.what-song.com/'}, post = {'count': str((int(url)+1)*items_per_page)})
-		decoded_data = json.loads(codigo_fonte)
-		if len(decoded_data['data'])>0: addDir(translate(30412),str(int(url)+1),7,addonfolder+artfolder+'next.png')
-	except: pass
+	if int((int(url)+1)*items_per_page)<total_items: addDir(translate(30412),str(int(url)+1),7,addonfolder+artfolder+'next.png')
 
 def List_whatsong_tracks(url):
-	codigo_fonte = abrir_url(url)
-	match = re.findall('<td class="soundtrack-play-song">.*?<songtitle>(.*?)<.*?</songtitle>.*?<songartist>(.*?)</songartist>', codigo_fonte, re.DOTALL)
-	for track_name, artist in match:
-		artist = re.sub('<[^>]*>', '', artist)
-		artist = re.sub('\s+',' ', artist.strip()).replace("&amp;", "&")
-		track_name = re.sub('<[^>]*>', '', track_name)
-		track_name = re.sub('\s+',' ', track_name.strip()).replace("&amp;", "&")
-		if selfAddon.getSetting('track_resolver_method')=="0": addLink('[B]'+artist+'[/B] - '+track_name,'',39,addonfolder+artfolder+'no_cover.png',artist = artist,track_name = track_name,type = 'song')
-		elif selfAddon.getSetting('track_resolver_method')=="1": addDir('[B]'+artist+'[/B] - '+track_name,'1',26,addonfolder+artfolder+'no_cover.png',artist = artist,track_name = track_name,search_query = artist+' '+track_name)
+	codigo_fonte = abrir_url_custom('http://www.api.what-song.com/movie-info?movieID='+url, headers = {'Referer': 'http://www.what-song.com/movies', 'Origin': 'http://www.what-song.com'})
+	decoded_data = json.loads(codigo_fonte)
+	for x in range(0, len(decoded_data['data']['CompleteListOfSongs'])):
+		artist = decoded_data['data']['CompleteListOfSongs'][x]['artist']['name'].encode("utf8")
+		track_name = decoded_data['data']['CompleteListOfSongs'][x]['title'].encode("utf8")
+		try: iconimage = decoded_data['data']['CompleteListOfSongs'][x]['spotifyImg300']
+		except: iconimage = addonfolder+artfolder+'no_cover.png'
+		if selfAddon.getSetting('track_resolver_method')=="0": addLink('[B]'+artist+'[/B] - '+track_name,'',39,iconimage,artist = artist,track_name = track_name,type = 'song')
+		elif selfAddon.getSetting('track_resolver_method')=="1": addDir('[B]'+artist+'[/B] - '+track_name,'1',26,iconimage,artist = artist,track_name = track_name,search_query = artist+' '+track_name)
 
 ###################################################################################
 #8TRACKS
@@ -243,7 +241,6 @@ def List_8tracks_suggestions(url,search_query):
 #CHARTS
 
 def Top_charts_menu():
-	addDir(translate(30522),'1',12,'')
 	addDir(translate(30500),'1',13,'')
 	addDir(translate(30501),'1',14,'')
 	addDir(translate(30502),'1',18,'')
@@ -266,26 +263,6 @@ def Top_charts_menu():
 	addDir(translate(30519),'1',23,'',playlist_id = 'http://www.billboard.com/rss/charts/latin-albums')
 	addDir(translate(30523),'1',24,'',playlist_id = 'http://www.traxsource.com/scripts/builder.php/top/tracks?rpc=1')
 	addDir(translate(30524),'1',24,'',playlist_id = 'http://www.traxsource.com/scripts/builder.php/top/singles?rpc=1')
-
-def Vkcom_popular(url):
-	items_per_page = int(selfAddon.getSetting('items_per_page'))
-	index = ((int(url)-1)*items_per_page)
-	codigo_fonte = abrir_url('https://api.vk.com/method/audio.getPopular.json?only_eng=1&count='+str(items_per_page)+'&offset='+str(index)+'&access_token='+selfAddon.getSetting("vk_token"))
-	decoded_data = json.loads(codigo_fonte)
-	for x in range(0, len(decoded_data['response'])):
-		artist = decoded_data['response'][x]['artist'].encode("utf8").replace("&amp;", "&")
-		track_name = decoded_data['response'][x]['title'].encode("utf8")
-		link = decoded_data['response'][x]['url'].encode("utf8")
-		item_id = str(decoded_data['response'][x]['owner_id'])+'_'+str(decoded_data['response'][x]['aid'])
-		duration = decoded_data['response'][x]['duration']
-		addLink('[B]'+artist+'[/B] - '+track_name,link,39,addonfolder+artfolder+'no_cover.png',artist = artist,track_name = track_name,item_id = item_id,duration = duration,manualsearch = False,type = 'song')
-	#check if next page exist
-	try:
-		codigo_fonte = codigo_fonte = abrir_url('https://api.vk.com/method/audio.getPopular.json?only_eng=1&count='+str(items_per_page)+'&offset='+str((int(url)*items_per_page))+'&access_token='+selfAddon.getSetting("vk_token"))
-		decoded_data = json.loads(codigo_fonte)
-		if len(decoded_data['response'])>0:
-			addDir(translate(30412),str(int(url)+1),12,addonfolder+artfolder+'next.png')
-	except: pass
 
 def Itunes_countries_menu(mode):
 	country_name = ["Albania","Algeria","Angola","Anguilla","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Botswana","Brazil","British Virgin Islands","Brunei Darussalam","Bulgaria","Burkina Faso","Cambodia","Canada","Cape Verde","Cayman Islands","Chad","Chile","China","Colombia","Congo, Republic of the","Costa Rica","Croatia","Cyprus","Czech Republic","Denmark","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Estonia","Fiji","Finland","France","Gambia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea-Bissau","Guyana","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Korea, Republic Of","Kuwait","Kyrgyzstan","Lao, People's Democratic Republic","Latvia","Lebanon","Liberia","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Mali","Malta","Mauritania","Mauritius","Mexico","Micronesia, Federated States of","Moldova","Mongolia","Montserrat","Mozambique","Namibia","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","Norway","Oman","Pakistan","Palau","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Saudi Arabia","Senegal","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","South Africa","Spain","Sri Lanka","St. Kitts and Nevis","St. Lucia","St. Vincent and The Grenadines","Suriname","Swaziland","Sweden","Switzerland","São Tomé and Príncipe","Taiwan","Tajikistan","Tanzania","Thailand","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Turks and Caicos","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Venezuela","Vietnam","Yemen","Zimbabwe"]
@@ -527,9 +504,10 @@ def Search_main():
 			if total_items>0: addDir(translate(30609)+str(total_items)+translate(30610),'1',32,'',search_query = search_query)
 	else:
 		#tracks
-		codigo_fonte = abrir_url('https://api.vk.com/method/audio.search.json?q='+urllib.quote(search_query)+'&access_token='+selfAddon.getSetting("vk_token"))
+		codigo_fonte = abrir_url('http://ws.audioscrobbler.com/2.0/?method=track.search&track='+urllib.quote(search_query)+'&api_key=d49b72ffd881c2cb13b4595e67005ac4&format=json')
 		decoded_data = json.loads(codigo_fonte)
-		total_items = decoded_data['response'][0]
+		try: total_items = decoded_data['results']['opensearch:totalResults']
+		except: total_items = 0
 		if int(total_items)>0: addDir(translate(30601)+str(total_items)+translate(30602),'1',26,'',search_query = search_query)
 		#albums
 		codigo_fonte = abrir_url('http://ws.audioscrobbler.com/2.0/?method=album.search&album='+urllib.quote(search_query)+'&api_key=d49b72ffd881c2cb13b4595e67005ac4&format=json')
@@ -578,18 +556,28 @@ def Search_by_tracks(url,search_query):
 			if search_query=='': sys.exit(0)
 		else: sys.exit(0)
 	items_per_page = int(selfAddon.getSetting('items_per_page'))
-	index = ((int(url)-1)*items_per_page)
-	codigo_fonte = abrir_url('https://api.vk.com/method/audio.search.json?q='+urllib.quote(search_query)+'&count='+str(items_per_page)+'&offset='+str(index)+'&access_token='+selfAddon.getSetting("vk_token"))
+	codigo_fonte = abrir_url('http://ws.audioscrobbler.com/2.0/?method=track.search&track='+urllib.quote(search_query)+'&limit='+str(items_per_page)+'&page='+url+'&api_key=d49b72ffd881c2cb13b4595e67005ac4&format=json')
 	decoded_data = json.loads(codigo_fonte)
-	for x in range(1, len(decoded_data['response'])):
-		artist = decoded_data['response'][x]['artist'].encode("utf8").replace("&amp;", "&")
-		track_name = decoded_data['response'][x]['title'].encode("utf8")
-		link = decoded_data['response'][x]['url'].encode("utf8")
-		item_id = str(decoded_data['response'][x]['owner_id'])+'_'+str(decoded_data['response'][x]['aid'])
-		duration = decoded_data['response'][x]['duration']
-		addLink('[B]'+artist+'[/B] - '+track_name,link,39,addonfolder+artfolder+'no_cover.png',artist = artist,track_name = track_name,item_id = item_id,duration = duration,manualsearch = False,type = 'song')
-	total_items = decoded_data['response'][0]
-	if index+items_per_page<int(total_items): addDir(translate(30412),str(int(url)+1),26,addonfolder+artfolder+'next.png',search_query = search_query)
+	try:
+		#checks if output has only an object or various and proceeds according
+		if 'name' in decoded_data['results']['trackmatches']['track']:
+			artist = decoded_data['results']['trackmatches']['track']['artist'].encode("utf8")
+			track_name = decoded_data['results']['trackmatches']['track']['name'].encode("utf8")
+			try: iconimage = decoded_data['results']['trackmatches']['track']['image'][3]['#text'].encode("utf8")
+			except: iconimage = addonfolder+artfolder+'no_cover.png'
+			if selfAddon.getSetting('track_resolver_method')=="0": addLink('[B]'+artist+'[/B] - '+track_name,'',39,iconimage,artist = artist,track_name = track_name,type = 'song')
+			elif selfAddon.getSetting('track_resolver_method')=="1": addDir('[B]'+artist+'[/B] - '+track_name,'1',26,iconimage,artist = artist,track_name = track_name,search_query = artist+' '+track_name)
+		else:
+			for x in range(0, len(decoded_data['results']['trackmatches']['track'])):
+				artist = decoded_data['results']['trackmatches']['track'][x]['artist'].encode("utf8")
+				track_name = decoded_data['results']['trackmatches']['track'][x]['name'].encode("utf8")
+				try: iconimage = decoded_data['results']['trackmatches']['track'][x]['image'][3]['#text'].encode("utf8")
+				except: iconimage = addonfolder+artfolder+'no_cover.png'
+				if selfAddon.getSetting('track_resolver_method')=="0": addLink('[B]'+artist+'[/B] - '+track_name,'',39,iconimage,artist = artist,track_name = track_name,type = 'song')
+				elif selfAddon.getSetting('track_resolver_method')=="1": addDir('[B]'+artist+'[/B] - '+track_name,'1',26,iconimage,artist = artist,track_name = track_name,search_query = artist+' '+track_name)
+			total_items = decoded_data['results']['opensearch:totalResults']
+			if int(url)*items_per_page<int(total_items): addDir(translate(30412),str(int(url)+1),26,addonfolder+artfolder+'next.png',search_query = search_query)
+	except: pass
 	
 def Search_by_albums(url,search_query):
 	if search_query==None:
@@ -889,7 +877,7 @@ def Search_videoclip(artist,track_name,album):
 		except: match = []
 		if match:
 			print 'Grabbed youtube id',match[0]
-			video_path = "plugin://plugin.video.youtube?action=play_video&videoid="+match[0] 
+			video_path = "plugin://plugin.video.youtube/play/?video_id="+match[0] 
 			if selfAddon.getSetting('playing_type') == "0": #context menu
 				xbmc.Player().play(video_path)
 			elif selfAddon.getSetting('playing_type') == "1": #atraci like behavior
@@ -923,40 +911,100 @@ def List_my_songs(search_query):
 				try: addDir('[B]'+filename.decode('latin-1').encode("utf8")+'[/B]','',38,'',search_query = os.path.join(search_query, filename))
 				except: addDir('[B]'+filename+'[/B]','',38,'',search_query = os.path.join(search_query, filename))
 		for filename in tmp_list:
-			try: musicfile = ID3(os.path.join(search_query, filename))
-			except: pass
+			try: musicfile = mutagen.id3.ID3(os.path.join(search_query, filename))
+			except: musicfile = None
 			try: artist = musicfile.getall('TPE1')[0][0].encode("utf8")
 			except: artist = None
 			try: track_name = musicfile.getall('TIT2')[0][0].encode("utf8")
 			except: track_name = None
 			try: album = musicfile.getall('TALB')[0][0].encode("utf8")
 			except: album = None
-			try: addLink(filename.decode('latin-1').encode("utf8"),os.path.join(search_query, filename).decode('latin-1').encode("utf8"),39,addonfolder+artfolder+'no_cover.png',artist = artist,track_name = track_name,album = album,type = 'mymusic')
-			except: addLink(filename.decode('latin-1').encode("utf8"),os.path.join(search_query, filename),39,addonfolder+artfolder+'no_cover.png',artist = artist,track_name = track_name,album = album,type = 'mymusic')
+			if artist and track_name:
+				try: addLink(filename.decode('latin-1').encode("utf8"),os.path.join(search_query, filename).decode('latin-1').encode("utf8"),39,addonfolder+artfolder+'no_cover.png',artist = artist,track_name = track_name,album = album,type = 'mymusic')
+				except: addLink(filename.decode('latin-1').encode("utf8"),os.path.join(search_query, filename),39,addonfolder+artfolder+'no_cover.png',artist = artist,track_name = track_name,album = album,type = 'mymusic')
+			else:
+				try: addLink(filename.decode('latin-1').encode("utf8"),os.path.join(search_query, filename).decode('latin-1').encode("utf8"),39,addonfolder+artfolder+'no_cover.png',type = 'mymusic')
+				except: addLink(filename.decode('latin-1').encode("utf8"),os.path.join(search_query, filename),39,addonfolder+artfolder+'no_cover.png',type = 'mymusic')
 
-def Get_songfile_from_name(artist,track_name):
-	codigo_fonte = abrir_url('https://api.vk.com/method/audio.search.json?q='+urllib.quote(artist+' '+track_name)+'&access_token='+selfAddon.getSetting("vk_token"))
-	decoded_data = json.loads(codigo_fonte)
-	try: return decoded_data['response'][1]['url'].encode("utf8")
-	except: return 'track_not_found'
+def Get_songfile_from_name(artist,track_name,duration=False):
+	cj = cookielib.LWPCookieJar()
+	cj.load(VKCookie)
+	#perform search
+	post = {'act':'a_load_section','al':'1','album_id':'','claim':'0','offset':'0','owner_id':'','search_history':'0','search_lyrics':'0','search_performer':'0','search_q':artist+' '+track_name,'search_sort':'0','type':'search'}
+	data = urllib.urlencode(post)
+	req = urllib2.Request('https://vk.com/al_audio.php',data)
+	req.add_header('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
+	req.add_header('X-Requested-With', 'XMLHttpRequest')
+	req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:50.0) Gecko/20100101 Firefox/50.0')
+	openervk = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+	response = openervk.open(req)
+	source = response.read()
+	json_data = source.split('<!json>', 1)[1]
+	json_data = json_data.split('<!><!', 1)[0]
+	decoded_data = json.loads(json_data.decode('cp1251').encode('utf8'))
+	if 'list' in decoded_data:
+		#resolve audio file
+		if len(decoded_data['list'])>0: 
+			post = {'act':'reload_audio','al':'1','ids':decoded_data['list'][0][1]+'_'+decoded_data['list'][0][0]}
+			data = urllib.urlencode(post)
+			req = urllib2.Request('https://vk.com/al_audio.php',data)
+			req.add_header('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
+			req.add_header('X-Requested-With', 'XMLHttpRequest')
+			req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:50.0) Gecko/20100101 Firefox/50.0')
+			response = openervk.open(req)
+			source = response.read()
+			response.close()
+			url=re.compile('"(http.+?)"').findall(source)[0]
+			url=url.replace("\/", "/")
+			if duration: return decoded_data['list'][0][5],url
+			else: return url
+		else:
+			if duration: return 0, 'track_not_found'
+			else: return 'track_not_found'
+	else:
+		if duration: return 0, 'track_not_found'
+		else: return 'track_not_found'
 
 def Resolve_songfile(url,artist,track_name,album,iconimage):
 	#if a url is provided, the function reproduce it
 	#else it gets the file from vk.com API using the artist and track_name info
 	success = True
 	if url=='' or url==None:
-		progress = xbmcgui.DialogProgress()
-		progress.create(translate(30400),translate(30801))
-		progress.update(0)
-		codigo_fonte = abrir_url('https://api.vk.com/method/audio.search.json?q='+urllib.quote(artist+' '+track_name)+'&access_token='+selfAddon.getSetting("vk_token"))
-		decoded_data = json.loads(codigo_fonte)
-		try: url=decoded_data['response'][1]['url'].encode("utf8")
-		except:
+		cj = cookielib.LWPCookieJar()
+		cj.load(VKCookie)
+		#perform search
+		post = {'act':'a_load_section','al':'1','album_id':'','claim':'0','offset':'0','owner_id':'','search_history':'0','search_lyrics':'0','search_performer':'0','search_q':artist+' '+track_name,'search_sort':'0','type':'search'}
+		data = urllib.urlencode(post)
+		req = urllib2.Request('https://vk.com/al_audio.php',data)
+		req.add_header('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
+		req.add_header('X-Requested-With', 'XMLHttpRequest')
+		req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:50.0) Gecko/20100101 Firefox/50.0')
+		openervk = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+		response = openervk.open(req)
+		source = response.read()
+		json_data = source.split('<!json>', 1)[1]
+		json_data = json_data.split('<!><!', 1)[0]
+		decoded_data = json.loads(json_data.decode('cp1251').encode('utf8'))
+		if 'list' in decoded_data:
+			#resolve audio file
+			if len(decoded_data['list'])>0: 
+				post = {'act':'reload_audio','al':'1','ids':decoded_data['list'][0][1]+'_'+decoded_data['list'][0][0]}
+				data = urllib.urlencode(post)
+				req = urllib2.Request('https://vk.com/al_audio.php',data)
+				req.add_header('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
+				req.add_header('X-Requested-With', 'XMLHttpRequest')
+				req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:50.0) Gecko/20100101 Firefox/50.0')
+				response = openervk.open(req)
+				source = response.read()
+				response.close()
+				url=re.compile('"(http.+?)"').findall(source)[0]
+				url=url.replace("\/", "/")
+			else:
+				url=''
+				success = False
+		else:
 			url=''
 			success = False
-		if progress.iscanceled(): sys.exit(0)
-		progress.update(100)
-		progress.close()
 		item = xbmcgui.ListItem(path=url)
 		item.setInfo(type="Music", infoLabels={'title':track_name, 'artist':artist, 'album':album})
 		xbmcplugin.setResolvedUrl(int(sys.argv[1]), success, item)
@@ -1079,9 +1127,9 @@ def Export_as_m3u(name,artist,album,url,country,iconimage,type):
 					artist = params_list['artist'][0].decode('string_escape')
 					track_name = params_list['track_name'][0].decode('string_escape')
 					if len(str(total_items)) <= 2:
-						file_content += "#EXTINF:0,"+str(x+1).rjust(2, '0')+". "+artist+" - "+track_name+"\nplugin://plugin.audio.nvtmusic/?mode=300&artist="+urllib.quote_plus(artist)+"&track_name="+urllib.quote_plus(track_name)+"\n"
+						file_content += "#EXTINF:0,"+str(x+1).rjust(2, '0')+". "+artist+" - "+track_name+"\nplugin://plugin.audio.musicbox/?mode=300&artist="+urllib.quote_plus(artist)+"&track_name="+urllib.quote_plus(track_name)+"\n"
 					else:
-						file_content += "#EXTINF:0,"+str(x+1).rjust(len(str(total_items)), '0')+". "+artist+" - "+track_name+"\nplugin://plugin.audio.nvtmusic/?mode=300&artist="+urllib.quote_plus(artist)+"&track_name="+urllib.quote_plus(track_name)+"\n"
+						file_content += "#EXTINF:0,"+str(x+1).rjust(len(str(total_items)), '0')+". "+artist+" - "+track_name+"\nplugin://plugin.audio.musicbox/?mode=300&artist="+urllib.quote_plus(artist)+"&track_name="+urllib.quote_plus(track_name)+"\n"
 			save(os.path.join(selfAddon.getSetting('library_folder'),str(artist+' - '+album+'.m3u').decode("utf8").encode("latin-1")),file_content)
 			if selfAddon.getSetting('save_library_tbn')=="true":
 				f = open(os.path.join(selfAddon.getSetting('library_folder'),str(artist+' - '+album+'.tbn').decode("utf8").encode("latin-1")),'wb')
@@ -1098,7 +1146,7 @@ def Export_as_m3u(name,artist,album,url,country,iconimage,type):
 					params_list = eval(str(urlparse.parse_qs(decoded_data['result']['files'][x]['file'].split('?',1)[1].decode('string_escape'))))
 					artist = params_list['artist'][0].decode('string_escape')
 					track_name = params_list['track_name'][0].decode('string_escape')
-					file_content += "#EXTINF:0,"+artist+" - "+track_name+"\nplugin://plugin.audio.nvtmusic/?mode=300&artist="+urllib.quote_plus(artist)+"&track_name="+urllib.quote_plus(track_name)+"\n"
+					file_content += "#EXTINF:0,"+artist+" - "+track_name+"\nplugin://plugin.audio.musicbox/?mode=300&artist="+urllib.quote_plus(artist)+"&track_name="+urllib.quote_plus(track_name)+"\n"
 			save(os.path.join(selfAddon.getSetting('library_folder'),str(re.sub("\[/?(?:COLOR|B|I)[^]]*\]", "", name)+'.m3u').decode("utf8").encode("latin-1")),file_content)
 			notification(re.sub("\[/?(?:COLOR|B|I)[^]]*\]", "", name),translate(30824),'4000','')
 		elif type=='soundtrack' or type=='fav_soundtrack':
@@ -1111,7 +1159,7 @@ def Export_as_m3u(name,artist,album,url,country,iconimage,type):
 					params_list = eval(str(urlparse.parse_qs(decoded_data['result']['files'][x]['file'].split('?',1)[1].decode('string_escape'))))
 					artist = params_list['artist'][0].decode('string_escape')
 					track_name = params_list['track_name'][0].decode('string_escape')
-					file_content += "#EXTINF:0,"+artist+" - "+track_name+"\nplugin://plugin.audio.nvtmusic/?mode=300&artist="+urllib.quote_plus(artist)+"&track_name="+urllib.quote_plus(track_name)+"\n"
+					file_content += "#EXTINF:0,"+artist+" - "+track_name+"\nplugin://plugin.audio.musicbox/?mode=300&artist="+urllib.quote_plus(artist)+"&track_name="+urllib.quote_plus(track_name)+"\n"
 			save(os.path.join(selfAddon.getSetting('library_folder'),name+'.m3u'),file_content)
 			if selfAddon.getSetting('save_library_tbn')=="true":
 				f = open(os.path.join(selfAddon.getSetting('library_folder'),name+'.tbn'),'wb')
@@ -1121,19 +1169,16 @@ def Export_as_m3u(name,artist,album,url,country,iconimage,type):
 
 def Song_info(url,artist,track_name,duration):
 	if url:
-		if url.find('vk.me/')>=0 or url.find('vk.com/')>=0:
+		#non-vk audio files
+		if url.startswith('http://') or url.startswith('https://') and duration:
 			size = urllib.urlopen(url).info()['content-length']
-		else: #song info is not available for non vk.com files
+		else: #song info not available
 			dialog = xbmcgui.Dialog()
 			ok = dialog.ok(translate(30400),translate(30813))
 			return
 	else:
-		codigo_fonte = abrir_url('https://api.vk.com/method/audio.search.json?q='+urllib.quote(artist+' '+track_name)+'&access_token='+selfAddon.getSetting("vk_token"))
-		decoded_data = json.loads(codigo_fonte)
-		try: url = decoded_data['response'][1]['url'].encode("utf8")
-		except: url = 'track_not_found'
+		duration, url = Get_songfile_from_name(artist,track_name,True)
 		if url!="track_not_found":
-			duration = decoded_data['response'][1]['duration']
 			size = urllib.urlopen(url).info()['content-length']
 		else:
 			dialog = xbmcgui.Dialog()
@@ -1247,14 +1292,6 @@ def List_favorites(url):
 			if decoded_data['songs'][x]['type'].encode("utf8")=='vk.com': #get the direct link for a specific vk.com audio file id
 				artist = decoded_data['songs'][x]['artist'].encode("utf8")
 				track_name = decoded_data['songs'][x]['track_name'].encode("utf8")
-				item_id = decoded_data['songs'][x]['item_id'].encode("utf8")
-				try:
-					vk_data = json.loads(abrir_url('https://api.vk.com/method/audio.getById.json?audios='+item_id+'&access_token='+selfAddon.getSetting("vk_token")))
-					url = vk_data['response'][0]['url'].encode("utf8")
-					duration = vk_data['songs'][0]['duration']
-				except:
-					url = ''
-					duration = ''
 				if decoded_data['songs'][x]['iconimage']: iconimage = decoded_data['songs'][x]['iconimage'].encode("utf8")
 				else: iconimage = addonfolder+artfolder+'no_cover.png'
 				addLink('[B]'+artist+'[/B] - '+track_name,url,39,iconimage,artist = artist,track_name = track_name,duration = duration,manualsearch = False,item_id = str(x),type='fav_song')
@@ -1327,10 +1364,7 @@ def Add_to_favorites(type,artist,album,country,name,playlist_id,track_name,url,i
 	decoded_data = json.loads(favorites_json)
 	if iconimage == addonfolder+artfolder+'no_cover.png': iconimage = None
 	if type=='song':
-		# vk.com mp3 url expires (is ip restricted), so is necessary use ids to save and restore music in favorites
-		if url and url.find('vk.me/')>=0 or url.find('vk.com/')>=0 and item_id: decoded_data["songs"].append({"type": 'vk.com',"artist": artist,"track_name": track_name,"item_id": item_id,"iconimage": iconimage})
-		# if is not a vk.com direct link, we use the default method to store in favorites
-		else: decoded_data["songs"].append({"type": 'default',"artist": artist,"track_name": track_name,"url": url,"iconimage": iconimage})
+		decoded_data["songs"].append({"type": 'default',"artist": artist,"track_name": track_name,"url": url,"iconimage": iconimage})
 		save(favoritesfile,json.dumps(decoded_data,indent=2,sort_keys=True))
 		if not iconimage: iconimage = addonfolder+artfolder+'no_cover.png'
 		notification('[B]'+artist+'[/B] - '+track_name,translate(30700),'4000',iconimage)
@@ -1435,9 +1469,6 @@ def Edit_favorites(url,type,item_id):
 #USER SPACE
 
 def Userspace_main():
-	#vk.com user space
-	addDir(translate(30850),'1',49,'',search_query = 'audio.get')
-	addDir(translate(30851),'1',49,'',search_query = 'audio.getRecommendations')
 	#last.fm user space
 	if selfAddon.getSetting('lastfm_email')!='' and selfAddon.getSetting('lastfm_password')!='':
 		selfAddon.setSetting('lastfm_token','')
@@ -1476,46 +1507,6 @@ def Userspace_main():
 			addDir(translate(30858),'1',52,'',search_query = 'listened:'+userid_8tracks)
 			addDir(translate(30859),'1',52,'',search_query = 'dj:'+userid_8tracks)
 			addDir(translate(30860),'1',52,'',search_query = 'recommended:'+userid_8tracks)
-
-def My_vkcom(url,search_query):
-	items_per_page = int(selfAddon.getSetting('items_per_page'))
-	if search_query=='audio.get': #vk.com user musics
-		index = ((int(url)-1)*items_per_page)
-		codigo_fonte = abrir_url('https://api.vk.com/method/audio.get.json?count='+str(items_per_page)+'&offset='+str(index)+'&access_token='+selfAddon.getSetting("vk_token"))
-		decoded_data = json.loads(codigo_fonte)
-		for x in range(0, len(decoded_data['response'])):
-			artist = decoded_data['response'][x]['artist'].encode("utf8").replace("&amp;", "&")
-			track_name = decoded_data['response'][x]['title'].encode("utf8")
-			link = decoded_data['response'][x]['url'].encode("utf8")
-			item_id = str(decoded_data['response'][x]['owner_id'])+'_'+str(decoded_data['response'][x]['aid'])
-			duration = decoded_data['response'][x]['duration']
-			addLink('[B]'+artist+'[/B] - '+track_name,link,39,addonfolder+artfolder+'no_cover.png',artist = artist,track_name = track_name,item_id = item_id,duration = duration,manualsearch = False,type = 'song')
-		#check if next page exist
-		try:
-			codigo_fonte = codigo_fonte = abrir_url('https://api.vk.com/method/audio.get.json?count='+str(items_per_page)+'&offset='+str((int(url)*items_per_page))+'&access_token='+selfAddon.getSetting("vk_token"))
-			decoded_data = json.loads(codigo_fonte)
-			if len(decoded_data['response'])>0:
-				addDir(translate(30412),str(int(url)+1),49,addonfolder+artfolder+'next.png',search_query = search_query)
-		except: pass
-	elif search_query=='audio.getRecommendations': #vk.com user recomendations
-		userid_vkcom = str(json.loads(abrir_url('https://api.vk.com/method/users.get.json?access_token='+selfAddon.getSetting("vk_token")))['response'][0]['uid'])
-		index = ((int(url)-1)*items_per_page)
-		codigo_fonte = abrir_url('https://api.vk.com/method/audio.getRecommendations.json?uid='+userid_vkcom+'&count='+str(items_per_page)+'&offset='+str(index)+'&access_token='+selfAddon.getSetting("vk_token"))
-		decoded_data = json.loads(codigo_fonte)
-		for x in range(0, len(decoded_data['response'])):
-			artist = decoded_data['response'][x]['artist'].encode("utf8").replace("&amp;", "&")
-			track_name = decoded_data['response'][x]['title'].encode("utf8")
-			link = decoded_data['response'][x]['url'].encode("utf8")
-			item_id = str(decoded_data['response'][x]['owner_id'])+'_'+str(decoded_data['response'][x]['aid'])
-			duration = decoded_data['response'][x]['duration']
-			addLink('[B]'+artist+'[/B] - '+track_name,link,39,addonfolder+artfolder+'no_cover.png',artist = artist,track_name = track_name,item_id = item_id,duration = duration,manualsearch = False,type = 'song')
-		#check if next page exist
-		try:
-			codigo_fonte = codigo_fonte = abrir_url('https://api.vk.com/method/audio.getRecommendations.json?uid='+userid_vkcom+'&count='+str(items_per_page)+'&offset='+str((int(url)*items_per_page))+'&access_token='+selfAddon.getSetting("vk_token"))
-			decoded_data = json.loads(codigo_fonte)
-			if len(decoded_data['response'])>0:
-				addDir(translate(30412),str(int(url)+1),49,addonfolder+artfolder+'next.png',search_query = search_query)
-		except: pass
 
 def My_lastfm(url,search_query,duration):
 	#duration variable is used to pass the period of time in some methods
@@ -1752,7 +1743,7 @@ def notification(title,message,time,iconimage):
 
 def abrir_url(url):
 	req = urllib2.Request(url)
-	req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:33.0) Gecko/20100101 Firefox/33.0')
+	req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:50.0) Gecko/20100101 Firefox/50.0')
 	response = urllib2.urlopen(req)
 	link=response.read()
 	response.close()
@@ -1768,7 +1759,7 @@ def abrir_url_custom(url,**kwargs):
 		for x in range(0, len(headers)):
 			req.add_header(headers.keys()[x], headers.values()[x])
 	if 'user_agent' in locals(): req.add_header('User-Agent', user_agent)
-	else: req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:33.0) Gecko/20100101 Firefox/33.0')
+	else: req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:50.0) Gecko/20100101 Firefox/50.0')
 	if 'referer' in locals(): req.add_header('Referer', referer)
 	if 'timeout' in locals(): response = urllib2.urlopen(req, timeout=timeout)
 	else: response = urllib2.urlopen(req)
@@ -1795,8 +1786,8 @@ def addLink(name,url,mode,iconimage,**kwargs):
 	liz.setProperty('fanart_image', fanart)
 	cm = []
 	if type and type!='mymusic':
-		if 'manualsearch' in locals() and manualsearch==True or not 'manualsearch' in locals():
-			if selfAddon.getSetting('playing_type') == "0": cm.append((translate(30803), 'XBMC.Container.Update(plugin://'+addon_id+'/?mode=26&url=1&search_query='+urllib.quote_plus(str(artist)+' '+str(track_name))+')'))
+		#if 'manualsearch' in locals() and manualsearch==True or not 'manualsearch' in locals():
+			#if selfAddon.getSetting('playing_type') == "0": cm.append((translate(30803), 'XBMC.Container.Update(plugin://'+addon_id+'/?mode=26&url=1&search_query='+urllib.quote_plus(str(artist)+' '+str(track_name))+')'))
 		cm.append((translate(30804), 'XBMC.Container.Update(plugin://'+addon_id+'/?mode=35&artist='+urllib.quote_plus(artist)+'&track_name='+urllib.quote_plus(track_name)+')'))
 		if type=='song':
 			if item_id: cm.append((translate(30807), 'RunPlugin(plugin://'+addon_id+'/?mode=46&artist='+urllib.quote_plus(artist)+'&track_name='+urllib.quote_plus(track_name)+'&url='+urllib.quote_plus(url)+'&item_id='+urllib.quote_plus(item_id)+'&iconimage='+urllib.quote_plus(iconimage)+'&type='+urllib.quote_plus(type)+')'))
@@ -1807,9 +1798,9 @@ def addLink(name,url,mode,iconimage,**kwargs):
 			cm.append((translate(30810), 'RunPlugin(plugin://'+addon_id+'/?mode=47&url=delete&item_id='+urllib.quote_plus(item_id)+'&type='+urllib.quote_plus(type)+')'))
 		if selfAddon.getSetting('display_songinfo_cmenu')=="true":
 			if 'songinfo' in locals() and songinfo==True or not 'songinfo' in locals():
-				cm.append((translate(30812), 'RunPlugin(plugin://'+addon_id+'/?mode=42&url='+urllib.quote_plus(url)+'&name='+urllib.quote_plus(name)+extra_args+')'))
+				if selfAddon.getSetting('playing_type') == "0": cm.append((translate(30812), 'RunPlugin(plugin://'+addon_id+'/?mode=42&url='+urllib.quote_plus(url)+'&name='+urllib.quote_plus(name)+extra_args+')'))
 		if selfAddon.getSetting('display_artistinfo_cmenu')=="true": cm.append((translate(30826), 'RunPlugin(plugin://'+addon_id+'/?mode=55&artist='+urllib.quote_plus(artist)+')'))
-		cm.append((translate(30805), 'RunPlugin(plugin://'+addon_id+'/?mode=40&url='+urllib.quote_plus(url)+'&name='+urllib.quote_plus(name)+extra_args+')'))
+		if selfAddon.getSetting('playing_type') == "0": cm.append((translate(30805), 'RunPlugin(plugin://'+addon_id+'/?mode=40&url='+urllib.quote_plus(url)+'&name='+urllib.quote_plus(name)+extra_args+')'))
 		if selfAddon.getSetting('playing_type') == "0": cm.append((translate(30806), 'RunPlugin(plugin://'+addon_id+'/?mode=37&url='+urllib.quote_plus(url)+'&name='+urllib.quote_plus(name)+extra_args+')'))
 	elif type=='mymusic':
 		cm.append((translate(30825), 'XBMC.Container.Update(plugin://'+addon_id+'/?mode=53&url='+urllib.quote_plus(url)+')'))
@@ -1984,7 +1975,6 @@ elif mode==9: Eighttracks_menu()
 elif mode==10: List_8tracks_suggestions(url,search_query)
 # Charts
 elif mode==11: Top_charts_menu()
-elif mode==12: Vkcom_popular(url)
 elif mode==13 or mode==14: Itunes_countries_menu(mode)
 elif mode==15: Itunes_track_charts(url,country)
 elif mode==16: Itunes_album_charts(url,country)
@@ -2027,7 +2017,6 @@ elif mode==46: Add_to_favorites(type,artist,album,country,name,playlist_id,track
 elif mode==47: Edit_favorites(url,type,item_id)
 # User space
 elif mode==48: Userspace_main()
-elif mode==49: My_vkcom(url,search_query)
 elif mode==50: My_lastfm(url,search_query,duration)
 elif mode==51: List_lastfm_playlist_tracks(playlist_id)
 elif mode==52: My_8tracks(url,search_query)
@@ -2036,12 +2025,6 @@ elif mode==53: Fingerprint_audio(url)
 # Settings
 elif mode==54: Open_settings()
 # External Calls
-elif mode==300:
-	if item_id:
-		try:
-			vk_data = json.loads(abrir_url('https://api.vk.com/method/audio.getById.json?audios='+item_id+'&access_token='+selfAddon.getSetting("vk_token")))
-			url = vk_data['response'][0]['url'].encode("utf8")
-		except: url = ''
-	Resolve_songfile(url,artist,track_name,album,iconimage)
+elif mode==300: Resolve_songfile(url,artist,track_name,album,iconimage)
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
