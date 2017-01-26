@@ -9,7 +9,7 @@ from urlparse import urlparse
 from HTMLParser import HTMLParser
 import os, xbmc, xbmcgui
 
-addon_id = 'plugin.audio.musicbox'
+addon_id = 'plugin.audio.nvtmusicbox'
 datapath = xbmc.translatePath('special://profile/addon_data/%s' % addon_id ).decode("utf-8")
 
 VKCookie = os.path.join(datapath,'cookies.txt')

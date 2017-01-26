@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-# 2015 Techdealer
+# 2015 NVTTeam
 
 ##############LIBRARIES TO IMPORT AND SETTINGS####################
 
@@ -19,7 +19,7 @@ from random import randint
 from mutagen.mp3 import MP3
 import mutagen.id3
 
-addon_id = 'plugin.audio.musicbox'
+addon_id = 'plugin.audio.nvtmusicbox'
 selfAddon = xbmcaddon.Addon(id=addon_id)
 addonfolder = selfAddon.getAddonInfo('path')
 artfolder = '/resources/img/'
@@ -1127,9 +1127,9 @@ def Export_as_m3u(name,artist,album,url,country,iconimage,type):
 					artist = params_list['artist'][0].decode('string_escape')
 					track_name = params_list['track_name'][0].decode('string_escape')
 					if len(str(total_items)) <= 2:
-						file_content += "#EXTINF:0,"+str(x+1).rjust(2, '0')+". "+artist+" - "+track_name+"\nplugin://plugin.audio.musicbox/?mode=300&artist="+urllib.quote_plus(artist)+"&track_name="+urllib.quote_plus(track_name)+"\n"
+						file_content += "#EXTINF:0,"+str(x+1).rjust(2, '0')+". "+artist+" - "+track_name+"\nplugin://plugin.audio.nvtmusicbox/?mode=300&artist="+urllib.quote_plus(artist)+"&track_name="+urllib.quote_plus(track_name)+"\n"
 					else:
-						file_content += "#EXTINF:0,"+str(x+1).rjust(len(str(total_items)), '0')+". "+artist+" - "+track_name+"\nplugin://plugin.audio.musicbox/?mode=300&artist="+urllib.quote_plus(artist)+"&track_name="+urllib.quote_plus(track_name)+"\n"
+						file_content += "#EXTINF:0,"+str(x+1).rjust(len(str(total_items)), '0')+". "+artist+" - "+track_name+"\nplugin://plugin.audio.nvtmusicbox/?mode=300&artist="+urllib.quote_plus(artist)+"&track_name="+urllib.quote_plus(track_name)+"\n"
 			save(os.path.join(selfAddon.getSetting('library_folder'),str(artist+' - '+album+'.m3u').decode("utf8").encode("latin-1")),file_content)
 			if selfAddon.getSetting('save_library_tbn')=="true":
 				f = open(os.path.join(selfAddon.getSetting('library_folder'),str(artist+' - '+album+'.tbn').decode("utf8").encode("latin-1")),'wb')
@@ -1146,7 +1146,7 @@ def Export_as_m3u(name,artist,album,url,country,iconimage,type):
 					params_list = eval(str(urlparse.parse_qs(decoded_data['result']['files'][x]['file'].split('?',1)[1].decode('string_escape'))))
 					artist = params_list['artist'][0].decode('string_escape')
 					track_name = params_list['track_name'][0].decode('string_escape')
-					file_content += "#EXTINF:0,"+artist+" - "+track_name+"\nplugin://plugin.audio.musicbox/?mode=300&artist="+urllib.quote_plus(artist)+"&track_name="+urllib.quote_plus(track_name)+"\n"
+					file_content += "#EXTINF:0,"+artist+" - "+track_name+"\nplugin://plugin.audio.nvtmusicbox/?mode=300&artist="+urllib.quote_plus(artist)+"&track_name="+urllib.quote_plus(track_name)+"\n"
 			save(os.path.join(selfAddon.getSetting('library_folder'),str(re.sub("\[/?(?:COLOR|B|I)[^]]*\]", "", name)+'.m3u').decode("utf8").encode("latin-1")),file_content)
 			notification(re.sub("\[/?(?:COLOR|B|I)[^]]*\]", "", name),translate(30824),'4000','')
 		elif type=='soundtrack' or type=='fav_soundtrack':
@@ -1159,7 +1159,7 @@ def Export_as_m3u(name,artist,album,url,country,iconimage,type):
 					params_list = eval(str(urlparse.parse_qs(decoded_data['result']['files'][x]['file'].split('?',1)[1].decode('string_escape'))))
 					artist = params_list['artist'][0].decode('string_escape')
 					track_name = params_list['track_name'][0].decode('string_escape')
-					file_content += "#EXTINF:0,"+artist+" - "+track_name+"\nplugin://plugin.audio.musicbox/?mode=300&artist="+urllib.quote_plus(artist)+"&track_name="+urllib.quote_plus(track_name)+"\n"
+					file_content += "#EXTINF:0,"+artist+" - "+track_name+"\nplugin://plugin.audio.nvtmusicbox/?mode=300&artist="+urllib.quote_plus(artist)+"&track_name="+urllib.quote_plus(track_name)+"\n"
 			save(os.path.join(selfAddon.getSetting('library_folder'),name+'.m3u'),file_content)
 			if selfAddon.getSetting('save_library_tbn')=="true":
 				f = open(os.path.join(selfAddon.getSetting('library_folder'),name+'.tbn'),'wb')

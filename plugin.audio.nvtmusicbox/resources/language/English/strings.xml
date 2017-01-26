@@ -5,7 +5,6 @@
 	<string id="30001">Vk.com</string>
 	<string id="30002">Email/phone</string>
 	<string id="30003">Password</string>
-	<string id="30004">[B]Info:[/B] Will be given permissions to the app 'Liquid Bear' in vk.com, to use the API.</string>
 	<string id="30005">Token</string>
 	<string id="30006">Last.fm</string>
 	<string id="30007">Email/username</string>
@@ -43,7 +42,7 @@
 	<string id="30304">Save the thumbnail of exported items</string>
 	
 	<!-- Main Menu & Recomendations -->
-	<string id="30400">NVTTeam Music</string>
+	<string id="30400">NVT Music Box</string>
 	<string id="30401">Recomendations</string>
 	<string id="30402">Digster</string>
 	<string id="30403">Whatsong Soundtrack</string>
@@ -93,7 +92,6 @@
 	<string id="30519">[B]Billboard[/B] - Top Latin Albums</string>
 	<string id="30520">Official Charts UK - choose:</string>
 	<string id="30521">Switch chart...</string>
-	<string id="30522">[B]Vk.com[/B] - Popular music</string>
 	<string id="30523">[B]Traxsource[/B] - Top 100 Tracks</string>
 	<string id="30524">[B]Traxsource[/B] - Top 100 Singles</string>
 
@@ -173,8 +171,6 @@
 	<string id="30840"> in </string>
 	
 	<!-- User space & accounts -->
-	<string id="30850">[B]My vk.com[/B] - my music</string>
-	<string id="30851">[B]My vk.com[/B] - recommendations</string>
 	<string id="30852">[B]My last.fm[/B] - loved tracks</string>
 	<string id="30853">[B]My last.fm[/B] - recent listened tracks</string>
 	<string id="30854">[B]My last.fm[/B] - top listened tracks</string>
@@ -189,8 +185,8 @@
 	<string id="30863">8tracks</string>
 	<string id="30864">[COLOR red]Wrong credentials![/COLOR]</string>
 	<string id="30865">Logged in successfully.</string>
-	<string id="30866">Error: vk.com email/phone or password empty</string>
-	<string id="30867">Error: wrong vk.com email/phone or password</string>
+	<string id="30866">Error: Vk.com email/phone or password empty</string>
+	<string id="30867">Error: Failed vk.com authentication</string>
 	<string id="30868">Error: Vk.com returned the following error: </string>
 	<string id="30869">[B][COLOR red]Now playing:[/COLOR][/B] </string>
 	<string id="30870">Choose a period of time:</string>
@@ -201,7 +197,7 @@
 	<string id="30875">3 months</string>
 	<string id="30876">6 months</string>
 	<string id="30877">12 months</string>
-	<string id="30878">Info: In order to use the addon you need an account at vk.com</string>
+	<string id="30878">Info: In order to use the addon you need an account at vk.com (or change the "Media Source" to Youtube).</string>
 	
 	<!-- Audio fingerprint -->
 	<string id="30900">Choose the audio file:</string>

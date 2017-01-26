@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.audio.nvtmusic" name="NVTTeam Music" version="0.1.4" provider-name="NVTTeam">
+<addon id="plugin.audio.nvtmusicbox" name="NVT Music Box" version="0.1.4" provider-name="NVTTeam">
   <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="xbmc.python" version="2.20.0"/>
 	<import addon="script.module.simple.downloader" version="1.9.4"/>
 	<import addon="plugin.video.youtube" version="2.9.2"/>
 	<import addon="script.module.mutagen"/>
@@ -11,11 +11,9 @@
     <provides>audio</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
+    <summary lang="en">NVT Music Box</summary>
+    <description lang="en">Music box is a new way to listen and discover music thought KODI.</description>
     <language>en</language>
     <platform>all</platform>
-    <summary lang="en">NVTTeam Music</summary>
-    <description lang="en">NVTTeam Music is a new way to listen and discover music thought KODI.</description>
-    <disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.</disclaimer>
-	<platform>all</platform>
   </extension>
 </addon>
