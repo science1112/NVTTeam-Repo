@@ -65,10 +65,6 @@ class navigator:
 
         self.endDirectory()
 
-        from resources.lib.modules import cache
-        from resources.lib.modules import changelog
-        #cache.get(changelog.get, 600000000, control.addonInfo('version'), table='changelog')
-
 
     def movies(self, lite=False):
         self.addDirectoryItem(32011, 'movieGenres', 'genres.png', 'DefaultMovies.png')
@@ -138,7 +134,7 @@ class navigator:
         self.addDirectoryItem(32023, 'tvshows&url=rating', 'highly-rated.png', 'DefaultTVShows.png')
         self.addDirectoryItem(32019, 'tvshows&url=views', 'most-voted.png', 'DefaultTVShows.png')
         self.addDirectoryItem(32024, 'tvshows&url=airing', 'airing-today.png', 'DefaultTVShows.png')
-        self.addDirectoryItem(32025, 'tvshows&url=active', 'returning-tvshows.png', 'DefaultTVShows.png')
+        #self.addDirectoryItem(32025, 'tvshows&url=active', 'returning-tvshows.png', 'DefaultTVShows.png')
         self.addDirectoryItem(32026, 'tvshows&url=premiere', 'new-tvshows.png', 'DefaultTVShows.png')
         self.addDirectoryItem(32006, 'calendar&url=added', 'latest-episodes.png', 'DefaultRecentlyAddedEpisodes.png', queue=True)
         self.addDirectoryItem(32027, 'calendars', 'calendar.png', 'DefaultRecentlyAddedEpisodes.png')
@@ -203,6 +199,7 @@ class navigator:
         self.addDirectoryItem(32049, 'viewsNavigator', 'tools.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32050, 'clearSources', 'tools.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32052, 'clearCache', 'tools.png', 'DefaultAddonProgram.png')
+        self.addDirectoryItem(32073, 'infoCheck', 'tools.png', 'DefaultAddonProgram.png', isFolder=False)
 
         self.endDirectory()
 
@@ -247,7 +244,7 @@ class navigator:
 
             item = control.item(label=title)
             item.setInfo(type='Video', infoLabels = {'title': title})
-            item.setArt({'icon': poster, 'thumb': poster, 'poster': poster, 'tvshow.poster': poster, 'season.poster': poster, 'banner': banner, 'tvshow.banner': banner, 'season.banner': banner})
+            item.setArt({'icon': poster, 'thumb': poster, 'poster': poster, 'banner': banner})
             item.setProperty('Fanart_Image', fanart)
 
             control.addItem(handle=int(sys.argv[1]), url=url, listitem=item, isFolder=False)
@@ -265,6 +262,14 @@ class navigator:
             control.idle()
             control.infoDialog(control.lang(32042).encode('utf-8'), sound=True, icon='WARNING')
             sys.exit()
+
+
+    def infoCheck(self, version):
+        try:
+            control.infoDialog('www.tvaddons.ag', control.lang(32074).encode('utf-8'), time=5000, sound=False)
+            return '1'
+        except:
+            return '1'
 
 
     def clearCache(self):
@@ -291,7 +296,7 @@ class navigator:
 
 
     def endDirectory(self):
-        #control.do_block_check(False)
+        control.content(syshandle, 'addons')
         control.directory(syshandle, cacheToDisc=True)
 
 

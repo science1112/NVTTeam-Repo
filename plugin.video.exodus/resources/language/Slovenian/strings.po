@@ -118,11 +118,11 @@ msgstr "Iskanje Igralcev"
 
 msgctxt "#32029"
 msgid "People (Movies)"
-msgstr "Igralci"
+msgstr "Igralci (Filmi)"
 
 msgctxt "#32030"
 msgid "People (TV)"
-msgstr "Igralci"
+msgstr "Igralci (TV)"
 
 msgctxt "#32031"
 msgid "Discover"
@@ -291,6 +291,14 @@ msgstr "Brskanje Serij"
 msgctxt "#32072"
 msgid "Refresh"
 msgstr "Osveži"
+
+msgctxt "#32073"
+msgid "[B]HELP[/B] : www.tvaddons.ag"
+msgstr "[B]POMOČ[/B] : www.tvaddons.ag"
+
+msgctxt "#32074"
+msgid "[B]HELP[/B]"
+msgstr "[B]POMOČ[/B]"
 
 msgctxt "#32301"
 msgid "Enabled"
@@ -527,6 +535,10 @@ msgstr "Podnapisi so lahko nedostopni ali nesinhronizirani."
 msgctxt "#32359"
 msgid "In that case use your own subtitles."
 msgstr "V tem slučaju uporabi svoje podnapise."
+
+msgctxt "#32360"
+msgid "Providers Language"
+msgstr "Jezik Ponudnikov"
 
 msgctxt "#32401"
 msgid "No stream available"

@@ -1,5 +1,91 @@
-[B]2.0.6a[/B]
+[B]3.0.0a[/B]
 - NVTTeam Fix and Setup for Slovenian users
+- Re-work of provider retrieval
+- Re-work of stream directories
+- Re-work of stream resolving
+- Fixed issues with various modules
+- Added option for localized providers
+- Added German providers (Viper4k)
+- Updated existing providers
+- Removed dead providers
+- Added new providers
+
+[B]2.0.26[/B]
+- Updated providers
+
+[B]2.0.24[/B]
+- Updated existing providers
+- Removed dead providers
+- Added new providers
+
+[B]2.0.23[/B]
+- Tweaked indexers
+- Updated existing providers
+- Removed dead providers
+- Added new providers
+
+[B]2.0.22[/B]
+- Tweaked provider retrieval
+- Tweaked stream resolving
+- Updated existing providers
+- Removed dead providers
+- Added new providers
+
+[B]2.0.21[/B]
+- Tweaked metadata and playback
+- Updated existing providers
+- Removed dead providers
+- Added new providers
+
+[B]2.0.20[/B]
+- Updated indexers
+- Tweaked pagination of Trakt lists
+- Tweaked flatten of tv shows (for external addons and library)
+- Tweaked artwork of episode lists
+- Updated providers
+
+[B]2.0.18[/B]
+- Fixed issue with Trakt Progress (missing tv shows)
+- Tweaked metadata retrieval
+- Tweaked indexers
+- Updated providers
+
+[B]2.0.14[/B]
+- Tweaked metadata timeouts
+
+[B]2.0.13[/B]
+- Updated indexers
+- Added new providers
+- Updated existing providers
+- Added Polish translation
+- Added Portuguese translation
+
+[B]2.0.12[/B]
+- Fixed issue with Trakt Progress (hidden items)
+- Fixed issue with urlresolver's openload pair dialog
+- Tweaked search and caching of providers
+- Updated providers
+
+[B]2.0.11[/B]
+- Added openload to filehosts with captchas
+- NOTE: Filehosts witch captchas can be disabled
+- Updated existing providers
+- Added new providers
+
+[B]2.0.10[/B]
+- Updated existing providers
+- Added new providers
+
+[B]2.0.9[/B]
+- Updated providers
+
+[B]2.0.8[/B]
+- Updated providers
+
+[B]2.0.7[/B]
+- Updated indexers
+- Updated providers
+- Code cosmetics
 
 [B]2.0.6[/B]
 - Updated providers
