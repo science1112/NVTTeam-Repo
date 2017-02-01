@@ -281,7 +281,7 @@ Quality of the sound is (128k AAC, 320k MP3), hear the difference for yourself.
 </addon>
 
 
-<addon id="plugin.video.exodus" version="3.0.0a" name="Exodus" provider-name="Exodus">
+<addon id="plugin.video.exodus" version="3.0.2a" name="Exodus" provider-name="Exodus">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="repository.exodus" version="1.0.0" />
@@ -333,7 +333,7 @@ Quality of the sound is (128k AAC, 320k MP3), hear the difference for yourself.
 	</extension>
 </addon>
 
-<addon id="plugin.video.zen" version="1.7.1a" name=" Zen" provider-name="Zen">
+<addon id="plugin.video.zen" version="1.7.6a" name=" Zen" provider-name="Zen">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.zen.artwork" />
