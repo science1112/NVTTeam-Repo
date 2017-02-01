@@ -2,7 +2,7 @@
 
 '''
     Exodus Add-on
-    Copyright (C) 2016 Viper4k
+    Copyright (C) 2016 Viper2k4
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@
 
 import re, urllib, urlparse, json
 
+from resources.lib.modules import cache
 from resources.lib.modules import client
 from resources.lib.modules import cleantitle
 
@@ -32,13 +33,13 @@ class source:
         self.base_link = 'https://www.bs.to/'
         self.api_link = 'api/%s'
 
-    def tvshow(self, imdb, tvdb, tvshowtitle, year):
+    def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, year):
         try:
             t = cleantitle.get(tvshowtitle)
-            j_c = self.__get_json("series")
+            j_c = cache.get(self.__get_json, 12, "series")
             j = [i['id'] for i in j_c if t == cleantitle.get(i["series"])]
             if len(j) == 0:
-                t = cleantitle.get(cleantitle.local(tvshowtitle, imdb, 'de-DE'))
+                t = cleantitle.get(localtvshowtitle)
                 j = [i['id'] for i in j_c if t == cleantitle.get(i["series"])]
 
             return 'series/%s/' % j[0]
@@ -65,25 +66,22 @@ class source:
 
             j = self.__get_json(url)
             j = [i for i in j['links'] if 'links' in j]
-            j = [(i['hoster'], i['id']) for i in j if i['hoster'].lower() in hostDict]
+            j = [(i['hoster'].lower(), i['id']) for i in j if i['hoster'].lower() in hostDict]
 
-            for i in j:
-                try:
-                    sources.append(
-                        {'source': i[0], 'quality': 'HD' if i[0].upper().endswith('HD') else 'SD',
-                         'provider': 'BS',
-                         'language': 'de',
-                         'url': ('watch/%s' % i[1]), 'direct': False,
-                         'debridonly': False})
-                except:
-                    pass
+            for hoster, url in j:
+                quality = 'HD' if hoster.endswith('hd') else 'SD'
+
+                if 'openload' in hoster: hoster = 'openload.co'
+
+                sources.append({'source': hoster, 'quality': quality, 'language': 'de', 'url': ('watch/%s' % url), 'direct': False, 'debridonly': False})
 
             return sources
         except:
             return sources
 
     def resolve(self, url):
-        return self.__get_json(url)['fullurl']
+        try: return self.__get_json(url)['fullurl']
+        except: return
 
     def __get_json(self, api_call):
         try:

@@ -30,8 +30,8 @@ class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['ddlvalley.cool']
-        self.base_link = 'http://www.ddlvalley.cool'
+        self.domains = ['myddl.org']
+        self.base_link = 'http://myddl.org'
         self.search_link = '/search/%s/feed/rss2/'
 
 
@@ -99,8 +99,12 @@ class source:
                 try:
                     t = client.parseDOM(post, 'title')[0]
 
-                    u = client.parseDOM(post, 'enclosure', ret='url')
-                    u = [i for i in u if not 'openload' in i]
+                    c = client.parseDOM(post, 'content.+?')[0]
+
+                    u = client.parseDOM(c, 'p')
+                    u = [client.parseDOM(i, 'a', ret='href') for i in u]
+                    u = [i[0] for i in u if len(i) == 1]
+                    if not u: raise Exception()
 
                     if 'tvshowtitle' in data:
                          u = [(re.sub('(720p|1080p)', '', t) + ' ' + [x for x in i.strip('//').split('/')][-1], i) for i in u]

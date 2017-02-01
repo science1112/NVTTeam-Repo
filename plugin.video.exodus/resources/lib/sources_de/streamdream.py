@@ -2,7 +2,7 @@
 
 '''
     Exodus Add-on
-    Copyright (C) 2016 Viper4k
+    Copyright (C) 2016 Viper2k4
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -32,18 +32,17 @@ class source:
         self.search_link = '/searchy.php?ser=%s'
         self.hoster_link = '/episodeholen2.php'
 
-    def movie(self, imdb, title, year):
+    def movie(self, imdb, title, localtitle, year):
         try:
             imdb = re.sub('[^0-9]', '', imdb)
             url = self.__search(imdb)
-            if url:
-                return urllib.urlencode({'url': url, 'imdb': imdb})
+            return urllib.urlencode({'url': url, 'imdb': imdb}) if url else None
         except:
             return
 
-    def tvshow(self, imdb, tvdb, tvshowtitle, year):
+    def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, year):
         try:
-            return self.movie(imdb, tvshowtitle, year)
+            return self.movie(imdb, tvshowtitle, localtvshowtitle, year)
         except:
             return
 
@@ -73,11 +72,9 @@ class source:
             episode = data['episode'] if 'episode' in data else False
 
             if season and episode:
-                header = {'X-Requested-With': 'XMLHttpRequest',
-                          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
                 r = {'imdbid': data['imdb'], 'language': 'de', 'season': season, 'episode': episode}
                 r = urllib.urlencode(r)
-                r = client.request(urlparse.urljoin(self.base_link, self.hoster_link), headers=header, post=r)
+                r = client.request(urlparse.urljoin(self.base_link, self.hoster_link), XHR=True, post=r)
             else:
                 r = client.request(url)
 
@@ -93,7 +90,6 @@ class source:
                 if not host in hostDict: continue
 
                 sources.append({'source': host, 'quality': quli,
-                                'provider': 'StreamDream',
                                 'language': 'de',
                                 'url': url, 'direct': False,
                                 'debridonly': False})

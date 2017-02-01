@@ -2,7 +2,7 @@
 
 '''
     Exodus Add-on
-    Copyright (C) 2016 Viper4k
+    Copyright (C) 2016 Viper2k4
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -33,19 +33,17 @@ class source:
         self.search_link = '/search/title/%s'
         self.stream_link = 'stream/%s/1'
 
-    def movie(self, imdb, title, year):
+    def movie(self, imdb, title, localtitle, year):
         try:
             url = self.__search(title)
-            if not url:
-                title = cleantitle.local(title, imdb, 'de-DE')
-                url = self.__search(title)
+            if not url and title != localtitle: url = self.__search(localtitle)
             return url
         except:
             return
 
-    def tvshow(self, imdb, tvdb, tvshowtitle, year):
+    def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, year):
         try:
-            url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
+            url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'localtvshowtitle': localtvshowtitle, 'year': year}
             url = urllib.urlencode(url)
             return url
         except:
@@ -62,8 +60,8 @@ class source:
             title += ' S%02dE%02d' % (int(season), int(episode))
 
             url = self.__search(title)
-            if not url:
-                title = cleantitle.local(title, imdb, 'de-DE')
+            if not url and data['tvshowtitle'] != data['localtvshowtitle']:
+                title = data['localtvshowtitle']
                 title += ' S%02dE%02d' % (int(season), int(episode))
                 url = self.__search(title)
             return url
@@ -76,8 +74,6 @@ class source:
         try:
             if url == None:
                 return sources
-
-            hostDict.append('openload hd')
 
             query = urlparse.urljoin(self.base_link, url)
 
@@ -97,16 +93,13 @@ class source:
             r = client.parseDOM(r, 'ul', attrs={'class': 'currentStreamLinks'})
             r = [(client.parseDOM(i, 'p', attrs={'class': 'hostName'}),
                   client.parseDOM(i, 'a', attrs={'class': '[^\'"]*stream-src[^\'"]*'}, ret='data-id')) for i in r]
-            r = [(i[0][0].lower(), i[1][0]) for i in r if len(i[0]) > 0 and len(i[1]) > 0]
-            r = [(i[0], i[1]) for i in r if i[0] in hostDict]
+            r = [(i[0][0].lower(), i[1]) for i in r if len(i[0]) > 0 and len(i[1]) > 0]
 
             for hoster, id in r:
-                sources.append({'source': hoster, 'quality': quality,
-                                'provider': 'Filmpalast',
-                                'language': 'de',
-                                'url': id,
-                                'direct': False,
-                                'debridonly': False})
+                if 'openload' in hoster: hoster = 'openload.co'
+                if hoster not in hostDict: continue
+
+                sources.append({'source': hoster, 'quality': quality, 'language': 'de', 'info' : '' if len(id) == 1 else 'multi-part', 'url': id, 'direct': False, 'debridonly': False})
 
             return sources
         except:
@@ -114,11 +107,18 @@ class source:
 
     def resolve(self, url):
         try:
-            query = urlparse.urljoin(self.base_link, self.stream_link % url)
-            header = {'X-Requested-With': 'XMLHttpRequest'}
-            r = client.request(query, headers=header, post=urllib.urlencode({'streamID': url}))
-            r = json.loads(r)
-            return r['url'] if 'error' in r and r['error'] == '0' and 'url' in r else None
+            h_url = []
+
+            for id in url:
+                query = urlparse.urljoin(self.base_link, self.stream_link % id)
+                r = client.request(query, XHR=True, post=urllib.urlencode({'streamID': id}))
+                r = json.loads(r)
+                if 'error' in r and r['error'] == '0' and 'url' in r:
+                    h_url.append(r['url'])
+
+            h_url = h_url[0] if len(h_url) == 1 else 'stack://' + ' , '.join(h_url)
+
+            return h_url
         except:
             return
 

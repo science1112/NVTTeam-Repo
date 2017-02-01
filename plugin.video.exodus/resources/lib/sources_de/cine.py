@@ -2,7 +2,7 @@
 
 '''
     Exodus Add-on
-    Copyright (C) 2016 Viper4k
+    Copyright (C) 2016 Viper2k4
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ class source:
         self.request_link = '/request/links'
         self.out_link = '/out/%s'
 
-    def movie(self, imdb, title, year):
+    def movie(self, imdb, title, localtitle, year):
         try:
             return urllib.urlencode({'imdb': imdb})
         except:
@@ -51,10 +51,8 @@ class source:
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
             data = urllib.urlencode({'ID': re.sub('[^0-9]', '', str(data['imdb'])), 'lang': 'de'})
-            header = {'X-Requested-With': 'XMLHttpRequest',
-                      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
 
-            data = client.request(urlparse.urljoin(self.base_link, self.request_link), post=data, headers=header)
+            data = client.request(urlparse.urljoin(self.base_link, self.request_link), post=data, XHR=True)
             data = json.loads(data)
             data = [(i, data['links'][i]) for i in data['links'] if 'links' in data]
             data = [(i[0], i[1][0], (i[1][1:])) for i in data if i[0] in hostDict]
@@ -64,7 +62,6 @@ class source:
                     try:
                         sources.append(
                             {'source': hoster, 'quality': 'HD' if quli.upper() == 'HD' else 'SD',
-                             'provider': 'CINE',
                              'language': 'de',
                              'url': urlparse.urljoin(self.base_link, self.out_link % link), 'direct': False,
                              'debridonly': False})
