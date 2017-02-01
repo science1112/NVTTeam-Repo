@@ -1,6 +1,5 @@
-[B]1.7.1[/B]
+[B]1.7.6a[/B]
 - Setup for SLovenian Language
-
 
 [B]1.7.0[/B]
 - Improved overall code speed and scraper queries
