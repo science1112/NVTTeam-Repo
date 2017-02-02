@@ -404,7 +404,7 @@ unshortenit v0.3.0 from https://github.com/jkehler/unshortenit :
 	</extension>
 </addon>
 
-<addon id="skin.aeon.nox.nvt" version="7.0.1" name="Aeon Nox 5: NVT" provider-name="NVTTeam">
+<addon id="skin.aeon.nox.nvt" version="7.0.5" name="Aeon Nox 5: NVT" provider-name="NVTTeam">
 	<requires>
 		<import addon="xbmc.gui" version="5.12.0"/>
 		<import addon="script.grab.fanart" version="0.12.8"/>
