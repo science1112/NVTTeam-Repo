@@ -1,6 +1,6 @@
 # Kodi Media Center language file
 # Addon Name: Aeon Nox 5: NVT
-# Addon id: skin.aeon.nox.nvt
+# Addon id: skin.aeon.nox.NVT
 # Addon Provider: NVT
 msgid ""
 msgstr ""

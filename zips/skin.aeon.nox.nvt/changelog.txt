@@ -1,4 +1,4 @@
-[B]7.0.0[/B]
+[B]7.0.1[/B]
 - Fix broken addon settings - thx Mike SiLVO
 - Add LibreELEC settings screen.
 

@@ -1,6 +1,6 @@
 # Kodi Media Center language file
 # Addon Name: Aeon Nox 5: NVT
-# Addon id: skin.aeon.nox.nvt
+# Addon id: skin.aeon.nox.NVT
 # Addon Provider: NVT
 msgid ""
 msgstr ""
@@ -107,6 +107,10 @@ msgstr "このファイル内から再生したいパートを選択してくだ
 msgctxt "#31079"
 msgid "Shift"
 msgstr "Shift"
+
+msgctxt "#31086"
+msgid "Icon"
+msgstr "アイコン"
 
 msgctxt "#31087"
 msgid "Banner"

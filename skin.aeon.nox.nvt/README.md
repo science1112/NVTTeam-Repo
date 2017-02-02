@@ -1,5 +1,5 @@
 # Aeon Nox 5: NVT
-A modded version of [Aeon Nox 5]
+A modded version of [Aeon Nox 5](http://forum.kodi.tv/showthread.php?tid=183504)
 
 **Branches guide:**
  - **master:** Kodi v18 Codename L****
@@ -8,5 +8,6 @@ A modded version of [Aeon Nox 5]
  - **isengard:** Kodi v15 Codename Isengard
  - **helix:** Kodi v14 Codename Helix
 
+*Check the [Aeon Nox 5: NVT thread](http://forum.kodi.tv/showthread.php?tid=210069) for more information and support*
 
 **ALL OTHER BRANCHES SHOULD NOT BE USED OR INSTALLED**
