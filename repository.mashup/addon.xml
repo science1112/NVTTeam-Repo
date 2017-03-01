@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.mashup" version="1.0.0" name="MashUp Repository" provider-name="NVTTeam">
+	<extension point="xbmc.addon.repository" name="MashUp Repository">
+		<info compressed="false">http://raw.github.com/Jebiveter/MashUp/master/addons.xml</info>
+		<checksum>http://raw.github.com/Jebiveter/MashUp/master/addons.xml.md5</checksum>
+		<datadir zip="true">http://raw.github.com/Jebiveter/MashUp/master/zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">MashUp Repository</summary>
+		<description lang="en">The repository for the addon, resources, and extensions.</description>
+		<disclaimer lang="en">MashUp and its developers are not in any way affiliated with Kodi, Premiumize, GitHub, HelpRace, or any of the sites and providers used in the addon. MashUp is free and open-source. None of its code and resources may be sold or redistributed for any commercial purposes. MashUp and its developers do not host, create, or distribute any of the content displayed in the addon.</disclaimer>
+		<platform>all</platform>
+		<license>GPL 3.0</license>
+		<website></website>
+		<forum></forum>
+	</extension>
+</addon>
